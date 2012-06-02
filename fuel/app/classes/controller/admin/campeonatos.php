@@ -6,4 +6,14 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 	{
 		parent::before();
 	}
+
+	public function action_novo()
+	{
+		if(Input::method() == 'POST')
+		{
+
+		}
+
+		
+	}
 }

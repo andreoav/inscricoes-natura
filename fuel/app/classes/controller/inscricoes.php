@@ -98,7 +98,30 @@ class Controller_Inscricoes extends Controller_Auth
 		// que está disponível ao visualizar uma etapa cadastrada e disponível para novas inscrições
 		if($_etapa_id != null && Input::method() == 'POST')
 		{
+			if($_etapa_id == (int) Input::post('etapa_id_verify'))
+			{
+				$_etapa = Model_Etapa::find($_etapa_id);
+				$_path  = self::criarUploadPath($_etapa);
 
+				if(Utils::uploadComprovante($_path))
+				{
+					self::salvaInscricao($_etapa, $_path);
+				}
+				else
+				{
+					// Não conseguiu realizar o upload do comprovante
+					Session::set_flash('flash_msg', array(
+						'msg_type'    => 'alert-error',
+						'msg_content' => '<strong>Erro!</strong> Não foi possível realizar esta inscrição! Erro ao enviar comprovante.'
+					));
+				}
+			}
+			else
+			{
+				Response::redirect('etapas/visualizar/' . $_etapa_id);
+			}
+
+			Response::redirect('inscricoes/nova');
 		}
 		else
 		{
@@ -144,45 +167,10 @@ class Controller_Inscricoes extends Controller_Auth
 					// Faz o upload do comprovante e realiza a inscrição
 					$_etapa = Model_Etapa::find($_insc_etapa_id);
 					$_path  = self::criarUploadPath($_etapa);
-					$_upload_config = array(
-						'path'   =>	DOCROOT . Config::get('sysconfig.app.upload_root') . $_path,
-						'prefix' => Str::lower(Inflector::friendly_title(Sentry::user()->get('metadata.nome'))) . '_'
-					);
 
-					// Upload do comprovante
-					Upload::process($_upload_config);
-					if(Upload::is_valid())
+					if(Utils::uploadComprovante($_path))
 					{
-						// Upload realizado com sucesso, realiza o resto da inscrição
-						Upload::save();
-						$_comprovante = Arr::get(Upload::get_files(), 0);
-
-						$_nova_inscricao = new Model_Inscricao;
-						$_nova_inscricao->etapa       = $_etapa;
-						$_nova_inscricao->categoria   = Input::post('inscricao_categoria');
-						$_nova_inscricao->observacao  = Input::post('inscricao_observacao');
-						$_nova_inscricao->status      = Model_Inscricao::INSCRICAO_PENDENTE;
-						$_nova_inscricao->comprovante = $_path . Arr::get($_comprovante, 'saved_as');
-						$_nova_inscricao->user        = Model_User::find(Sentry::user()->get('id'));
-
-						// Salva a inscrição no banco de dados
-						if($_nova_inscricao->save())
-						{
-							Session::set_flash('flash_msg', array(
-								'msg_type'    => 'alert-success',
-								'msg_content' => '<strong>Parabéns!</strong> Seu pedido de inscrição foi enviado com sucesso.'
-							));
-
-							Response::redirect('home');
-						}
-						else
-						{
-							// Não conseguiu salvar a inscrição, envia uma mensagem e redireciona
-							Session::set_flash('flash_msg', array(
-								'msg_type'    => 'alert-error',
-								'msg_content' => '<strong>Erro!</strong> Não foi possível realizar esta inscrição!'
-							));
-						}
+						self::salvaInscricao($_etapa, $_path);
 					}
 					else
 					{
@@ -340,5 +328,38 @@ class Controller_Inscricoes extends Controller_Auth
 		$_path .= Str::lower(Inflector::friendly_title($_etapa->nome)) . '/';
 
 		return $_path;
+	}
+
+	private static function salvaInscricao(Model_Etapa $_etapa, $_path)
+	{
+		// Upload realizado com sucesso, realiza o resto da inscrição
+		$_comprovante = Arr::get(Upload::get_files(), 0);
+
+		$_nova_inscricao = new Model_Inscricao;
+		$_nova_inscricao->etapa       = $_etapa;
+		$_nova_inscricao->categoria   = Input::post('inscricao_categoria');
+		$_nova_inscricao->observacao  = Input::post('inscricao_observacao');
+		$_nova_inscricao->status      = Model_Inscricao::INSCRICAO_PENDENTE;
+		$_nova_inscricao->comprovante = $_path . Arr::get($_comprovante, 'saved_as');
+		$_nova_inscricao->user        = Model_User::find(Sentry::user()->get('id'));
+
+		// Salva a inscrição no banco de dados
+		if($_nova_inscricao->save())
+		{
+			Session::set_flash('flash_msg', array(
+				'msg_type'    => 'alert-success',
+				'msg_content' => '<strong>Parabéns!</strong> Seu pedido de inscrição foi enviado com sucesso.'
+			));
+
+			Response::redirect('home');
+		}
+		else
+		{
+			// Não conseguiu salvar a inscrição, envia uma mensagem e redireciona
+			Session::set_flash('flash_msg', array(
+				'msg_type'    => 'alert-error',
+				'msg_content' => '<strong>Erro!</strong> Não foi possível realizar esta inscrição!'
+			));
+		}
 	}
 }

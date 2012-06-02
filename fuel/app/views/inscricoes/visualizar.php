@@ -50,11 +50,11 @@
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#excluirInscricaoD" data-toggle="modal">Excluir Inscrição</a></li>
+				<li><a href="#excluirInscricaoD" data-toggle="modal"><i class="icon-trash"></i> Excluir Inscrição</a></li>
 				<?php if(Sentry::user()->is_admin()): ?>
 					<li class="divider"></li>
-					<li><?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, 'Aprovar'); ?></li>
-					<li><?php echo Html::anchor('admin/inscricoes/rejeitar/' . $inscricao_info->id, 'Rejeitar'); ?></li>
+					<li><?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, '<i class="icon-ok"></i> Aprovar'); ?></li>
+					<li><?php echo Html::anchor('admin/inscricoes/rejeitar/' . $inscricao_info->id, '<i class="icon-remove"></i> Rejeitar'); ?></li>
 				<?php endif; ?>
 			</ul>
 		</div>

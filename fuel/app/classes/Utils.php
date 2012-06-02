@@ -77,4 +77,22 @@ class Utils
 	{
 		return strtotime(str_replace('/', '-', $_data));
 	}
+
+	public static function uploadComprovante($_path)
+	{
+		$_upload_config = array(
+			'path'   =>	DOCROOT . Config::get('sysconfig.app.upload_root') . $_path,
+			'prefix' => Str::lower(Inflector::friendly_title(Sentry::user()->get('metadata.nome'))) . '_'
+		);
+
+		// Upload do comprovante
+		Upload::process($_upload_config);
+		if(Upload::is_valid())
+		{
+			Upload::save();
+			return true;
+		}
+
+		return false;
+	}
 }

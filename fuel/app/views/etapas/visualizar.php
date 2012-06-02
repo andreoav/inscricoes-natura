@@ -22,7 +22,7 @@
 				<a href="#etapaInfo" data-toggle="tab">Informações</a>
 			</li>
 			<li class="">
-				<a href="#etapaInscricaoNova" data-toggle="tab">Realizar Inscrição</a>
+				<a href="#etapaInscricaoNova" data-toggle="tab">Inscrição</a>
 			</li>
 		</ul>
 	</div>
@@ -40,6 +40,20 @@
 					<dt>Inscrições até:</dt><dd><?php echo Date::forge($etapa_info->inscricao_ate)->format('%d/%m/%Y'); ?></dd>
 				</dl>
 			</div>
+			<?php if (Sentry::user()->is_admin()): ?>
+				<div class="span4">
+				      <div style="margin-bottom: 9px" class="btn-toolbar pull-right">
+				        <div class="btn-group">
+				          	<a href="#" class="btn btn-large btn-info" rel="tooltip" title="Gerar Lista de Inscritos">
+				          		<i class="icon-list-alt icon-white"></i>
+				          	</a>
+				          	<a href="#" class="btn btn-large btn-danger" rel="tooltip" title="Excluir Etapa">
+				          		<i class="icon-trash icon-white"></i>
+				          	</a>
+				        </div>
+				    </div>
+			    </div>
+			<?php endif ?>
 
 			<div class="span10 offset1 map" id="localidade_map"></div>
 		</div>
@@ -82,6 +96,7 @@
 				        		</div>
 				          	</div>
 				          	<div class="form-actions">
+				          		<input type="hidden" name="etapa_id_verify" value="<?php echo $etapa_info->id; ?>">
 				            	<button type="submit" class="btn btn-primary">Enviar Pedido</button>
 				          	</div>
 				        </fieldset>

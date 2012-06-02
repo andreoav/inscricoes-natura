@@ -22,7 +22,7 @@
 	<?php echo View::forge('shared/buscar_inscricao', array('span_size' => 'span12')); ?>
 	<div class="span12">
 		<div class="page-header">
-            <h1>Inscrições Pendentes <small><button class="btn btn-mini">Teste</button></small></h1>
+            <h1>Inscrições Pendentes</h1>
         </div>
     </div>
     <div class="span12">
