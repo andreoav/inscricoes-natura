@@ -20,4 +20,70 @@ class Controller_Home extends Controller_Auth
     {
         $this->template->conteudo = \View::forge('home/saibamais');
     }
+
+     public function action_cadastro()
+    {
+        if(Sentry::check())
+        {
+            Response::redirect('home');
+        }
+
+        if(Input::method() == 'POST')
+        {
+            $_user_data = array(
+                'email'    => Input::post('cadastro-email'),
+                'username' => Input::post('cadastro-usuario'),
+                'password' => Input::post('cadastro-senha')
+            );
+
+            try
+            {
+                $_user_id = Sentry::user()->create($_user_data);
+
+                if($_user_id)
+                {
+                    Sentry::user($_user_id)->add_to_group(2);
+                    try
+                    {
+                        if(Sentry::login(Arr::get($_user_data, 'email'), Arr::get($_user_data, 'password'), false))
+                        {
+                            Session::set_flash($flash_msg, array(
+                                'msg_type'    => 'alert-success',
+                                'msg_content' => 'Login efetuado com sucesso!'
+                            ));
+
+                            Response::redirect('home');
+                        }
+                    }
+                    catch (SentryAuthException $e)
+                    {
+                        Session::set_flash($flash_msg, array(
+                            'msg_type'    => 'alert-error',
+                            'msg_content' => '<strong>Erro!</strong> Não foi possível logar no sistema!'
+                        ));
+
+                        Response::redirect('login');
+                    }
+                }
+                else
+                {
+                    Session::set_flash($flash_msg, array(
+                        'msg_type'    => 'alert-error',
+                        'msg_content' => '<strong>Erro!</strong> Não foi possível realizar o seu cadastro.'
+                    ));
+                }
+            }
+            catch(SentryUserException $e)
+            {
+                Session::set_flash($flash_msg, array(
+                    'msg_type'    => 'alert-error',
+                    'msg_content' => '<strong>Erro!</strong> Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.'
+                ));
+            }
+
+            Response::redirect('cadastro');
+        }
+
+        $this->template->conteudo = View::forge('home/cadastro', null, false);
+    }
 }

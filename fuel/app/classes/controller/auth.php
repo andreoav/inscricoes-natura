@@ -6,7 +6,7 @@
 class Controller_Auth extends \Controller_Template
 {
     public    $template = 'auth_template';
-    protected $_allowed_actions = array('login', 'auth');
+    protected $_allowed_actions = array('login', 'auth', 'cadastro');
 
     public function before()
     {
@@ -80,7 +80,7 @@ class Controller_Auth extends \Controller_Template
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type' => 'alert-error',
-                    'msg_content' => $e->getMessage()
+                    'msg_content' => '<strong>Erro!</strong> Usuário não encontrado.'
                 ));
             }
         }
@@ -99,9 +99,5 @@ class Controller_Auth extends \Controller_Template
         ));
 
         Response::redirect('login');
-    }
-
-    public function action_temp()
-    {
     }
 }

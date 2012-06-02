@@ -1,0 +1,24 @@
+web1:
+
+  ################################################
+  ## GENERAL SETTINGS
+  ################################################
+  shared_writable_dirs: [/fuel/app/cache, /fuel/app/logs, /fuel/app/tmp, /fuel/app/config, /uploads, /uploads/img]
+
+  ################################################
+  ## WEB SPECIFIC SETTINGS
+  ################################################
+  index_list: [index.php]
+
+  ################################################
+  ## PHP SPECIFIC SETTINGS
+  ################################################
+  php_version: 5.3.8
+  php_extensions: [pdo, pdo_mysql, curl, gd, mbstring, finfo]
+  php_date_timezone: America/Sao_Paulo
+  php_max_execution_time: 30
+  php_max_input_time: 60
+  php_post_max_size: 25M
+  php_file_uploads: On
+  php_upload_max_filesize: 20M
+  php_max_file_uploads: 20

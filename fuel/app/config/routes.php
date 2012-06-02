@@ -9,4 +9,5 @@ return array(
     'logout' => 'auth/logout',
 
     'admin' => 'admin/painel',
+    'cadastro' => 'home/cadastro',
 );

@@ -42,7 +42,7 @@ return array(
 	/*
 	 * Default Authorization Column - username or email
 	 */
-	'login_column' => 'username',
+	'login_column' => 'email',
 
 	/*
 	 * Support nested groups?

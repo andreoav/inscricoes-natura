@@ -44,21 +44,18 @@
 
 	<!-- Inicio Actions -->
 	<div class="span4">
-		<div class="btn-group pull-right">
-			<a href="#" class="btn btn-large dropdown-toggle" data-toggle="dropdown">
-				<i class="icon-cog"></i> Ações
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li><a href="#excluirInscricaoD" data-toggle="modal"><i class="icon-trash"></i> Excluir Inscrição</a></li>
-				<?php if(Sentry::user()->is_admin()): ?>
-					<li class="divider"></li>
-					<li><?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, '<i class="icon-ok"></i> Aprovar'); ?></li>
-					<li><?php echo Html::anchor('admin/inscricoes/rejeitar/' . $inscricao_info->id, '<i class="icon-remove"></i> Rejeitar'); ?></li>
-				<?php endif; ?>
-			</ul>
-		</div>
-	</div>
+	      <div style="margin-bottom: 9px" class="btn-toolbar pull-right">
+	        <div class="btn-group">
+	        	<a class="btn btn-danger btn-large" href="#excluirInscricaoD" data-toggle="modal" rel="tooltip" title="Excluir Inscrição">
+	        		<i class="icon-trash icon-white"></i>
+	        	</a>
+	        	<?php if (Sentry::user()->is_admin()): ?>
+	        		<?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, '<i class="icon-ok icon-white"></i>', array('class' => 'btn btn-large btn-success', 'rel' => 'tooltip', 'title' => 'Aprovar Inscrição')); ?>
+					<?php echo Html::anchor('admin/inscricoes/rejeitar/' . $inscricao_info->id, '<i class="icon-remove icon-white"></i>', array('class' => 'btn btn-large btn-danger', 'rel' => 'tooltip', 'title' => 'Rejeitar Inscrição')); ?>
+	        	<?php endif ?>
+	        </div>
+	    </div>
+    </div>
 	<!-- Fim Actions -->
 </div>
 

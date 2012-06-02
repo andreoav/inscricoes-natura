@@ -1,7 +1,7 @@
 <div class="row">
     <div class="span12">
         <div class="page-header">
-            <h1>Suas Inscrições</h1>
+            <h1>Minhas Inscrições</h1>
         </div>
     </div>
     <?php if (isset($breadcrumbs)): ?>

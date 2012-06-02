@@ -11,9 +11,29 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 	{
 		if(Input::method() == 'POST')
 		{
+			$_nome_campeonato = Input::post('campeonato_nome');
 
+			$_novo_campeonato = new Model_Campeonato;
+			$_novo_campeonato->nome = $_nome_campeonato;
+
+			if($_novo_campeonato->save())
+			{
+				Session::set_flash('flash_msg', array(
+					'msg_type'    => 'alert-success',
+					'msg_content' => '<strong>Novo campeonato cadastrado com sucesso!</strong>'
+				));
+			}
+			else
+			{
+				Session::set_flash('flash_msg', array(
+					'msg_type'    => 'alert-error',
+					'msg_content' => '<strong>Erro!</strong> Não foi possível cadastrar este campeonato.'
+				));
+			}
+
+			Response::redirect('admin');
 		}
 
-		
+		$this->template->conteudo = View::forge('admin/campeonatos/novo');
 	}
 }

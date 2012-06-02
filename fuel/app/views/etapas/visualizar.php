@@ -58,51 +58,60 @@
 			<div class="span10 offset1 map" id="localidade_map"></div>
 		</div>
 		<div id="etapaInscricaoNova" class="tab-pane fade">
-			<?php if ($inscricoes_encerradas): ?>
-				<div class="span12">
-					<div class="alert alert-error fade in">
-						<strong>Ops!</strong> As inscrições para esta etapa já estão encerradas.
+			<?php if (Session::get('profile_unfinished') == false): ?>
+				<?php if ($inscricoes_encerradas): ?>
+					<div class="span12">
+						<div class="alert alert-error fade in">
+							<strong>Ops!</strong> As inscrições para esta etapa já estão encerradas.
+						</div>
 					</div>
-				</div>
-			<?php elseif ($ja_inscrito): ?>
-				<div class="span12">
-					<div class="alert alert-info fade in">
-						<strong>Você já está inscrito nesta etapa.</strong>
+				<?php elseif ($ja_inscrito): ?>
+					<div class="span12">
+						<div class="alert alert-info fade in">
+							<strong>Você já está inscrito nesta etapa.</strong>
+						</div>
 					</div>
-				</div>
+				<?php else: ?>
+					<div class="span12">
+						<form action="<?php echo Uri::create('inscricoes/nova/' . $etapa_info->id); ?>" class="form form-horizontal form-dovalidation" method="POST" enctype="multipart/form-data">
+							<fieldset>
+					          	<div class="control-group">
+					          		<?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
+					            	<div class="controls">
+					            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge">
+				            				<option value="H21E">H21E</option>
+					            		</select>
+					            	</div>
+					          	</div>
+					          	<div class="control-group">
+					          		<?php echo Form::label('Comprovante', 'inscricao_comprovante', array('class' => 'control-label')); ?>
+					            	<div class="controls">
+					            		<input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="input-file input-xxlarge" data-validation-engine="validate[required]">
+					            		<p class="help-block"><strong>Insira o comprovante de pagamento!</strong> <small>Ex: Scanei o seu comprovante e anexe neste campo.</small></p>
+					        		</div>
+					          	</div>
+					          	<div class="control-group">
+					          		<?php echo Form::label('Observação', 'inscricao_observacao', array('class' => 'control-label')); ?>
+					            	<div class="controls">
+					              		<textarea name="inscricao_observacao" id="inscricao_observacao" rows="5" class="input-xxlarge"></textarea>
+					        		</div>
+					          	</div>
+					          	<div class="form-actions">
+					          		<input type="hidden" name="etapa_id_verify" value="<?php echo $etapa_info->id; ?>">
+					            	<button type="submit" class="btn btn-primary">Enviar Pedido</button>
+					          	</div>
+					        </fieldset>
+						</form>
+					</div>
+				<?php endif ?>
 			<?php else: ?>
 				<div class="span12">
-					<form action="<?php echo Uri::create('inscricoes/nova/' . $etapa_info->id); ?>" class="form form-horizontal form-dovalidation" method="POST" enctype="multipart/form-data">
-						<fieldset>
-				          	<div class="control-group">
-				          		<?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
-				            	<div class="controls">
-				            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge">
-			            				<option value="H21E">H21E</option>
-				            		</select>
-				            	</div>
-				          	</div>
-				          	<div class="control-group">
-				          		<?php echo Form::label('Comprovante', 'inscricao_comprovante', array('class' => 'control-label')); ?>
-				            	<div class="controls">
-				            		<input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="input-file input-xxlarge" data-validation-engine="validate[required]">
-				            		<p class="help-block"><strong>Insira o comprovante de pagamento!</strong> <small>Ex: Scanei o seu comprovante e anexe neste campo.</small></p>
-				        		</div>
-				          	</div>
-				          	<div class="control-group">
-				          		<?php echo Form::label('Observação', 'inscricao_observacao', array('class' => 'control-label')); ?>
-				            	<div class="controls">
-				              		<textarea name="inscricao_observacao" id="inscricao_observacao" rows="5" class="input-xxlarge"></textarea>
-				        		</div>
-				          	</div>
-				          	<div class="form-actions">
-				          		<input type="hidden" name="etapa_id_verify" value="<?php echo $etapa_info->id; ?>">
-				            	<button type="submit" class="btn btn-primary">Enviar Pedido</button>
-				          	</div>
-				        </fieldset>
-					</form>
+					<div class="alert alert-info fade in">
+						<strong>Você deve completar o seu perfil no sistema antes de realizar uma inscrição.</strong>
+						<?php echo Html::anchor('usuario/perfil', 'Completar Perfil'); ?>
+					</div>
 				</div>
-			<?php endif ?>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

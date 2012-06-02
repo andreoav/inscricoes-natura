@@ -82,7 +82,7 @@ jQuery(function($){
 
 		// Máscaras
 		$('#usuario_cpf').mask('999.999.999-99');
-		$('#usuario_identidate').mask('9999999999');
+		$('#usuario_identidade').mask('9999999999');
 		$('.dataBR').mask('99/99/9999');
 
 		// Colorbox nos links
