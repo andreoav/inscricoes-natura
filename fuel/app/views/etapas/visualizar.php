@@ -44,11 +44,11 @@
 				<div class="span4">
 				      <div style="margin-bottom: 9px" class="btn-toolbar pull-right">
 				        <div class="btn-group">
-				          	<a href="#" class="btn btn-large btn-info" rel="tooltip" title="Gerar Lista de Inscritos">
-				          		<i class="icon-list-alt icon-white"></i>
+				          	<a href="#" class="btn" rel="tooltip" title="Gerar Lista de Inscritos">
+				          		<i class="icon-list-alt"></i>
 				          	</a>
-				          	<a href="#" class="btn btn-large btn-danger" rel="tooltip" title="Excluir Etapa">
-				          		<i class="icon-trash icon-white"></i>
+				          	<a href="#" class="btn" rel="tooltip" title="Excluir Etapa">
+				          		<i class="icon-trash"></i>
 				          	</a>
 				        </div>
 				    </div>
