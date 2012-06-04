@@ -19,21 +19,29 @@ class Controller_Auth extends \Controller_Template
         }
         else
         {
-            if(Sentry::check())
+            try
             {
-                // Usuario logado, verificar permissoes e perfil completo
-                Session::set('profile_unfinished', ! Model_User::validate_profile());
-            }
-            else
-            {
-                // Usuario não esta logado
-                Session::set_flash('flash_msg', array(
-                    'msg_type' => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> É necessário estar logado no sistema!'
-                ));
+                if(Sentry::check())
+                {
+                    // Usuario logado, verificar permissoes e perfil completo
+                    Session::set('profile_unfinished', ! Model_User::validate_profile());
+                }
+                else
+                {
+                    // Usuario não esta logado
+                    Session::set_flash('flash_msg', array(
+                        'msg_type' => 'alert-error',
+                        'msg_content' => '<strong>Erro!</strong> É necessário estar logado no sistema!'
+                    ));
 
-                // Redireciona para o formulario de login
-                Response::redirect('login?redir=' . (Uri::string() == '' ? 'home' : Uri::string()));
+                    // Redireciona para o formulario de login
+                    Response::redirect('login?redir=' . (Uri::string() == '' ? 'home' : Uri::string()));
+                }
+            }
+            catch(Exception $e)
+            {
+                Sentry::logout();
+                Response::redirect('login');
             }
         }
     }
