@@ -13,13 +13,16 @@
                 </li>
 
                 <li>
-                    <a href="<?php echo Uri::create('admin/inscricoes'); ?>"><i class="icon-tasks"></i> Inscrições</a>
+                    <a href="<?php echo Uri::create('admin/inscricoes'); ?>"><i class="icon-list-alt"></i> Inscrições</a>
                 </li>
                 <li>
                     <a href="<?php echo Uri::create('admin/etapas'); ?>"><i class="icon-calendar"></i> Etapas</a>
                 </li>
                 <li>
                     <a href="<?php echo Uri::create('usuario/atletas'); ?>"><i class="icon-user"></i> Atletas</a>
+                </li>
+                <li>
+                    <a href="<?php echo Uri::create('usuario/atletas'); ?>"><i class="icon-envelope"></i> Email</a>
                 </li>
 
                 <li class="divider"></li>
@@ -32,7 +35,7 @@
 
                 <li class="divider"></li>
                 <li>
-                    <a href="<?php echo Uri::create('usuario/perfil'); ?>"><i class="icon-user"></i> Perfil</a>
+                    <a href="<?php echo Uri::create('#'); ?>"><i class="icon-cog"></i> Configurações</a>
                 </li>
                 <li>
                     <a href="<?php echo Uri::create('logout'); ?>"><i class="icon-off"></i> Sair</a>
@@ -40,7 +43,6 @@
             </ul>
           </div>
     </div>
-    <?php echo View::forge('shared/buscar_inscricao'); ?>
     <div class="span8">
         <h3>Estatísticas do Sistema</h3>
         <p>

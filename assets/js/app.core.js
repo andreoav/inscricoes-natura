@@ -37,7 +37,7 @@
 	            { "mDataProp": "status" },
 	            { "mDataProp": "acoes" }
 	        ],
-			"bFilter":  false,
+			//"bFilter":  false,
 			"oLanguage": {
 	            "sUrl": base_url + "/assets/js/dataTables.pt-BR.txt"
 	        },
@@ -80,6 +80,9 @@
 		// Habilita tooltip nos links
 		$("a[rel=tooltip]").tooltip();
 		$("button[rel=tooltip]").tooltip();
+
+		$("a[rel=popover]").popover();
+		$("input[rel=popover]").popover();
 
 		// Máscaras
 		$('#usuario_cpf').mask('999.999.999-99');

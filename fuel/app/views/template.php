@@ -53,79 +53,90 @@
 
 	<body>
 		<?php if (Sentry::check()): ?>
-			<div class="navbar navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</a>
-						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
-						<div class="btn-group pull-right">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-user"></i> <?php echo Sentry::user()->get('metadata.nome') ?: 'Novo Usuário'; ?>
-								<span class="caret"></span>
+			<section id="barraTopo">
+				<div class="navbar navbar-fixed-top">
+					<div class="navbar-inner">
+						<div class="container">
+							<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
 							</a>
-							<ul class="dropdown-menu">
-								<li><?php echo Html::anchor('usuario/perfil', 'Meu Perfil'); ?></li>
-								<?php if (Sentry::user()->is_admin()): ?>
-									<li><?php echo Html::anchor('admin/painel', 'Administração'); ?></li>
-								<?php endif ?>
-								<li class="divider"></li>
-								<li><?php echo Html::anchor('logout', 'Sair'); ?></li>
-							</ul>
+							<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
+							<div class="btn-group pull-right">
+								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+									<i class="icon-user"></i> <?php echo Sentry::user()->get('metadata.nome') ?: 'Novo Usuário'; ?>
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li><?php echo Html::anchor('usuario/perfil', 'Meu Perfil'); ?></li>
+									<?php if (Sentry::user()->is_admin()): ?>
+										<li><?php echo Html::anchor('admin/painel', 'Administração'); ?></li>
+									<?php endif ?>
+									<li class="divider"></li>
+									<li><?php echo Html::anchor('logout', 'Sair'); ?></li>
+								</ul>
+							</div>
+							<div class="nav-collapse">
+								<ul class="nav">
+									<li class="active"><?php echo Html::anchor('/', 'Home'); ?></li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											Inscrições
+											<b class="caret"></b>
+										</a>
+										<ul class="dropdown-menu">
+											<li><?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição'); ?></li>
+											<li><?php echo Html::anchor('inscricoes', 'Minhas Inscrições'); ?></li>
+										</ul>
+									</li>
+									<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>
+								</ul>
+								<form action="<?php echo Uri::create('inscricoes/buscar'); ?>" class="form navbar-search pull-right" method="POST">
+									<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa">
+								</form>
+							</div><!--/.nav-collapse -->
 						</div>
-						<div class="nav-collapse">
-							<ul class="nav">
-								<li class="active"><?php echo Html::anchor('/', 'Home'); ?></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-										Inscrições
-										<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-										<li><?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição'); ?></li>
-										<li><?php echo Html::anchor('inscricoes', 'Minhas Inscrições'); ?></li>
-									</ul>
-								</li>
-								<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>
-							</ul>
-						</div><!--/.nav-collapse -->
 					</div>
 				</div>
-			</div>
-			<div class="container">
-				<?php if(Session::get('profile_unfinished') == true): ?>
-					<div class="alert alert-error">
-						<strong>Perfil Incompleto!</strong> Atualmente o seu perfil está incompleto. Não será possível realizar uma nova inscrição até que dados como seu cpf, data de nascimento e nome completo estejam cadastrados em seu perfil! 
-						Atualize o seu perfil através <?php echo Html::anchor('usuario/perfil', 'deste link', array('rel' => 'tooltip', 'title' => 'Atualize o seu perfil!')); ?>.
-					</div>
-				<?php endif; ?>
-				<?php echo View::forge('flash'); ?>
-				<?php echo $conteudo; ?>
-				<footer>
-					<hr><p class="pull-right"><small>Sistema desenvolvido por <a href="#" rel="tooltip" title="Acesse o site do desenvolvedor">Andreo Vieira</a></small></p>
-				</footer>
-			</div>
-			<!--/.container-->
+			</section>
+			<section id="conteudoPrincipal">
+				<div class="container">
+					<?php if(Session::get('profile_unfinished') == true): ?>
+						<div class="alert alert-error">
+							<strong>Perfil Incompleto!</strong> Atualmente o seu perfil está incompleto. Não será possível realizar uma nova inscrição até que dados como seu cpf, data de nascimento e nome completo estejam cadastrados em seu perfil! 
+							Atualize o seu perfil através <?php echo Html::anchor('usuario/perfil', 'deste link', array('rel' => 'tooltip', 'title' => 'Atualize o seu perfil!')); ?>.
+						</div>
+					<?php endif; ?>
+					<?php echo View::forge('flash'); ?>
+					<?php echo $conteudo; ?>
+					<footer>
+						<hr><p class="pull-right"><small>Sistema desenvolvido por <a href="#" rel="tooltip" title="Acesse o site do desenvolvedor">Andreo Vieira</a></small></p>
+					</footer>
+				</div>
+				<!--/.container-->
+			</section>
 		<?php else: ?>
-			<div class="navbar navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</a>
-						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
+			<section id="barraTopo">
+				<div class="navbar navbar-fixed-top">
+					<div class="navbar-inner">
+						<div class="container">
+							<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</a>
+							<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="container">
-				<?php echo View::forge('flash'); ?>
-				<?php echo $conteudo; ?>
-			</div>
+			</section>
+			<section id="conteudoPrincipal">
+				<div class="container">
+					<?php echo View::forge('flash'); ?>
+					<?php echo $conteudo; ?>
+				</div>
+			</section>
 		<?php endif; ?>
 
 		<!-- Le javascript ================================================== -->

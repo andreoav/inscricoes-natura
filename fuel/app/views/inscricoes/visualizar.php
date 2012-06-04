@@ -19,7 +19,12 @@
 	<div class="span8">
 		<dl class="dl-horizontal">
 			<dt>ID</dt><dd><?php echo $inscricao_info->id; ?></dd>
-			<dt>Etapa</dt><dd><?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome); ?></dd>
+			<dt>Etapa</dt>
+			<dd>
+				<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('rel' => 'popover', 'title' => 'Informações',
+					'data-content' => '<ul><li>Início: ' . Date::forge($inscricao_info->etapa->data_inicio)->format('%d/%m/%Y') . '</li><li>Fim: ' . Date::forge($inscricao_info->etapa->data_final)->format('%d/%m/%Y') . '</li><li>Inscrições até: ' . Date::forge($inscricao_info->etapa->inscricao_ate)->format('%d/%m/%Y') . '</li></ul>'
+				)); ?>
+			</dd>
 			<dt>Campeonato</dt><dd><?php echo $inscricao_info->etapa->campeonato->nome; ?></dd>
 			<dt>Realizada em</dt><dd><?php echo Date::forge($inscricao_info->created_at)->format('%d/%m/%Y %H:%M:%S'); ?></dd>
 			<dt>Status</dt><dd><?php echo Utils::status2label($inscricao_info->status); ?></dd>

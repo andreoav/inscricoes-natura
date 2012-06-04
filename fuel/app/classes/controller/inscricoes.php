@@ -62,7 +62,9 @@ class Controller_Inscricoes extends Controller_Auth
 			Response::redirect('home');
 		}
 
-		$this->template->conteudo = View::forge('inscricoes/visualizar', array('inscricao_info' => $_inscricao));
+		$data = array();
+		$data['inscricao_info'] = $_inscricao;
+		$this->template->conteudo = View::forge('inscricoes/visualizar', $data);
 	}
 
 	public function action_buscar()

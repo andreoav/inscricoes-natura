@@ -38,7 +38,7 @@
     		if(mes == 2 && ( dia > 29 || ( dia == 29 && ano % 4 != 0)))
     			return false;
     		return true;
-			}, "Informe uma data válida"
+			}, "Insira uma data válida"
 		);
 
 		function isCpf(cpf){
@@ -90,7 +90,7 @@
 		    if ((x = b % 11) < 2) { a[10] = 0; } else { a[10] = 11-x; }
 		    if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg)) return false;
 		    return true;
-		}, "Informe um CPF válido."); // Mensagem padrão
+		}, "Insira um CPF válido."); // Mensagem padrão
 
 		$('#cadastro_form').validate({
 			rules: {
