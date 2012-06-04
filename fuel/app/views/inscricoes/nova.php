@@ -19,27 +19,35 @@
 	</div>
 	<!-- Fim Breadcrumb -->
 
+	<!-- Formulário de Inscrição -->
 	<div class="span12">
 		<form action="<?php echo Uri::create('inscricoes/nova'); ?>" class="form form-horizontal form-dovalidation" method="POST" enctype="multipart/form-data">
 			<fieldset>
+				<!-- Select para a etapa -->
 	          	<div class="control-group">
 	          		<?php echo Form::label('Etapa', 'inscricao_etapa', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<select name="inscricao_etapa" id="inscricao_etapa" class="input-xxlarge">
+	            		<select name="inscricao_etapa" id="inscricao_etapa" class="input-xxlarge chzn-select">
 	            			<?php foreach($etapas as $etapa): ?>
 	            				<option value="<?php echo $etapa->id; ?>"><?php echo $etapa->nome . ' - ' . $etapa->campeonato->nome; ?></option>
 	            			<?php endforeach; ?>
 	            		</select>
 	            	</div>
 	          	</div>
+	          	<!-- \Select para a etapa -->
+
+	          	<!-- Select pata a categoria -->
 	          	<div class="control-group">
 	          		<?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge">
+	            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge chzn-select">
             				<option value="H21E">H21E</option>
 	            		</select>
 	            	</div>
 	          	</div>
+	          	<!-- \Select para a categoria -->
+
+	          	<!-- File para comprovante -->
 	          	<div class="control-group">
 	          		<?php echo Form::label('Comprovante', 'inscricao_comprovante', array('class' => 'control-label')); ?>
 	            	<div class="controls">
@@ -47,12 +55,17 @@
 	            		<p class="help-block"><strong>Insira o comprovante de pagamento!</strong> <small>Ex: Scanei o seu comprovante e anexe neste campo.</small></p>
 	        		</div>
 	          	</div>
+	          	<!-- \File para comprovante -->
+
+	          	<!-- Observações -->
 	          	<div class="control-group">
 	          		<?php echo Form::label('Observação', 'inscricao_observacao', array('class' => 'control-label')); ?>
 	            	<div class="controls">
 	              		<textarea name="inscricao_observacao" id="inscricao_observacao" rows="5" class="input-xxlarge"></textarea>
 	        		</div>
 	          	</div>
+	          	<!-- \Observações -->
+
 	          	<div class="form-actions">
 	            	<button type="submit" class="btn btn-primary">Enviar Pedido</button>
 	            	<a href="<?php echo Uri::create('home'); ?>" class="btn btn-warning">Cancelar</a>
@@ -60,4 +73,5 @@
 	        </fieldset>
 		</form>
 	</div>
+	<!-- \Formulário de Inscrição -->
 </div>

@@ -18,6 +18,7 @@
 		<?php echo Asset::css('bootstrap-responsive.min.css'); ?>
 		<?php echo Asset::css('jquery.dataTables-bootstrap.css'); ?>
 		<?php echo Asset::css('validationEngine.jquery.css'); ?>
+		<?php echo Asset::css('chosen.css'); ?>
 		<?php echo Asset::css('colorbox.css'); ?>
 
 		<style type="text/css">
@@ -140,6 +141,7 @@
 		<?php echo Asset::js('languages/jquery.validationEngine-pt_BR.js'); ?>
 		<?php echo Asset::js('jquery.colorbox-min.js'); ?>
 		<?php echo Asset::js('jquery.gmap.min.js'); ?>
+		<?php echo Asset::js('chosen.jquery.min.js'); ?>
 		<?php echo Asset::js('app.core.js'); ?>
 
 		<?php if (isset($localidade_map)): ?>

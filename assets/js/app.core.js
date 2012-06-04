@@ -87,5 +87,8 @@ jQuery(function($){
 
 		// Colorbox nos links
 		$('a.thumbnail').colorbox();
+
+		// Jquery chosen nos select box
+		$(".chzn-select").chosen();
 	} );
 });
