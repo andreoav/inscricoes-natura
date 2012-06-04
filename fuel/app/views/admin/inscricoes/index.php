@@ -24,8 +24,6 @@
 		<div class="page-header">
             <h1>Inscrições Pendentes</h1>
         </div>
-    </div>
-    <div class="span12">
         <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="admin_inscricoes_pendentes">
             <thead>
                 <tr>
