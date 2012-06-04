@@ -142,7 +142,9 @@
 		<?php echo Asset::js('jquery.colorbox-min.js'); ?>
 		<?php echo Asset::js('jquery.gmap.min.js'); ?>
 		<?php echo Asset::js('chosen.jquery.min.js'); ?>
+		<?php echo Asset::js('jquery.validate.js'); ?>
 		<?php echo Asset::js('app.core.js'); ?>
+		<?php echo Asset::js('app.core.validations.js'); ?>
 
 		<?php if (isset($localidade_map)): ?>
 		<script type="text/javascript">

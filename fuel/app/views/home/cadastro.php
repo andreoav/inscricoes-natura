@@ -1,39 +1,39 @@
 <div class="row">
-	<div class="span12">
+	<div class="span8">
         <div class="page-header">
             <h1>Formulário de Cadastro</h1>
         </div>
-		<form action="<?php echo Uri::create('cadastro'); ?>" class="form-horizontal form-dovalidation" method="POST">
+		<form action="<?php echo Uri::create('cadastro'); ?>" id="cadastro_form" class="form-horizontal" method="POST">
             <fieldset>
                 <div class="control-group">
-                    <label for="cadastro-email" class="control-label">Email</label>
+                    <label for="cadastro_email" class="control-label">Email</label>
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-envelope"></i></span><input type="text" id="cadastro-email" name="cadastro-email" class="input-xlarge" data-validation-engine="validate[required, custom[email]]">
+                            <span class="add-on"><i class="icon-envelope"></i></span><input type="text" id="cadastro_email" name="cadastro_email" class="input-xlarge">
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="cadastro-usuario" class="control-label">Nome de Usuário</label>
+                    <label for="cadastro_usuario" class="control-label">Nome de Usuário</label>
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span><input type="text" id="cadastro-usuario" name="cadastro-usuario" class="input-xlarge" data-validation-engine="validate[required]">
+                            <span class="add-on"><i class="icon-user"></i></span><input type="text" id="cadastro_usuario" name="cadastro_usuario" class="input-xlarge">
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="cadastro-senha" class="control-label">Senha</label>
+                    <label for="cadastro_senha" class="control-label">Senha</label>
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="cadastro-senha" name="cadastro-senha" class="input-xlarge" data-validation-engine="validate[required]">
+                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="cadastro_senha" name="cadastro_senha" class="input-xlarge">
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="cadastro-senha-verify" class="control-label">Confirme a Senha</label>
+                    <label for="cadastro_senha_verify" class="control-label">Confirme a Senha</label>
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="cadastro-senha-verify" name="cadastro-senha-verify" class="input-xlarge" data-validation-engine="validate[required, equals[cadastro-senha]]">
+                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="cadastro_senha_verify" name="cadastro_senha_verify" class="input-xlarge">
                         </div>
                     </div>
                 </div>

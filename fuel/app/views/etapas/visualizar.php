@@ -73,7 +73,7 @@
 					</div>
 				<?php else: ?>
 					<div class="span12">
-						<form action="<?php echo Uri::create('inscricoes/nova/' . $etapa_info->id); ?>" class="form form-horizontal form-dovalidation" method="POST" enctype="multipart/form-data">
+						<form action="<?php echo Uri::create('inscricoes/nova/' . $etapa_info->id); ?>" id="nova_inscricao_form" class="form form-horizontal" method="POST" enctype="multipart/form-data">
 							<fieldset>
 					          	<div class="control-group">
 					          		<?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
@@ -86,8 +86,7 @@
 					          	<div class="control-group">
 					          		<?php echo Form::label('Comprovante', 'inscricao_comprovante', array('class' => 'control-label')); ?>
 					            	<div class="controls">
-					            		<input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="input-file input-xxlarge" data-validation-engine="validate[required]">
-					            		<p class="help-block"><strong>Insira o comprovante de pagamento!</strong> <small>Ex: Scanei o seu comprovante e anexe neste campo.</small></p>
+					            		<input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="input-file input-xxlarge">
 					        		</div>
 					          	</div>
 					          	<div class="control-group">

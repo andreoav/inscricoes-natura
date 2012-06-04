@@ -21,12 +21,12 @@
 	</div>
 	<!-- Fim Breadcrumb -->
 	<div class="span12">
-		<form action="<?php echo Uri::create('admin/campeonatos/novo'); ?>" class="form form-horizontal form-dovalidation" method="POST">
+		<form action="<?php echo Uri::create('admin/campeonatos/novo'); ?>" id="novo_campeonato_form" class="form form-horizontal" method="POST">
 			<fieldset>
 	          	<div class="control-group">
 	          		<?php echo Form::label('Nome', 'campeonato_nome', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<?php echo Form::input('campeonato_nome', null, array('id' => 'campeonato_nome', 'class' => 'input-xxlarge', 'data-validation-engine' => 'validate[required]')); ?>
+	            		<?php echo Form::input('campeonato_nome', null, array('id' => 'campeonato_nome', 'class' => 'input-xxlarge')); ?>
 	            	</div>
 	          	</div>
 	          	<div class="form-actions">

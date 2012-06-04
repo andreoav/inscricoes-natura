@@ -1,4 +1,4 @@
-jQuery(function($){
+(function($){
 	/* Table initialisation */
 	$(document).ready(function() {
 		// Inscrições do atleta na página inicial
@@ -13,7 +13,7 @@ jQuery(function($){
 	            { "mDataProp": "status" },
 	            { "mDataProp": "acoes" }
 	        ],
-			"bFilter":  false,
+			//"bFilter":  false,
 			"oLanguage": {
 	            "sUrl": base_url + "assets/js/dataTables.pt-BR.txt"
 	        },
@@ -79,10 +79,10 @@ jQuery(function($){
 		$('.form-dovalidation').validationEngine();
 		// Habilita tooltip nos links
 		$("a[rel=tooltip]").tooltip();
+		$("button[rel=tooltip]").tooltip();
 
 		// Máscaras
 		$('#usuario_cpf').mask('999.999.999-99');
-		$('#usuario_identidade').mask('9999999999');
 		$('.dataBR').mask('99/99/9999');
 
 		// Colorbox nos links
@@ -91,4 +91,4 @@ jQuery(function($){
 		// Jquery chosen nos select box
 		$(".chzn-select").chosen();
 	} );
-});
+})(jQuery);

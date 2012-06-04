@@ -77,12 +77,11 @@
 </div>
 <div class="row">
 	<div class="span12">
-		<h2>Insira uma resposta</h2>
-		<form action="<?php echo Uri::create('inscricoes/responder/' . $inscricao_info->id); ?>" class="form form-dovalidation" method="POST">
+		<form action="<?php echo Uri::create('inscricoes/responder/' . $inscricao_info->id); ?>" id="inscricao_resposta_form" class="form" method="POST">
         	<fieldset>
 	          	<div class="control-group">
 	            	<div class="controls">
-	              		<textarea name="inscricao_resposta" id="inscricao_resposta" rows="5" class="input span12" data-validation-engine="validate[required]"></textarea>
+	              		<textarea name="inscricao_resposta" id="inscricao_resposta" rows="5" class="input span12"></textarea>
 	              		<button class="btn btn-primary pull-right" type="submit"><i class="icon-comment icon-white"></i> Enviar</button>
 	        		</div>
 	          	</div>
