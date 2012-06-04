@@ -72,7 +72,7 @@ class Controller_Auth extends \Controller_Template
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-error',
-                        'msg_content' => '<small>A senha digitada está incorreta. ' . Html::anchor('#', '(Recuperar senha)') . '</small>'
+                        'msg_content' => '<strong>Erro!</strong> A senha digitada está incorreta.'
                     ));
                 }
             }

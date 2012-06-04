@@ -11,10 +11,11 @@
             <?php endif; ?>
             <div class="row">
                 <?php echo Form::input('username', null, array('class' => 'login', 'id' => 'username', 'placeholder' => 'Nome de Usuário', 'data-validation-engine' => 'validate[required] ')); ?>
+                <?php echo Html::anchor('cadastro', 'Cadastrar-se', array('class' => 'forgot')); ?>
             </div>
             <div class="row">
                 <?php echo Form::password('password', null, array('class' => 'password', 'id' => 'password', 'placeholder' => 'Senha', 'data-validation-engine' => 'validate[required] ')); ?>
-                <?php echo Html::anchor('cadastro', 'Cadastrar-se', array('class' => 'forgot')); ?>
+                <?php echo Html::anchor('#', 'Esqueceu sua senha?', array('class' => 'forgot')); ?>
             </div>
             <div class="row">
                 <?php echo Form::checkbox('remember', 1, true, array('class' => 'remember', 'id' => 'form_remember')); ?>
