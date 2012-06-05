@@ -58,7 +58,7 @@ class Controller_Usuario extends Controller_Auth
 				));
 			}
 
-			Response::redirect('usuario/perfil');
+			Response::redirect('home');
 		}
 
 		$data = array();

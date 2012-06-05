@@ -16,11 +16,6 @@ class Controller_Home extends Controller_Auth
         $this->template->conteudo = \View::forge('home/index', $data);
     }
 
-    public function action_saibamais()
-    {
-        $this->template->conteudo = \View::forge('home/saibamais');
-    }
-
      public function action_cadastro()
     {
         if(Sentry::check())
@@ -31,9 +26,9 @@ class Controller_Home extends Controller_Auth
         if(Input::method() == 'POST')
         {
             $_user_data = array(
-                'email'    => Input::post('cadastro-email'),
-                'username' => Input::post('cadastro-usuario'),
-                'password' => Input::post('cadastro-senha')
+                'email'    => Input::post('cadastro_email'),
+                'username' => Input::post('cadastro_usuario'),
+                'password' => Input::post('cadastro_senha')
             );
 
             try

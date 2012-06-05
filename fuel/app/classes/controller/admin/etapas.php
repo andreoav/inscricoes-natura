@@ -1,5 +1,4 @@
 <?php
-
 /**
 * 
 */
@@ -15,6 +14,10 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/etapas/index');
 	}
 
+	/**
+	 * Cadastra uma nova etapa no sistema
+	 * @return [type] [description]
+	 */
 	public function action_nova()
 	{
 		if(Model_Campeonato::count() < 1)
@@ -71,8 +74,20 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/etapas/nova', $data);
 	}
 
+	/**
+	 * [action_excluir description]
+	 * @param  [type] $_etapa_id [description]
+	 * @return [type]            [description]
+	 */
+	public function action_excluir($_etapa_id = null)
+	{
+
+	}
+
 	public function action_inscritos($_etapa_id = null)
 	{
 
 	}
 }
+
+// End of admin/etapas.php

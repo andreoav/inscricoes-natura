@@ -1,5 +1,19 @@
 <div class="row">
-	<div class="span8">
+    <div class="span6">
+        <div class="page-header">
+            <h1>Sobre o Sistema</h1>
+        </div>
+        <p>O Natura Clube de Orientação apresenta sua mais nova ferramenta para gerenciamento de atletas e inscrições em etapas. Veja os recursos disponíveis no sistema:</p>
+        <ul>
+            <li>Controle de Atletas do Clube</li>
+            <li>Controle de Inscrições</li>
+            <li>Etapas dos vários compeonatos disponível com informações completas e mapas</li>
+            <li>Envio de email para todos atletas cadastrados de maneira prática. <span class="label label-success">Novo!</span></li>
+            <li>Entre muitos outros...</li>
+        </ul>
+        <a href="<?php echo Uri::create('login'); ?>" class="btn btn-large btn-info">Já sou cadastrado!</a>
+    </div>
+	<div class="span6">
         <div class="page-header">
             <h1>Formulário de Cadastro</h1>
         </div>
@@ -37,8 +51,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" type="submit">Realizar Cadastro</button>
+                <div class="control-group">
+                    <div class="controls">
+                        <button class="btn btn-primary" type="submit">Enviar Cadastro</button>
+                    </div>
                 </div>
             </fieldset>
         </form>

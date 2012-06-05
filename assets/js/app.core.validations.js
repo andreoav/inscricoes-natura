@@ -92,6 +92,25 @@
 		    return true;
 		}, "Insira um CPF válido."); // Mensagem padrão
 
+		$('#login-form').validate({
+			rules: {
+				username: {
+					required: true
+				},
+				password: {
+					required: true
+				}
+			},
+			messages: {
+				username: {
+					required: "Este campo é obrigatório."
+				},
+				password: {
+					required: "Este campo é obrigatório."
+				}
+			}
+		});
+
 		$('#cadastro_form').validate({
 			rules: {
 				cadastro_email: {

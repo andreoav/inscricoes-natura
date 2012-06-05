@@ -20,6 +20,7 @@
 		<?php echo Asset::css('validationEngine.jquery.css'); ?>
 		<?php echo Asset::css('chosen.css'); ?>
 		<?php echo Asset::css('colorbox.css'); ?>
+		<?php echo Asset::css('redactor.css'); ?>
 
 		<style type="text/css">
 			.map {
@@ -93,9 +94,10 @@
 									<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>
 								</ul>
 								<form action="<?php echo Uri::create('inscricoes/buscar'); ?>" class="form navbar-search pull-right" method="POST">
-									<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa">
+									<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa" rel="popover" title="Buscar Inscrição" data-placement="bottom" data-content="Insira o ID de uma inscrição para visualizar.">
 								</form>
-							</div><!--/.nav-collapse -->
+							</div>
+							<!--/.nav-collapse -->
 						</div>
 					</div>
 				</div>
@@ -148,12 +150,11 @@
 		<?php echo Asset::js('jquery.dataTables.js'); ?>
 		<?php echo Asset::js('jquery.dataTables-bootstrap.js'); ?>
 		<?php echo Asset::js('jquery.maskedinput-1.3.min.js'); ?>
-		<?php echo Asset::js('jquery.validationEngine.js'); ?>
-		<?php echo Asset::js('languages/jquery.validationEngine-pt_BR.js'); ?>
 		<?php echo Asset::js('jquery.colorbox-min.js'); ?>
 		<?php echo Asset::js('jquery.gmap.min.js'); ?>
 		<?php echo Asset::js('chosen.jquery.min.js'); ?>
 		<?php echo Asset::js('jquery.validate.js'); ?>
+		<?php echo Asset::js('redactor.js'); ?>
 		<?php echo Asset::js('app.core.js'); ?>
 		<?php echo Asset::js('app.core.validations.js'); ?>
 

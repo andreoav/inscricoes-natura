@@ -56,7 +56,7 @@ class Controller_Inscricoes extends Controller_Auth
 		{
 			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
-				'msg_content' => '<strong>Erro!</strong> Você não tem permissão para visualizar inscrições de outros atletas.'
+				'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta inscrição.'
 			));
 
 			Response::redirect('home');

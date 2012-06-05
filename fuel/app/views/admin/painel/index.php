@@ -22,7 +22,7 @@
                     <a href="<?php echo Uri::create('usuario/atletas'); ?>"><i class="icon-user"></i> Atletas</a>
                 </li>
                 <li>
-                    <a href="<?php echo Uri::create('usuario/atletas'); ?>"><i class="icon-envelope"></i> Email</a>
+                    <a href="<?php echo Uri::create('admin/email'); ?>"><i class="icon-envelope"></i> Email</a>
                 </li>
 
                 <li class="divider"></li>
@@ -43,6 +43,21 @@
             </ul>
           </div>
     </div>
+
+    <div class="span8">
+        <form action="" class="form">
+            <fieldset>
+                <div class="control-group">
+                    <div class="control-label"><h3>Inserir Notícia</h3></div>
+                    <div class="control">
+                        <textarea name="" id="redactor_content" class="span8"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-success pull-right"><i class="icon-file icon-white"></i> Postar</button>
+            </fieldset>
+        </form>
+    </div>
+
     <div class="span8">
         <h3>Estatísticas do Sistema</h3>
         <p>

@@ -19,7 +19,7 @@
 	          	<div class="control-group">
 	          		<?php echo Form::label('Identidade', 'usuario_identidade', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<?php echo Form::input('usuario_identidade', $usuario_dados['identidade'], array('id' => 'usuario_identidade', 'class' => 'input-xlarge required')); ?>
+	            		<?php echo Form::input('usuario_identidade', $usuario_dados['identidade'], array('id' => 'usuario_identidade', 'class' => 'input-xlarge', 'maxlength' => 10)); ?>
 	            	</div>
 	          	</div>
 

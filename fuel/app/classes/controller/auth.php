@@ -5,7 +5,7 @@
  */
 class Controller_Auth extends \Controller_Template
 {
-    public    $template = 'auth_template';
+    public    $template = 'template';
     protected $_allowed_actions = array('login', 'auth', 'cadastro');
 
     public function before()
