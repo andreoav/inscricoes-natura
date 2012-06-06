@@ -31,7 +31,7 @@
 <div class="row">
 	<div id="etapaTabContent" class="tab-content">
 		<div id="etapaInfo" class="tab-pane fade active in">
-			<div class="span8">
+			<div class="span10">
 				<dl class="dl-horizontal">
 					<dt>Nome:</dt><dd><?php echo $etapa_info->nome; ?></dd>
 					<dt>Campeonato:</dt><dd><?php echo $etapa_info->campeonato->nome; ?></dd>
@@ -41,8 +41,8 @@
 				</dl>
 			</div>
 			<?php if (Sentry::user()->is_admin()): ?>
-				<div class="span4">
-				      <div style="margin-bottom: 9px" class="btn-toolbar pull-right">
+				<div class="span2">
+				      <div class="btn-toolbar pull-right">
 				        <div class="btn-group">
 				          	<a href="#" class="btn btn-large" rel="tooltip" title="Gerar Lista de Inscritos">
 				          		<i class="icon-list-alt"></i>

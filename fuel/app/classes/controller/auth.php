@@ -80,7 +80,7 @@ class Controller_Auth extends \Controller_Template
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-error',
-                        'msg_content' => '<strong>Erro!</strong> A senha digitada está incorreta.'
+                        'msg_content' => '<strong>A senha digitada está incorreta.</strong> <small>' . Html::anchor('#', '(Esqueci minha senha!)') .'</small>'
                     ));
                 }
             }
@@ -88,7 +88,7 @@ class Controller_Auth extends \Controller_Template
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type' => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Usuário não encontrado.'
+                    'msg_content' => '<strong>Não foi possível encontrar um usuário cadastrado com este email.</strong>.'
                 ));
             }
         }

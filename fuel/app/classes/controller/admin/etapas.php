@@ -86,7 +86,22 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 
 	public function action_inscritos($_etapa_id = null)
 	{
+		if($_etapa_id == null || ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
+		{
+			Session::set_flash('flash_msg', array(
+				'msg_type'    => 'alert-error',
+				'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta etapa.'
+			));
 
+			Response::redirect('admin/etapas');
+		}
+
+		$_html_table = View::forge('admin/etapas/inscritos', array('etapa_info' => $_etapa_info));
+		/*$_response = new Response();
+		$_response->set_header('Content-Type', 'application/vnd.ms-excel');
+		$_response->set_header('Content-Type', 'application/force-download');
+		$_response->set_header('Content-Disposition', 'attachment; filename=teste.xls');
+		$_response->set_header('Pragma', 'no-cache');*/
 	}
 }
 

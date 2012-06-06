@@ -10,4 +10,7 @@ return array(
 
     'admin' => 'admin/painel',
     'cadastro' => 'home/cadastro',
+
+    // Routing para visualização da notícia
+    'noticias/(:num)' => 'noticias/visualizar/$1',
 );

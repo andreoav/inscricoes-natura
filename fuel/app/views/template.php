@@ -144,7 +144,6 @@
 		<!-- Le javascript ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript">var base_url = "<?php echo \Uri::base(); ?>";</script>
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<?php echo Asset::js('jquery-1.7.2.min.js'); ?>
 		<?php echo Asset::js('bootstrap.min.js'); ?>
 		<?php echo Asset::js('jquery.dataTables.js'); ?>
@@ -152,13 +151,14 @@
 		<?php echo Asset::js('jquery.maskedinput-1.3.min.js'); ?>
 		<?php echo Asset::js('jquery.colorbox-min.js'); ?>
 		<?php echo Asset::js('jquery.gmap.min.js'); ?>
-		<?php echo Asset::js('chosen.jquery.min.js'); ?>
 		<?php echo Asset::js('jquery.validate.js'); ?>
+		<?php echo Asset::js('chosen.jquery.min.js'); ?>
 		<?php echo Asset::js('redactor.js'); ?>
 		<?php echo Asset::js('app.core.js'); ?>
 		<?php echo Asset::js('app.core.validations.js'); ?>
 
 		<?php if (isset($localidade_map)): ?>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#localidade_map').gMap({

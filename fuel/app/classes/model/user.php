@@ -20,6 +20,7 @@ class Model_User extends \Orm\Model
 	);
 
 	protected static $_has_many = array(
+		'noticias',
 		'inscricoes' => array(
 			'model_to' => 'Model_Inscricao'
 		)

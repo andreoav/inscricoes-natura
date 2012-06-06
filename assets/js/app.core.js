@@ -2,6 +2,8 @@
 	/* Table initialisation */
 	$(document).ready(function() {
 
+		Socialite.load();
+
 		// Inscrições do atleta na página inicial
 		$('#inscricoes_feitas').dataTable( {
 			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -76,10 +78,13 @@
             ]
 		} );
 
-		// Habilita tooltip nos links
+	    $('.carousel').carousel();
+
+		// Habilita tooltips
 		$("a[rel=tooltip]").tooltip();
 		$("button[rel=tooltip]").tooltip();
 
+		// Habilita os popovers
 		$("a[rel=popover]").popover();
 		$("input[rel=popover]").popover();
 
@@ -93,9 +98,9 @@
 		// Jquery chosen nos select box
 		$(".chzn-select").chosen();
 
-		$('#redactor_content').redactor({
-			fixed:      true,
-			autoresize: true
+		$('.redactor_content').redactor({
+			//autoresize: true
+			css: 'wym.css'
 		});
 	} );
 })(jQuery);

@@ -92,6 +92,19 @@
 		    return true;
 		}, "Insira um CPF válido."); // Mensagem padrão
 
+		$('#nova_noticia_form').validate({
+			rules: {
+				noticia_titulo: {
+					required: true
+				}
+			},
+			messages: {
+				noticia_titulo: {
+					required: "Este campo é obrigatório."
+				}
+			}
+		});
+
 		$('#login-form').validate({
 			rules: {
 				username: {

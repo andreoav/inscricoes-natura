@@ -4,6 +4,7 @@
 			<h1>Visualizar Inscrição</h1>
 		</div>
 	</div>
+
 	<div class="span12">
 		<ul class="breadcrumb">
 			<li>
@@ -16,7 +17,7 @@
 		</ul>
 	</div>
 
-	<div class="span8">
+	<div class="span10">
 		<dl class="dl-horizontal">
 			<dt>ID</dt><dd><?php echo $inscricao_info->id; ?></dd>
 			<dt>Etapa</dt>
@@ -48,8 +49,8 @@
 	</div>
 
 	<!-- Inicio Actions -->
-	<div class="span4">
-	      <div style="margin-bottom: 9px" class="btn-toolbar pull-right">
+	<div class="span2">
+	      <div class="btn-toolbar pull-right">
 	        <div class="btn-group">
 	        	<a class="btn btn-large" href="#excluirInscricaoD" data-toggle="modal" rel="tooltip" title="Excluir Inscrição">
 	        		<i class="icon-trash"></i>

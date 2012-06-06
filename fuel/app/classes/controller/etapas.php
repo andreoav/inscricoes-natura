@@ -16,7 +16,7 @@ class Controller_Etapas extends Controller_Home
 	{
 		if($_etapa_id == null || ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
 		{
-			Session::set_flash($flash_msg, array(
+			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
 				'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta etapa.'
 			));

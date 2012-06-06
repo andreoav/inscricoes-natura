@@ -15,7 +15,7 @@
 					<div class="control-group">
 						<label for="email_conteudo" class="control-label">Conteúdo</label>
 						<div class="controls">
-							<textarea id="redactor_content" name="content" style="height: 360px;" class="span10"></textarea>
+							<textarea id="email_content" name="content" style="height: 360px;" class="span10 redactor_content"></textarea>
 						</div>
 					</div>
 					<div class="control-group">
