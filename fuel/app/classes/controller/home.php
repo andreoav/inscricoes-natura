@@ -20,7 +20,7 @@ class Controller_Home extends Controller_Auth
         $this->template->conteudo  = \View::forge('home/index', $data, false);
     }
 
-     public function action_cadastro()
+    public function action_cadastro()
     {
         if(Sentry::check())
         {
@@ -58,7 +58,7 @@ class Controller_Home extends Controller_Auth
                     {
                         Session::set_flash('flash_msg', array(
                             'msg_type'    => 'alert-error',
-                            'msg_content' => '<strong>Erro!</strong> Não foi possível logar no sistema!'
+                            'msg_content' => '<strong>Não foi possível logar no sistema.</strong>'
                         ));
 
                         Response::redirect('login');
@@ -68,7 +68,7 @@ class Controller_Home extends Controller_Auth
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type'    => 'alert-error',
-                        'msg_content' => '<strong>Erro!</strong> Não foi possível realizar o seu cadastro.'
+                        'msg_content' => '<strong>Não foi possível realizar o seu cadastro.</strong>'
                     ));
                 }
             }
@@ -76,7 +76,7 @@ class Controller_Home extends Controller_Auth
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.'
+                    'msg_content' => '<strong>Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.</strong>'
                 ));
             }
 

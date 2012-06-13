@@ -43,28 +43,6 @@
           </div>
     </div>
 
-    <div class="span8">
-        <form action="<?php echo Uri::create('admin/noticias/nova') ?>" id="nova_noticia_form" class="form" method="POST">
-            <fieldset>
-                <div class="control-group">
-                    <div class="control-label">
-                        <h2>Nova Notícia</h2>
-                    </div>
-                    <div class="controls">
-                        <input type="text" rel="popover" title="Título" data-content="Insira um título para a notícia." data-placement="top" id="noticia_titulo" name="noticia_titulo" class="input-xxlarge">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <textarea name="noticia_conteudo" id="noticia_conteudo" rows="10" class="span8 redactor_content"></textarea>
-                    </div>
-                </div>
-                <button class="btn btn-success pull-right"><i class="icon-file icon-white"></i> Postar</button>
-            </fieldset>
-        </form>
-    </div>
-</div>
-<div class="row">
     <div class="span4">
         <h3>Estatísticas do Sistema</h3>
         <p>
@@ -89,5 +67,28 @@
                 </tbody>
           </table>
         </p>
+    </div>
+
+</div>
+<div class="row">
+    <div class="span12">
+        <form action="<?php echo Uri::create('admin/noticias/nova') ?>" id="nova_noticia_form" class="form well" method="POST">
+            <fieldset>
+                <div class="control-group">
+                    <div class="control-label">
+                        <h2>Nova Notícia</h2>
+                    </div>
+                    <div class="controls">
+                        <input type="text" rel="popover" title="Título" data-content="Insira um título para a notícia." data-placement="top" id="noticia_titulo" name="noticia_titulo" class="input-xxlarge span8">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <textarea name="noticia_conteudo" id="noticia_conteudo" rows="10" class="span12 redactor_content"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-success pull-right"><i class="icon-file icon-white"></i> Postar</button>
+            </fieldset>
+        </form>
     </div>
 </div>

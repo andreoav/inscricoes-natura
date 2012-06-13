@@ -2,8 +2,6 @@
 	/* Table initialisation */
 	$(document).ready(function() {
 
-		Socialite.load();
-
 		// Inscrições do atleta na página inicial
 		$('#inscricoes_feitas').dataTable( {
 			"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -89,18 +87,31 @@
 		$("input[rel=popover]").popover();
 
 		// Máscaras
-		$('#usuario_cpf').mask('999.999.999-99');
-		$('.dataBR').mask('99/99/9999');
+		if(jQuery().mask)
+		{
+			$('#usuario_cpf').mask('999.999.999-99');
+			$('.dataBR').mask('99/99/9999');
+		}
 
 		// Colorbox nos links
-		$('a.thumbnail').colorbox();
+		if(jQuery().colorbox)
+		{
+			$('a.thumbnail').colorbox();
+		}
 
-		// Jquery chosen nos select box
-		$(".chzn-select").chosen();
+		if(jQuery().chosen)
+		{
+			// Jquery chosen nos select box
+			$(".chzn-select").chosen();
+		}
 
-		$('.redactor_content').redactor({
-			//autoresize: true
-			css: 'wym.css'
-		});
+		if(jQuery().redactor)
+		{
+			$('.redactor_content').redactor({
+				autoresize: true,
+				css: 'wym.css'
+			});
+		}
+
 	} );
 })(jQuery);

@@ -1,8 +1,8 @@
-<section id="noticiaVisualizar">
+<article id="noticiaVisualizar">
 	<div class="row">
 		<div class="span12">
 			<div class="page-header">
-				<h1>Notícias</h1>
+				<h1><?php echo $noticia_info->titulo; ?></h1>
 			</div>
 		</div>
 
@@ -42,4 +42,4 @@
 			</p>
 		</div>
 	</div>
-</section>
+</article>

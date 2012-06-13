@@ -7,6 +7,9 @@ class Controller_Usuario extends Controller_Auth
 	public function before()
 	{
 		parent::before();
+
+		// Assets
+		Casset::js('jquery.maskedinput-1.3.min.js');
 	}
 
 	public function action_perfil()

@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Etapas extends Controller_Home
+class Controller_Etapas extends Controller_Auth
 {
 	public function before()
 	{
@@ -14,6 +14,9 @@ class Controller_Etapas extends Controller_Home
 
 	public function action_visualizar($_etapa_id = null)
 	{
+		Casset::js('chosen.jquery.min.js');
+		Casset::js('jquery.gmap.min.js');
+
 		if($_etapa_id == null || ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
 		{
 			Session::set_flash('flash_msg', array(
@@ -33,6 +36,9 @@ class Controller_Etapas extends Controller_Home
 						)
 					)
 				)
+			),
+			'where' => array(
+				'id' => Sentry::user()->get('id')
 			)
 		));
 

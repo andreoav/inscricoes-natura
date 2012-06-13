@@ -18,9 +18,9 @@
 		<?php echo Asset::css('bootstrap-responsive.min.css'); ?>
 		<?php echo Asset::css('jquery.dataTables-bootstrap.css'); ?>
 		<?php echo Asset::css('validationEngine.jquery.css'); ?>
-		<?php echo Asset::css('chosen.css'); ?>
 		<?php echo Asset::css('colorbox.css'); ?>
 		<?php echo Asset::css('redactor.css'); ?>
+		<?php echo Asset::css('chosen.css'); ?>
 
 		<style type="text/css">
 			.map {
@@ -54,122 +54,106 @@
 
 	<body>
 		<?php if (Sentry::check()): ?>
-			<section id="barraTopo">
-				<div class="navbar navbar-fixed-top">
-					<div class="navbar-inner">
-						<div class="container">
-							<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
+						<div class="btn-group pull-right">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-user"></i> <?php echo Sentry::user()->get('metadata.nome') ?: 'Novo Usuário'; ?>
+								<span class="caret"></span>
 							</a>
-							<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
-							<div class="btn-group pull-right">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-									<i class="icon-user"></i> <?php echo Sentry::user()->get('metadata.nome') ?: 'Novo Usuário'; ?>
-									<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu">
-									<li><?php echo Html::anchor('usuario/perfil', 'Meu Perfil'); ?></li>
-									<?php if (Sentry::user()->is_admin()): ?>
-										<li><?php echo Html::anchor('admin/painel', 'Administração'); ?></li>
-									<?php endif ?>
-									<li class="divider"></li>
-									<li><?php echo Html::anchor('logout', 'Sair'); ?></li>
-								</ul>
-							</div>
-							<div class="nav-collapse">
-								<ul class="nav">
-									<li class="active"><?php echo Html::anchor('/', 'Home'); ?></li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-											Inscrições
-											<b class="caret"></b>
-										</a>
-										<ul class="dropdown-menu">
-											<li><?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição'); ?></li>
-											<li><?php echo Html::anchor('inscricoes', 'Minhas Inscrições'); ?></li>
-										</ul>
-									</li>
-									<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>
-								</ul>
-								<form action="<?php echo Uri::create('inscricoes/buscar'); ?>" class="form navbar-search pull-right" method="POST">
-									<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa" rel="popover" title="Buscar Inscrição" data-placement="bottom" data-content="Insira o ID de uma inscrição para visualizar.">
-								</form>
-							</div>
-							<!--/.nav-collapse -->
+							<ul class="dropdown-menu">
+								<li><?php echo Html::anchor('usuario/perfil', 'Meu Perfil'); ?></li>
+								<?php if (Sentry::user()->is_admin()): ?>
+									<li><?php echo Html::anchor('admin/painel', 'Administração'); ?></li>
+								<?php endif ?>
+								<li class="divider"></li>
+								<li><?php echo Html::anchor('logout', 'Sair'); ?></li>
+							</ul>
 						</div>
+						<div class="nav-collapse">
+							<ul class="nav">
+								<li class="active"><?php echo Html::anchor('/', 'Home'); ?></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										Inscrições
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li><?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição'); ?></li>
+										<li><?php echo Html::anchor('inscricoes', 'Minhas Inscrições'); ?></li>
+									</ul>
+								</li>
+								<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>
+							</ul>
+							<form action="<?php echo Uri::create('inscricoes/buscar'); ?>" class="form navbar-search pull-right" method="POST">
+								<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa" rel="popover" title="Buscar Inscrição" data-placement="bottom" data-content="Insira o ID de uma inscrição para visualizar.">
+							</form>
+						</div>
+						<!--/.nav-collapse -->
 					</div>
 				</div>
-			</section>
-			<section id="conteudoPrincipal">
-				<div class="container">
-					<?php if(Session::get('profile_unfinished') == true): ?>
-						<div class="alert alert-error">
-							<strong>Perfil Incompleto!</strong> Atualmente o seu perfil está incompleto. Não será possível realizar uma nova inscrição até que dados como seu cpf, data de nascimento e nome completo estejam cadastrados em seu perfil! 
-							Atualize o seu perfil através <?php echo Html::anchor('usuario/perfil', 'deste link', array('rel' => 'tooltip', 'title' => 'Atualize o seu perfil!')); ?>.
-						</div>
-					<?php endif; ?>
-					<?php echo View::forge('flash'); ?>
-					<?php echo $conteudo; ?>
-					<footer>
-						<hr><p class="pull-right"><small>Sistema desenvolvido por <a href="#" rel="tooltip" title="Acesse o site do desenvolvedor">Andreo Vieira</a></small></p>
-					</footer>
-				</div>
-				<!--/.container-->
-			</section>
+			</div>
+			<div class="container">
+				<?php if(Session::get('profile_unfinished') == true): ?>
+					<div class="alert alert-error">
+						<strong>Perfil Incompleto!</strong> Atualmente o seu perfil está incompleto. Não será possível realizar uma nova inscrição até que dados como seu cpf, data de nascimento e nome completo estejam cadastrados em seu perfil! 
+						Atualize o seu perfil através <?php echo Html::anchor('usuario/perfil', 'deste link', array('rel' => 'tooltip', 'title' => 'Atualize o seu perfil!')); ?>.
+					</div>
+				<?php endif; ?>
+				<?php echo View::forge('flash'); ?>
+				<?php echo $conteudo; ?>
+				<footer>
+					<hr><p class="pull-right"><small>Sistema desenvolvido por <a href="#" rel="tooltip" title="Acesse o site do desenvolvedor">Andreo Vieira</a></small></p>
+				</footer>
+			</div>
+			<!--/.container-->
 		<?php else: ?>
-			<section id="barraTopo">
-				<div class="navbar navbar-fixed-top">
-					<div class="navbar-inner">
-						<div class="container">
-							<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</a>
-							<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
-						</div>
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
 					</div>
 				</div>
-			</section>
-			<section id="conteudoPrincipal">
-				<div class="container">
-					<?php echo View::forge('flash'); ?>
-					<?php echo $conteudo; ?>
-				</div>
-			</section>
+			</div>
+			<div class="container">
+				<?php echo View::forge('flash'); ?>
+				<?php echo $conteudo; ?>
+			</div>
 		<?php endif; ?>
 
 		<!-- Le javascript ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript">var base_url = "<?php echo \Uri::base(); ?>";</script>
-		<?php echo Asset::js('jquery-1.7.2.min.js'); ?>
-		<?php echo Asset::js('bootstrap.min.js'); ?>
-		<?php echo Asset::js('jquery.dataTables.js'); ?>
-		<?php echo Asset::js('jquery.dataTables-bootstrap.js'); ?>
-		<?php echo Asset::js('jquery.maskedinput-1.3.min.js'); ?>
-		<?php echo Asset::js('jquery.colorbox-min.js'); ?>
-		<?php echo Asset::js('jquery.gmap.min.js'); ?>
-		<?php echo Asset::js('jquery.validate.js'); ?>
-		<?php echo Asset::js('chosen.jquery.min.js'); ?>
-		<?php echo Asset::js('redactor.js'); ?>
-		<?php echo Asset::js('app.core.js'); ?>
-		<?php echo Asset::js('app.core.validations.js'); ?>
+		<?php echo Casset::render_js(); ?>
 
 		<?php if (isset($localidade_map)): ?>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('#localidade_map').gMap({
-					address: "<?php echo $localidade_map; ?>",
-					zoom: 15,
-					markers: [
-						{
-							address: "<?php echo $localidade_map; ?>",
-						}
-					]
-				});
+				if(jQuery().gMap)
+				{
+					$('#localidade_map').gMap({
+						address: "<?php echo $localidade_map; ?>",
+						zoom: 15,
+						markers: [
+							{
+								address: "<?php echo $localidade_map; ?>",
+							}
+						]
+					});
+				}
 			});
 		</script>
 		<?php endif ?>

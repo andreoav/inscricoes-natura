@@ -36,6 +36,8 @@ class Controller_Inscricoes extends Controller_Auth
 
 	public function action_visualizar($_inscricao_id = null)
 	{
+		Casset::js('jquery.colorbox-min.js');
+
 		if($_inscricao_id == null)
 		{
 			Response::redirect('home');
@@ -96,6 +98,8 @@ class Controller_Inscricoes extends Controller_Auth
 	 */
 	public function action_nova($_etapa_id = null)
 	{
+		Casset::js('chosen.jquery.min.js');
+
 		// Verifica se a requisição foi feita usando o método alternativo de inscrição
 		// que está disponível ao visualizar uma etapa cadastrada e disponível para novas inscrições
 		if($_etapa_id != null && Input::method() == 'POST')

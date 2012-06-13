@@ -12,6 +12,15 @@ class Controller_Auth extends \Controller_Template
     {
         parent::before();
 
+        // Inclui os assets comuns para a maioria das views
+        Casset::js('jquery-1.7.2.min.js');
+        Casset::js('bootstrap.js');
+        Casset::js('jquery.dataTables.js');
+        Casset::js('jquery.dataTables-bootstrap.js');
+        Casset::js('jquery.validate.js');
+        Casset::js('app.core.js');
+        Casset::js('app.core.validations.js');
+
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))
         {
@@ -31,7 +40,7 @@ class Controller_Auth extends \Controller_Template
                     // Usuario não esta logado
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-error',
-                        'msg_content' => '<strong>Erro!</strong> É necessário estar logado no sistema!'
+                        'msg_content' => '<strong>Você precisa estar logado no sistema para acessar este recurso.</strong>'
                     ));
 
                     // Redireciona para o formulario de login
@@ -71,7 +80,7 @@ class Controller_Auth extends \Controller_Template
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-success',
-                        'msg_content' => 'Login efetuado com sucesso!'
+                        'msg_content' => '<strong>Login efetuado com sucesso!</strong>'
                     ));
 
                     Response::redirect(Session::get_flash('redir_location'));
@@ -103,7 +112,7 @@ class Controller_Auth extends \Controller_Template
 
         Session::set_flash('flash_msg', array(
             'msg_type' => 'alert-success',
-            'msg_content' => 'Você deslogou do sistema com sucesso!'
+            'msg_content' => '<strong>Você deslogou do sistema com sucesso.</strong>'
         ));
 
         Response::redirect('login');

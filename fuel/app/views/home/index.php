@@ -6,10 +6,10 @@
     </div>
 
     <div class="row">
-        <section id="sistemaNavegacao">
+        <aside id="sistemaNavegacao">
             <div class="span4">
-                <div style="padding: 8px 0;" class="well">
-                    <ul class="nav nav-list">
+                <nav style="padding: 8px 0;" class="well">
+                    <ul class="nav nav-list" id="navegacao">
                         <li class="nav-header">Navegação</li>
                         <li class="active">
                             <a href="<?php echo Uri::create('home'); ?>"><i class="icon-white icon-home"></i> Início</a>
@@ -29,6 +29,7 @@
                                 <a href="<?php echo Uri::create('admin/painel'); ?>"><i class="icon-wrench"></i> Administração</a>
                             </li>
                         <?php endif ?>
+
                         <li class="divider"></li>
                         <li>
                             <a href="<?php echo Uri::create('usuario/perfil'); ?>"><i class="icon-user"></i> Perfil</a>
@@ -37,9 +38,9 @@
                             <a href="<?php echo Uri::create('logout'); ?>"><i class="icon-off"></i> Sair</a>
                         </li>
                     </ul>
-                  </div>
+                </nav>
             </div>
-        </section>
+        </aside>
 
         <section id="news">
             <div class="span8">
@@ -49,9 +50,9 @@
                         <?php $i = 0; foreach ($noticias as $noticia): ?>
                             <div class="item <?php echo $i == 0 ? 'active' : '' ?>">
                                 <p class="lead"><?php echo $noticia->titulo; ?></p>
-                                <?php echo Str::truncate($noticia->conteudo, 500, '...', false); ?>
+                                <?php echo preg_replace("/<img[^>]+\>/i", "", Str::truncate($noticia->conteudo, 500, '...', false)); ?>
                                 <p>
-                                    <br><a href="<?php echo Uri::create('noticias/' . $noticia->id) ?>" class="btn btn-small btn-info" rel="tooltip" title="Clique aqui para ler a notícia completa">Leia mais &raquo;</a>
+                                    <br><a href="<?php echo Uri::create('noticias/' . $noticia->id) ?>" class="btn btn-small btn-info" rel="tooltip" title="Ler notícia completa">Leia mais &raquo;</a>
                                 </p>
                                 <p class="pull-right">
                                     <span class="label label-info"><?php echo Sentry::user((int) $noticia->user->id)->get('metadata.nome'); ?></span>

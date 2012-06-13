@@ -9,6 +9,9 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 
 	public function action_novo()
 	{
+		Casset::js('chosen.jquery.min.js');
+		Casset::js('jquery.maskedinput-1.3.min.js');
+
 		if(Input::method() == 'POST')
 		{
 			$_nome_campeonato = Input::post('campeonato_nome');
