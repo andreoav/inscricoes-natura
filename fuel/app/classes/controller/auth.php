@@ -3,7 +3,7 @@
 /**
  *
  */
-class Controller_Auth extends \Controller_Template
+class Controller_Auth extends Controller_Hybrid
 {
     public    $template = 'template';
     protected $_allowed_actions = array('login', 'auth', 'cadastro');

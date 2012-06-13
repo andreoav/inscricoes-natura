@@ -228,7 +228,9 @@ return array(
 		/**
 		 * Classes to autoload & initialize even when not used
 		 */
-		'classes'  => array(),
+		'classes'  => array(
+			'Utils'
+		),
 
 		/**
 		 * Configs to autoload

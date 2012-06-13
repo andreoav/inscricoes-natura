@@ -26,7 +26,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		{
 			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
-				'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta inscrição.'
+				'msg_content' => 'Não foi possível encontrar esta inscrição.'
 			));
 		}
 		else
@@ -36,16 +36,18 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-success',
-					'msg_content' => 'Inscrição aprovada com sucesso!'
+					'msg_content' => 'Inscrição aprovada com sucesso.'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-error',
-					'msg_content' => '<strong>Erro!</strong> Não foi possível aprovar esta inscrição.'
+					'msg_content' => 'Não foi possível aprovar esta inscrição.'
 				));
 			}
+
+			Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
 		}
 
 		Response::redirect('admin/inscricoes');
@@ -62,7 +64,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		{
 			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
-				'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta inscrição.'
+				'msg_content' => 'Não foi possível encontrar esta inscrição.'
 			));
 		}
 		else
@@ -72,16 +74,18 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-success',
-					'msg_content' => 'Inscrição rejeitada com sucesso!'
+					'msg_content' => 'Inscrição rejeitada com sucesso.'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-error',
-					'msg_content' => '<strong>Erro!</strong> Não foi possível rejeitar esta inscrição.'
+					'msg_content' => 'Não foi possível rejeitar esta inscrição.'
 				));
 			}
+
+			Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
 		}
 
 		Response::redirect('admin/inscricoes');

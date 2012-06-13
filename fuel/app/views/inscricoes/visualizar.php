@@ -17,51 +17,68 @@
 		</ul>
 	</div>
 
-	<div class="span10">
-		<dl class="dl-horizontal">
-			<dt>ID</dt><dd><?php echo $inscricao_info->id; ?></dd>
-			<dt>Etapa</dt>
-			<dd>
-				<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('rel' => 'popover', 'title' => 'Informações',
-					'data-content' => '<ul><li>Início: ' . Date::forge($inscricao_info->etapa->data_inicio)->format('%d/%m/%Y') . '</li><li>Fim: ' . Date::forge($inscricao_info->etapa->data_final)->format('%d/%m/%Y') . '</li><li>Inscrições até: ' . Date::forge($inscricao_info->etapa->inscricao_ate)->format('%d/%m/%Y') . '</li></ul>'
-				)); ?>
-			</dd>
-			<dt>Campeonato</dt><dd><?php echo $inscricao_info->etapa->campeonato->nome; ?></dd>
-			<dt>Realizada em</dt><dd><?php echo Date::forge($inscricao_info->created_at)->format('%d/%m/%Y %H:%M:%S'); ?></dd>
-			<dt>Status</dt><dd><?php echo Utils::status2label($inscricao_info->status); ?></dd>
-			<?php if($inscricao_info->observacao): ?>
-				<dt>Observações</dt><dd><?php echo $inscricao_info->observacao; ?></dd>
-			<?php endif; ?>
-			<dt></dt><dd>&nbsp;</dd>
-			<dt>Comprovante</dt>
-			<dd>
-				<ul class="thumbnails">
-			        <li class="span4">
-			          	<a class="thumbnail" href="<?php echo Asset::get_file(Utils::getComprovanteSegments($inscricao_info->comprovante), 'img', Utils::getComprovanteSegments($inscricao_info->comprovante, false)); ?>">
-				            <?php echo Asset::img($inscricao_info->comprovante, array('height' => 400)); ?>
-			          	</a><br />
-			          	<a href="<?php echo Uri::create('inscricoes/download_comprovante/' . $inscricao_info->id); ?>" target="_blank" class="btn btn-success"><i class="icon-download-alt icon-white"></i> Salvar Comprovante</a>
-		    	    </li>
-		      	</ul>
-			</dd>
-		</dl>
-		<br />
+	<div class="span9">
+		<h3>Informações da Inscrição</h3><br />
+		<p>
+			<strong>ID:</strong>
+			<?php echo $inscricao_info->id; ?></p>
+		<p>
+			<strong>Etapa:</strong>
+			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('rel' => 'popover', 'title' => 'Informações',
+				'data-content' => '<ul><li>Início: ' . Date::forge($inscricao_info->etapa->data_inicio)->format('%d/%m/%Y') . '</li><li>Fim: ' . Date::forge($inscricao_info->etapa->data_final)->format('%d/%m/%Y') . '</li><li>Inscrições até: ' . Date::forge($inscricao_info->etapa->inscricao_ate)->format('%d/%m/%Y') . '</li></ul>'
+			)); ?>
+		</p>
+		<p>
+			<strong>Campeonato:</strong>
+			<?php echo $inscricao_info->etapa->campeonato->nome; ?>
+		</p>
+		<p>
+			<strong>Realizada em:</strong>
+			<?php echo Date::forge($inscricao_info->created_at)->format('%d/%m/%Y %H:%M:%S'); ?>
+		</p>
+		<p>
+			<strong>Status:</strong>
+			<?php echo Utils::status2label($inscricao_info->status); ?>
+		</p>
+		<?php if($inscricao_info->observacao): ?>
+			<p>
+				<strong>Observações:</strong>
+				<?php echo $inscricao_info->observacao; ?></p>
+		<?php endif; ?>
+		<p>
+			<strong>Comprovante:</strong>
+			<ul class="thumbnails">
+				<li class="span4">
+					<?php if (Utils::isImage(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))): ?>
+						<p>
+							<a class="thumbnail" href="<?php echo Asset::get_file($inscricao_info->comprovante, 'img'); ?>">
+								<?php echo Asset::img($inscricao_info->comprovante, array('height' => 400)); ?>
+							</a>
+						</p>
+					<?php else: ?>
+						<p><a href="<?php echo Uri::create('inscricoes/download_comprovante/' . $inscricao_info->id); ?>" target="_blank"><?php echo Asset::img(Utils::get_mimeTypeIcon(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))); ?></a></p>
+					<?php endif ?>
+				</li>
+			</ul>
+		</p>	
 	</div>
 
 	<!-- Inicio Actions -->
-	<div class="span2">
-	      <div class="btn-toolbar pull-right">
-	        <div class="btn-group">
-	        	<a class="btn btn-large" href="#excluirInscricaoD" data-toggle="modal" rel="tooltip" title="Excluir Inscrição">
-	        		<i class="icon-trash"></i>
-	        	</a>
-	        	<?php if (Sentry::user()->is_admin()): ?>
-	        		<?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, '<i class="icon-ok"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Aprovar Inscrição')); ?>
+	<div class="span3">
+		<div class="btn-toolbar pull-right">
+			<div class="btn-group">
+				<?php echo Html::anchor('#excluirInscricaoD', '<i class="icon-trash"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Excluir Inscrição', 'data-toggle' => 'modal')); ?>
+				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Salvar Arquivo', 'target' => '_blank')); ?>
+				<?php if (Sentry::user()->is_admin()): ?>
+					<?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, '<i class="icon-ok"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Aprovar Inscrição')); ?>
 					<?php echo Html::anchor('admin/inscricoes/rejeitar/' . $inscricao_info->id, '<i class="icon-remove"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Rejeitar Inscrição')); ?>
-	        	<?php endif ?>
-	        </div>
-	    </div>
-    </div>
+				<?php endif ?>
+			</div>
+		</div>
+		<p>
+			
+		</p>
+	</div>
 	<!-- Fim Actions -->
 </div>
 
@@ -84,15 +101,15 @@
 <div class="row">
 	<div class="span12">
 		<form action="<?php echo Uri::create('inscricoes/responder/' . $inscricao_info->id); ?>" id="inscricao_resposta_form" class="form" method="POST">
-        	<fieldset>
-	          	<div class="control-group">
-	            	<div class="controls">
-	              		<textarea name="inscricao_resposta" id="inscricao_resposta" rows="5" class="input span12"></textarea>
-	              		<button class="btn btn-primary pull-right" type="submit"><i class="icon-comment icon-white"></i> Enviar</button>
-	        		</div>
-	          	</div>
-        	</fieldset>
-      	</form>
+			<fieldset>
+				<div class="control-group">
+					<div class="controls">
+						<textarea name="inscricao_resposta" id="inscricao_resposta" rows="5" class="input span12"></textarea>
+						<button class="btn btn-primary pull-right" type="submit"><i class="icon-comment icon-white"></i> Enviar</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
 	</div>
 </div>
 <!-- Fim Respostas -->
@@ -105,11 +122,11 @@
 	</div>
 	<form action="<?php echo Uri::create('inscricoes/excluir/' . $inscricao_info->id); ?>" class="modal-form" method="POST">
 		<div class="modal-body modal-form alert alert-error fade in">
-    		<strong>Atenção!</strong> A operação que você está prestes a fazer é irreversível.
+			<strong>Atenção!</strong> A operação que você está prestes a fazer é irreversível.
 		</div>
 		<div class="modal-footer">
-   			<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-   			<button type="submit" class="btn btn-danger">Excluir</button>
+			<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+			<button type="submit" class="btn btn-danger">Excluir</button>
 		</div>
 	</form>
 </div>

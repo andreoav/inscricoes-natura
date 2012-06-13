@@ -2,6 +2,37 @@
 
 class Utils
 {
+
+	public static $image_types = array(
+		'image/bmp',
+		'image/gif',
+		'image/jpeg',
+		'image/png'
+	);
+
+	protected static $mimetypeIcon = array(
+		'image/bmp'					   => 'image.png',
+		'image/gif'					   => 'image.png',
+		'image/jpeg' 				   => 'image.png',
+		'image/png'					   => 'image.png',
+		'application/vnd.ms-excel'	   => 'excel.png',
+		'application/msword'		   => 'word.png',
+		'application/pdf'			   => 'pdf.png',
+		'application/zip'			   => 'compressed.png',
+		'application/x-7z-compressed'  => 'compressed.png',
+		'application/x-rar-compressed' => 'compressed.png'
+	);
+
+	public static function isImage($_mimeType)
+	{
+		return in_arrayi($_mimeType, self::$image_types);
+	}
+
+	public static function get_mimeTypeIcon($_mimeType)
+	{
+		return 'mimetypes/' . Arr::get(self::$mimetypeIcon, $_mimeType);
+	}
+
 	public static function criarBreadcrumb($location)
 	{
 		if(is_array($location))
