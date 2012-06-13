@@ -10,6 +10,7 @@ desktop.ini
 uploads/**/*
 fuel/app/logs/*/*/*
 fuel/app/cache/*/*
+assets/cache/*
 build
 nbproject/
 .idea
