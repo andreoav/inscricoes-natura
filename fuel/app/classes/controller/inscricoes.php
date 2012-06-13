@@ -36,6 +36,7 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_visualizar($_inscricao_id = null)
     {
+        Casset::css('colorbox.css');
         Casset::js('jquery.colorbox-min.js');
 
         if($_inscricao_id == null)
@@ -99,6 +100,7 @@ class Controller_Inscricoes extends Controller_Auth
      */
     public function action_nova($_etapa_id = null)
     {
+        Casset::css('chosen.css');
         Casset::js('chosen.jquery.min.js');
 
         // Verifica se a requisição foi feita usando o método alternativo de inscrição

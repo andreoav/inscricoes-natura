@@ -8,19 +8,13 @@
 		<meta name="author" content="Andreo Vieira">
 
 		<!-- Le styles -->
-		<?php echo Asset::css('bootstrap.css'); ?>
+		<?php echo Casset::render_css(); ?>
 		<style type="text/css">
 			body {
 				padding-top: 50px;
 				padding-bottom: 40px;
 			}
 		</style>
-		<?php echo Asset::css('bootstrap-responsive.min.css'); ?>
-		<?php echo Asset::css('jquery.dataTables-bootstrap.css'); ?>
-		<?php echo Asset::css('validationEngine.jquery.css'); ?>
-		<?php echo Asset::css('colorbox.css'); ?>
-		<?php echo Asset::css('redactor.css'); ?>
-		<?php echo Asset::css('chosen.css'); ?>
 
 		<style type="text/css">
 			.map {

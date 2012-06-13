@@ -9,6 +9,7 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 
 	public function action_novo()
 	{
+		Casset::css('chosen.css');
 		Casset::js('chosen.jquery.min.js');
 		Casset::js('jquery.maskedinput-1.3.min.js');
 

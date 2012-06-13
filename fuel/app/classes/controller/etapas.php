@@ -14,6 +14,7 @@ class Controller_Etapas extends Controller_Auth
 
     public function action_visualizar($_etapa_id = null)
     {
+        Casset::css('chosen.css');
         Casset::js('chosen.jquery.min.js');
         Casset::js('jquery.gmap.min.js');
 

@@ -25,6 +25,7 @@ class Controller_Admin_Painel extends Controller_Auth
 
 	public function action_index()
 	{
+		Casset::css('redactor.css');
 		Casset::js('redactor.js');
 
 		$this->template->conteudo = View::forge('admin/painel/index');

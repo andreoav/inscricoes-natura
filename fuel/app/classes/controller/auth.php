@@ -13,6 +13,7 @@ class Controller_Auth extends Controller_Hybrid
         parent::before();
 
         // Inclui os assets comuns para a maioria das views
+        // JavaScripts
         Casset::js('jquery-1.7.2.min.js');
         Casset::js('bootstrap.js');
         Casset::js('jquery.dataTables.js');
@@ -20,6 +21,11 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('jquery.validate.js');
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
+
+        // Css
+        Casset::css('bootstrap.css');
+        Casset::css('bootstrap-responsive.min.css');
+        Casset::css('jquery.dataTables-bootstrap.css');
 
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))

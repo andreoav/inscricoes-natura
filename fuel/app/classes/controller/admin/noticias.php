@@ -9,8 +9,6 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 
 	public function action_nova()
 	{
-		Casset::js('redactor.js');
-
 		if(Input::method() == 'POST')
 		{
 			$_noticia_titulo   = Input::post('noticia_titulo');

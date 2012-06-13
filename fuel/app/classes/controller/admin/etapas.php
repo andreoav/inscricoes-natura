@@ -20,6 +20,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 	 */
 	public function action_nova()
 	{
+		Casset::css('chosen.css');
 		Casset::js('chosen.jquery.min.js');
 		Casset::js('jquery.maskedinput-1.3.min.js');
 
