@@ -52,7 +52,7 @@
                                 <p class="lead"><?php echo $noticia->titulo; ?></p>
                                 <?php echo preg_replace("/<img[^>]+\>/i", "", Str::truncate($noticia->conteudo, 500, '...', false)); ?>
                                 <p>
-                                    <br><a href="<?php echo Uri::create('noticias/' . $noticia->id) ?>" class="btn btn-small btn-info" rel="tooltip" title="Ler notícia completa">Leia mais &raquo;</a>
+                                    <br><a href="<?php echo Uri::create('noticias/' . $noticia->id) ?>" id="btnLeiaMais" class="btn btn-small btn-info" rel="tooltip" title="Ler notícia completa">Leia mais &raquo;</a>
                                 </p>
                                 <p class="pull-right">
                                     <span class="label label-info"><?php echo Sentry::user((int) $noticia->user->id)->get('metadata.nome'); ?></span>

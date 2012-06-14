@@ -11,10 +11,10 @@ class Controller_Home extends Controller_Auth
 
     public function action_index()
     {
-        if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
+        /*if(Config::get('sysconfig.app.show_guide')) //&& Sentry::user()->get('metadata.sistema_tour') == 0)
         {
             Casset::js('guides/home.guide.js');
-        }
+        }*/
 
         $data = array();
         $data['noticias']  = Model_Noticia::find('all', array(
@@ -56,7 +56,7 @@ class Controller_Home extends Controller_Auth
                                 'msg_content' => 'Login efetuado com sucesso!'
                             ));
 
-                            Response::redirect('home');
+                            Response::redirect('home#guider=first');
                         }
                     }
                     catch (SentryAuthException $e)

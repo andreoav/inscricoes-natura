@@ -23,6 +23,11 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 
+        if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
+        {
+            Casset::js('guides/home.guide.js');
+        }
+
         // Css
         Casset::css('bootstrap.css');
         Casset::css('bootstrap-responsive.min.css');
