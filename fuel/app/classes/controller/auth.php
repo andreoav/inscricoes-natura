@@ -19,6 +19,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('jquery.dataTables.js');
         Casset::js('jquery.dataTables-bootstrap.js');
         Casset::js('jquery.validate.js');
+        Casset::js('jquery.guiders.js');
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 
@@ -26,6 +27,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::css('bootstrap.css');
         Casset::css('bootstrap-responsive.min.css');
         Casset::css('jquery.dataTables-bootstrap.css');
+        Casset::css('guiders.css');
 
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))

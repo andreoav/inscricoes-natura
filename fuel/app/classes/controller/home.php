@@ -11,6 +11,11 @@ class Controller_Home extends Controller_Auth
 
     public function action_index()
     {
+        if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
+        {
+            Casset::js('guides/home.guide.js');
+        }
+
         $data = array();
         $data['noticias']  = Model_Noticia::find('all', array(
             'order_by' => array('id' => 'desc'),

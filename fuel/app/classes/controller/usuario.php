@@ -68,4 +68,35 @@ class Controller_Usuario extends Controller_Auth
 		$data['usuario_dados'] = Sentry::user()->get('metadata');
 		$this->template->conteudo = View::forge('usuario/perfil', $data);
 	}
+
+	public function post_cancelGuide()
+	{
+		if(Input::post('cancelGuide') == true)
+		{
+			if(Sentry::check())
+			{
+				try
+				{
+					$_usuario = Sentry::user();
+					$_update  = $_usuario->update(array(
+						'metadata' => array(
+							'sistema_tour' => 1
+						)
+					));
+					
+					if($_update)
+					{
+						$this->response(array('return' => 'success'));
+					}
+					else
+					{
+						$this->response(array('return' => 'error'), 400);
+					}
+				}
+				catch(SentryUserException $e) {
+					$this->response(array('return' => 'error'), 400);
+				}
+			}
+		}
+	}
 }
