@@ -5,5 +5,5 @@ O Sistema de inscrições é um projeto desenvolvido pelo [Natura Clube de Orientaç
 ## Desenvolvimento
 Este sistema utiliza o framework [FuelPHP](http://www.fuelphp.com) como sua principal plataforma, o que possibilita um desenvolvimento ágil e organizado, seguindo os padrões de desenvolvimento mais aceitos no momento.
 
-### Data de Lançamento
+### Release
 O Sistema será lançando quarta-feira, 1 de Agosto de 2012 às 21:00 horas.
