@@ -78,10 +78,19 @@
         } );
 
         $('.carousel').carousel();
+        $('a[title], button[title]').qtip({
+            position: {
+                at: 'top center',
+                my: 'bottom center'
+            },
+            style: {
+                classes: 'ui-tooltip-shadow ui-tooltip-tipsy'
+            }
+        });
 
         // Habilita tooltips
-        $("a[rel=tooltip]").tooltip();
-        $("button[rel=tooltip]").tooltip();
+        //$("a[rel=tooltip]").tooltip();
+        //$("button[rel=tooltip]").tooltip();
 
         // Habilita os popovers
         $("a[rel=popover]").popover();
@@ -113,6 +122,5 @@
                 css: 'wym.css'
             });
         }
-
-    } );
+    });
 })(jQuery);

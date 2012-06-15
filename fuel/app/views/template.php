@@ -87,7 +87,7 @@
 								<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>
 							</ul>
 							<form action="<?php echo Uri::create('inscricoes/buscar'); ?>" class="form navbar-search pull-right" method="POST">
-								<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa" rel="popover" title="Buscar Inscrição" data-placement="bottom" data-content="Insira o ID de uma inscrição para visualizar.">
+								<input type="text" name="inscricao_numero" id="inscricao_numero" class="input-medium search-query" placeholder="Pesquisa">
 							</form>
 						</div>
 						<!--/.nav-collapse -->
@@ -98,7 +98,7 @@
 				<?php if(Session::get('profile_unfinished') == true): ?>
 					<div class="alert alert-error">
 						<strong>Perfil Incompleto!</strong> Atualmente o seu perfil está incompleto. Não será possível realizar uma nova inscrição até que dados como seu cpf, data de nascimento e nome completo estejam cadastrados em seu perfil! 
-						Atualize o seu perfil através <?php echo Html::anchor('usuario/perfil', 'deste link', array('rel' => 'tooltip', 'title' => 'Atualize o seu perfil!')); ?>.
+						Atualize o seu perfil através <?php echo Html::anchor('usuario/perfil', 'deste link', array('title' => 'Atualize o seu perfil!')); ?>.
 					</div>
 				<?php endif; ?>
 				<?php echo View::forge('flash'); ?>
@@ -143,7 +143,7 @@
 						zoom: 15,
 						markers: [
 							{
-								address: "<?php echo $localidade_map; ?>",
+								address: "<?php echo $localidade_map; ?>"
 							}
 						]
 					});

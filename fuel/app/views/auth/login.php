@@ -1,6 +1,6 @@
 <section id="loginForm">
     <div class="row">
-        <div class="span12">
+        <div class="span6">
             <div class="page-header">
                 <h1>Sobre o Sistema</h1>
             </div>
@@ -14,47 +14,41 @@
             </ul>
             <p>Se você já está cadastrado no sistema, use o formulário ao lado para efetuar o seu login, se você ainda não se cadastrou clique no botão abaixo e crie a sua conta.</p>
             <p>
-                <?php echo Html::anchor('cadastro', 'Cadastrar-se', array('class' => 'btn btn-large btn-info')); ?>
-                <?php echo Html::anchor('#loginModal', 'Efetuar Login', array('class' => 'btn btn-large btn-primary', 'data-toggle' => 'modal')); ?>
+                <?php echo Html::anchor('cadastro', 'Cadastrar-se &raquo;', array('class' => 'btn btn-large btn-info', 'title' => 'Cadastrar')); ?>
             </p>
+        </div>
+        <div class="span5">
+            <div class="page-header">
+                <h1>Formulário de Login</h1>
+            </div>
+            <div id="loginModal">
+                <?php echo Form::open(array('action' => 'login', 'id' => 'login-form', 'class' => 'form-horizontal')); ?>
+                <fieldset>
+                    <div class="control-group">
+                        <label for="username" class="control-label">Usuário:</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on"><i class="icon-user"></i></span><input type="text" class="input-xlarge" name="username" id="username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="password" class="control-label">Senha:</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on"><i class="icon-lock"></i></span><input type="password" class="input-xlarge" name="password" id="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn btn-primary">Efetuar Login &raquo;</button>
+                            <input type="hidden" value="1" id="optionsCheckbox" name="remember">
+                        </div>
+                    </div>
+                </fieldset>
+                <?php echo Form::close(); ?>
+            </div>
         </div>
     </div>
 </section>
-
-<div class="modal fade hide" id="loginModal">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3>Formulário de Login</h3>
-    </div>
-    <?php echo Form::open(array('action' => 'login', 'id' => 'login-form', 'class' => 'form-horizontal modal-form')); ?>
-        <div class="modal-body modal-form">
-            <div class="control-group">
-                <label for="username" class="control-label">Usuário:</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-user"></i></span><input type="text" class="input-large" name="username" id="username">
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="password" class="control-label">Senha:</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-lock"></i></span><input type="password" class="input-large" name="password" id="password">
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <label class="checkbox">
-                        <input type="checkbox" value="1" id="optionsCheckbox" name="remember">
-                        Mantenha-me conectado
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Efetuar Login</button>
-        </div>
-    <?php echo Form::close(); ?>
-</div>

@@ -19,7 +19,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('jquery.dataTables.js');
         Casset::js('jquery.dataTables-bootstrap.js');
         Casset::js('jquery.validate.js');
-        Casset::js('jquery.guiders.js');
+        Casset::js('jquery.qtip.min.js');
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 
@@ -27,7 +27,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::css('bootstrap.css');
         Casset::css('bootstrap-responsive.min.css');
         Casset::css('jquery.dataTables-bootstrap.css');
-        Casset::css('guiders.css');
+        Casset::css('jquery.qtip.min.css');
 
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))
@@ -44,7 +44,12 @@ class Controller_Auth extends Controller_Hybrid
                     // Habilita o guia de acordo com as opções do sistema.
                     if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
                     {
+                        // Guide related JS
+                        Casset::js('jquery.guiders.js');
                         Casset::js('guides/home.guide.js');
+
+                        // Guide related Css
+                        Casset::css('guiders.css');
                     }
 
                     // Usuario logado, verificar permissoes e perfil completo
