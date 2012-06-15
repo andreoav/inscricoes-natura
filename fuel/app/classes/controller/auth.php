@@ -23,11 +23,6 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 
-        if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
-        {
-            Casset::js('guides/home.guide.js');
-        }
-
         // Css
         Casset::css('bootstrap.css');
         Casset::css('bootstrap-responsive.min.css');
@@ -43,8 +38,15 @@ class Controller_Auth extends Controller_Hybrid
         {
             try
             {
+                // Verifica usuário logado
                 if(Sentry::check())
                 {
+                    // Habilita o guia de acordo com as opções do sistema.
+                    if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
+                    {
+                        Casset::js('guides/home.guide.js');
+                    }
+
                     // Usuario logado, verificar permissoes e perfil completo
                     Session::set('profile_unfinished', ! Model_User::validate_profile());
                 }
