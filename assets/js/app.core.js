@@ -83,6 +83,9 @@
                 at: 'top center',
                 my: 'bottom center'
             },
+            show: {
+                delay: 0
+            },
             style: {
                 classes: 'ui-tooltip-shadow ui-tooltip-tipsy'
             }
@@ -93,7 +96,7 @@
         //$("button[rel=tooltip]").tooltip();
 
         // Habilita os popovers
-        $("a[rel=popover]").popover();
+        //$("a[rel=popover]").popover();
         $("input[rel=popover]").popover();
 
         // Máscaras

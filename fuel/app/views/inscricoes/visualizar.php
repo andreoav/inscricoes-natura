@@ -24,7 +24,7 @@
 			<?php echo $inscricao_info->id; ?></p>
 		<p>
 			<strong>Etapa:</strong>
-			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('rel' => 'popover', 'title' => 'Informações',
+			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('title' => 'Clique para mais informações',
 				'data-content' => '<ul><li>Início: ' . Date::forge($inscricao_info->etapa->data_inicio)->format('%d/%m/%Y') . '</li><li>Fim: ' . Date::forge($inscricao_info->etapa->data_final)->format('%d/%m/%Y') . '</li><li>Inscrições até: ' . Date::forge($inscricao_info->etapa->inscricao_ate)->format('%d/%m/%Y') . '</li></ul>'
 			)); ?>
 		</p>

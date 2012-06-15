@@ -57,7 +57,7 @@
 							<span class="icon-bar"></span>
 						</a>
 						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
-						<div class="btn-group pull-right">
+						<div class="btn-group pull-right" id="user_menu">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="icon-user"></i> <?php echo Sentry::user()->get('metadata.nome') ?: 'Novo Usuário'; ?>
 								<span class="caret"></span>

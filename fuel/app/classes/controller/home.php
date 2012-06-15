@@ -56,7 +56,7 @@ class Controller_Home extends Controller_Auth
                                 'msg_content' => 'Login efetuado com sucesso!'
                             ));
 
-                            Response::redirect('home#guider=first');
+                            Response::redirect('home#guider=g1');
                         }
                     }
                     catch (SentryAuthException $e)
