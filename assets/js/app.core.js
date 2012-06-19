@@ -3,7 +3,7 @@
     $(document).ready(function() {
 
         // Inscrições do atleta na página inicial
-        $('#inscricoes_feitas').dataTable( {
+        $('#inscricoes_feitas').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
             "sAjaxSource" : base_url + 'inscricoes/minhas_inscricoes',
@@ -27,7 +27,7 @@
             "aaSorting" : [
                 [ 0 , "desc" ]
             ]
-        } );
+        });
 
         // Inscrições pendente, parte administrativa
         $('#admin_inscricoes_pendentes').dataTable({

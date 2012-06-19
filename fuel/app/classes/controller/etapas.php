@@ -22,7 +22,7 @@ class Controller_Etapas extends Controller_Auth
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
-                'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta etapa.'
+                'msg_content' => 'Não foi possível encontrar esta etapa.'
             ));
 
             Response::redirect('etapas');

@@ -42,14 +42,14 @@ class Controller_Usuario extends Controller_Auth
 				{
 					Session::set_flash('flash_msg', array(
 						'msg_type'    => 'alert-success',
-						'msg_content' => '<strong>Parabéns!</strong> Seu perfil foi atualizado com sucesso.'
+						'msg_content' => 'Seu perfil foi atualizado com sucesso.'
 					));
 				}
 				else
 				{
 					Session::set_flash('flash_msg', array(
 						'msg_type'    => 'alert-error',
-						'msg_content' => '<strong>Erro!</strong> Não foi possível atualizar o seu perfil!'
+						'msg_content' => 'Não foi possível atualizar o seu perfil.'
 					));
 				}
 			}

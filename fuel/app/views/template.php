@@ -58,30 +58,40 @@
 						</a>
 						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
 						<div class="btn-group pull-right" id="user_menu">
+                            <?php echo Html::anchor('usuario/perfil', '<i class="icon-user"></i> ' . Sentry::user()->get('metadata.nome') ?: 'Novo Usuário', array('class' => 'btn')); ?>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-user"></i> <?php echo Sentry::user()->get('metadata.nome') ?: 'Novo Usuário'; ?>
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><?php echo Html::anchor('usuario/perfil', 'Meu Perfil'); ?></li>
+								<li>
+                                    <?php echo Html::anchor('usuario/perfil', 'Meu Perfil'); ?>
+                                </li>
 								<?php if (Sentry::user()->is_admin()): ?>
-									<li><?php echo Html::anchor('admin/painel', 'Administração'); ?></li>
+									<li>
+                                        <?php echo Html::anchor('admin/painel', 'Administração'); ?>
+                                    </li>
 								<?php endif ?>
 								<li class="divider"></li>
-								<li><?php echo Html::anchor('logout', 'Sair'); ?></li>
+								<li>
+                                    <?php echo Html::anchor('logout', 'Sair'); ?>
+                                </li>
 							</ul>
 						</div>
 						<div class="nav-collapse">
 							<ul class="nav">
-								<li class="active"><?php echo Html::anchor('/', 'Home'); ?></li>
+								<li class="active"><?php echo Html::anchor('home', 'Home'); ?></li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 										Inscrições
 										<b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
-										<li><?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição'); ?></li>
-										<li><?php echo Html::anchor('inscricoes', 'Minhas Inscrições'); ?></li>
+										<li>
+                                            <?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição'); ?>
+                                        </li>
+										<li>
+                                            <?php echo Html::anchor('inscricoes', 'Minhas Inscrições'); ?>
+                                        </li>
 									</ul>
 								</li>
 								<li><?php echo Html::anchor('etapas', 'Etapas'); ?></li>

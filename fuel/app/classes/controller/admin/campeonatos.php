@@ -24,14 +24,14 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-success',
-					'msg_content' => '<strong>Novo campeonato cadastrado com sucesso!</strong>'
+					'msg_content' => 'Novo campeonato cadastrado com sucesso!'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-error',
-					'msg_content' => '<strong>Erro!</strong> Não foi possível cadastrar este campeonato.'
+					'msg_content' => 'Não foi possível cadastrar este campeonato.'
 				));
 			}
 

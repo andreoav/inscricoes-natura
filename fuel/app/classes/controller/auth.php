@@ -60,7 +60,7 @@ class Controller_Auth extends Controller_Hybrid
                     // Usuario não esta logado
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-error',
-                        'msg_content' => '<strong>Você precisa estar logado no sistema para acessar este recurso.</strong>'
+                        'msg_content' => 'Você precisa estar logado no sistema para acessar este recurso.'
                     ));
 
                     // Redireciona para o formulario de login
@@ -100,7 +100,7 @@ class Controller_Auth extends Controller_Hybrid
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-success',
-                        'msg_content' => '<strong>Login efetuado com sucesso!</strong>'
+                        'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
                     Response::redirect(Session::get_flash('redir_location'));
@@ -109,7 +109,7 @@ class Controller_Auth extends Controller_Hybrid
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type' => 'alert-error',
-                        'msg_content' => '<strong>A senha digitada está incorreta.</strong> <small>' . Html::anchor('#', '(Esqueci minha senha!)') .'</small>'
+                        'msg_content' => 'A senha digitada está incorreta. <small>' . Html::anchor('#', '(Esqueci minha senha!)') .'</small>'
                     ));
                 }
             }
@@ -117,22 +117,26 @@ class Controller_Auth extends Controller_Hybrid
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type' => 'alert-error',
-                    'msg_content' => '<strong>Não foi possível encontrar um usuário cadastrado com este email.</strong>.'
+                    'msg_content' => 'Não foi possível encontrar um usuário cadastrado com este email.'
                 ));
             }
         }
 
-        Session::set_flash('redir_location', Input::get('redir') ? Input::get('redir') : '/');
+        Session::set_flash('redir_location', Input::get('redir') ?: 'home');
         $this->template->conteudo = View::forge('auth/login', null, false);
     }
 
+
+    /**
+     *
+     */
     public function action_logout()
     {
         Sentry::logout();
 
         Session::set_flash('flash_msg', array(
             'msg_type' => 'alert-success',
-            'msg_content' => '<strong>Você deslogou do sistema com sucesso.</strong>'
+            'msg_content' => 'Você deslogou do sistema com sucesso.'
         ));
 
         Response::redirect('login');

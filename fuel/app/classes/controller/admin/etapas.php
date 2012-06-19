@@ -28,7 +28,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		{
 			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
-				'msg_content' => '<strong>Erro!</strong> Atualmente não existe uma campeonato cadastrado no sistema!'
+				'msg_content' => 'Atualmente não existe uma campeonato cadastrado no sistema!'
 			));
 
 			Response::redirect('admin');
@@ -59,14 +59,14 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-success',
-					'msg_content' => '<strong>Nova etapa cadastrada com sucesso!</strong>'
+					'msg_content' => 'Nova etapa cadastrada com sucesso.'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
 					'msg_type'    => 'alert-error',
-					'msg_content' => '<strong>Erro!</strong> Não foi possível cadastrar esta etapa.'
+					'msg_content' => 'Não foi possível cadastrar esta etapa.'
 				));
 			}
 
@@ -94,7 +94,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		{
 			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
-				'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta etapa.'
+				'msg_content' => 'Não foi possível encontrar esta etapa.'
 			));
 
 			Response::redirect('admin/etapas');

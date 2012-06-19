@@ -63,7 +63,7 @@ class Controller_Home extends Controller_Auth
                     {
                         Session::set_flash('flash_msg', array(
                             'msg_type'    => 'alert-error',
-                            'msg_content' => '<strong>Não foi possível logar no sistema.</strong>'
+                            'msg_content' => 'Não foi possível logar no sistema.'
                         ));
 
                         Response::redirect('login');
@@ -73,7 +73,7 @@ class Controller_Home extends Controller_Auth
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type'    => 'alert-error',
-                        'msg_content' => '<strong>Não foi possível realizar o seu cadastro.</strong>'
+                        'msg_content' => 'Não foi possível realizar o seu cadastro.'
                     ));
                 }
             }
@@ -81,7 +81,7 @@ class Controller_Home extends Controller_Auth
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.</strong>'
+                    'msg_content' => 'Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.'
                 ));
             }
 
