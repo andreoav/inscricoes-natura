@@ -114,16 +114,18 @@ class Utils
 	);
 
 	protected static $mimetypeIcon = array(
-		'image/bmp'					   => 'image.png',
-		'image/gif'					   => 'image.png',
-		'image/jpeg' 				   => 'image.png',
-		'image/png'					   => 'image.png',
-		'application/vnd.ms-excel'	   => 'excel.png',
-		'application/msword'		   => 'word.png',
-		'application/pdf'			   => 'pdf.png',
-		'application/zip'			   => 'compressed.png',
-		'application/x-7z-compressed'  => 'compressed.png',
-		'application/x-rar-compressed' => 'compressed.png'
+		'image/bmp'					                                              => 'image.png',
+		'image/gif'					                                              => 'image.png',
+		'image/jpeg' 				                                              => 'image.png',
+		'image/png'					                                              => 'image.png',
+		'application/vnd.ms-excel'	                                              => 'excel.png',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'       => 'excel.png',
+		'application/msword'		                                              => 'word.png',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'word.png',
+		'application/pdf'			                                              => 'pdf.png',
+		'application/zip'			                                              => 'compressed.png',
+		'application/x-7z-compressed'                                             => 'compressed.png',
+		'application/x-rar-compressed'                                            => 'compressed.png'
 	);
 
     protected static $allowed_mimeTypes = array(
@@ -132,7 +134,9 @@ class Utils
         'image/jpeg',
         'image/png',
         'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'application/pdf',
         'application/zip',
         'application/x-7z-compressed',
