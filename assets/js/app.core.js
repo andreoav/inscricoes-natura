@@ -23,14 +23,17 @@
                 { "sWidth": "5%", "aTargets": [ 0 ] },
                 { "sWidth": "10%", "aTargets": [ 3 ] },
                 { "sWidth": "15%", "aTargets": [ 4 ] }
+            ],
+            "aaSorting" : [
+                [ 0 , "desc" ]
             ]
         } );
 
         // Inscrições pendente, parte administrativa
-        $('#admin_inscricoes_pendentes').dataTable( {
+        $('#admin_inscricoes_pendentes').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
-            "sAjaxSource" : base_url + 'inscricoes/pendentes',
+            "sAjaxSource" : base_url + 'admin/inscricoes/pendentes',
             "aoColumns": [
                 { "mDataProp": "id" },
                 { "mDataProp": "atleta" },
@@ -47,8 +50,38 @@
                 { "sClass": "center", "aTargets": [ 4, 5 ] },
                 { "sWidth": "10%", "aTargets": [ 4 ] },
                 { "sWidth": "15%", "aTargets": [ 5 ] }
+            ],
+            "aaSorting" : [
+                [ 0 , "desc" ]
             ]
-        } );
+        });
+
+        // Inscrições pendente, parte administrativa
+        $('#admin_inscricoes_outras').dataTable({
+            "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+            "sPaginationType": "bootstrap",
+            "sAjaxSource" : base_url + 'admin/inscricoes/finalizadas',
+            "aoColumns": [
+                { "mDataProp": "id" },
+                { "mDataProp": "atleta" },
+                { "mDataProp": "etapa" },
+                { "mDataProp": "campeonato" },
+                { "mDataProp": "status" },
+                { "mDataProp": "acoes" }
+            ],
+            //"bFilter":  false,
+            "oLanguage": {
+                "sUrl": base_url + "/assets/js/dataTables.pt-BR.txt"
+            },
+            "aoColumnDefs": [
+                { "sClass": "center", "aTargets": [ 4, 5 ] },
+                { "sWidth": "10%", "aTargets": [ 4 ] },
+                { "sWidth": "15%", "aTargets": [ 5 ] }
+            ],
+            "aaSorting" : [
+                [ 0 , "desc" ]
+            ]
+        });
 
         // Início Etapas Cadastradas
         $('#etapas_cadastradas').dataTable( {
@@ -73,7 +106,7 @@
                 { "sWidth": "10%", "aTargets": [ 4, 5 ] }
             ],
             "aaSorting" : [
-                [ 0 , "asc" ]
+                [ 0 , "desc" ]
             ]
         } );
 
@@ -91,12 +124,6 @@
             }
         });
 
-        // Habilita tooltips
-        //$("a[rel=tooltip]").tooltip();
-        //$("button[rel=tooltip]").tooltip();
-
-        // Habilita os popovers
-        //$("a[rel=popover]").popover();
         $("input[rel=popover]").popover();
 
         // Máscaras

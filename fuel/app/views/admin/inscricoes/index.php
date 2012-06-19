@@ -37,5 +37,23 @@
                 </thead>
             </table>
     	</div>
+
+        <div class="span12">
+            <div class="page-header">
+                <h1>Outras Inscrições</h1>
+            </div>
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="admin_inscricoes_outras">
+                <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Atleta</th>
+                    <th>Etapa</th>
+                    <th>Campeonato</th>
+                    <th>Status</th>
+                    <th>A&ccedil;&otilde;es</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </section>

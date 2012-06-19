@@ -41,7 +41,9 @@
 	          		<?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
 	            	<div class="controls">
 	            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge chzn-select">
-            				<option value="H21E">H21E</option>
+                            <?php foreach(Utils::$categorias as $categoria): ?>
+                                <option value="<?php echo $categoria ?>"><?php echo $categoria ?></option>
+                            <?php endforeach ?>
 	            		</select>
 	            	</div>
 	          	</div>

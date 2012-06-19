@@ -2,6 +2,109 @@
 
 class Utils
 {
+    public static $categorias = array(
+        "D 10 N",
+        "D 12 A",
+        "D 12 B",
+        "D 14 A",
+        "D 14 B",
+        "D 16 A",
+        "D 16 B",
+        "D 16 E",
+        "D 16 N",
+        "D 18 A",
+        "D 18 B",
+        "D 18 E",
+        "D 18 N",
+        "D 20 A",
+        "D 20 B",
+        "D 20 E",
+        "D 20 N",
+        "D 21 A",
+        "D 21 B",
+        "D 21 E",
+        "D 21 N",
+        "D 35 A",
+        "D 35 B",
+        "D 35 N",
+        "D 40 A",
+        "D 40 B",
+        "D 45 A",
+        "D 45 B",
+        "D 50 A",
+        "D 50 B",
+        "D 50 N",
+        "D 55 A",
+        "D 55 B",
+        "D 60 A",
+        "D 65 A",
+        "D 65 B",
+        "D 70 A",
+        "D 70 B",
+        "D 75 A",
+        "D 75 B",
+        "D 80 A",
+        "D 80 B",
+        "D 85 A",
+        "D 85 B",
+        "D 90 A",
+        "D 90 B",
+        "D N 1" ,
+        "D N 2" ,
+        "D N 3" ,
+        "D S N" ,
+        "H 10 N",
+        "H 12 A",
+        "H 12 B",
+        "H 14 N",
+        "H 14 A",
+        "H 14 B",
+        "H 16 A",
+        "H 16 B",
+        "H 16 E",
+        "H 16 N",
+        "H 18 A",
+        "H 18 B",
+        "H 18 E",
+        "H 18 N",
+        "H 20 A",
+        "H 20 B",
+        "H 20 E",
+        "H 20 N",
+        "H 21 A",
+        "H 21 B",
+        "H 21 E",
+        "H 21 N",
+        "H 35 A",
+        "H 35 B",
+        "H 40 A",
+        "H 40 B",
+        "H 45 A",
+        "H 45 B",
+        "H 50 A",
+        "H 50 B",
+        "H 50 N",
+        "H 55 A",
+        "H 55 B",
+        "H 60 A",
+        "H 65 A",
+        "H 65 B",
+        "H 70 A",
+        "H 70 B",
+        "H 75 A",
+        "H 75 B",
+        "H 80 A",
+        "H 80 B",
+        "H 85 A",
+        "H 85 B",
+        "H 90 A",
+        "H 90 B",
+        "H N 1" ,
+        "H N 2" ,
+        "H N 3" ,
+        "H S N" ,
+        "ABERTO",
+    );
 
 	public static $image_types = array(
 		'image/bmp',
@@ -22,6 +125,19 @@ class Utils
 		'application/x-7z-compressed'  => 'compressed.png',
 		'application/x-rar-compressed' => 'compressed.png'
 	);
+
+    protected static $allowed_mimeTypes = array(
+        'image/bmp',
+        'image/gif',
+        'image/jpeg',
+        'image/png',
+        'application/vnd.ms-excel',
+        'application/msword',
+        'application/pdf',
+        'application/zip',
+        'application/x-7z-compressed',
+        'application/x-rar-compressed'
+    );
 
 	public static function isImage($_mimeType)
 	{
@@ -112,16 +228,16 @@ class Utils
 	public static function uploadComprovante($_path)
 	{
 		$_upload_config = array(
-			'path'   =>	DOCROOT . Config::get('sysconfig.app.upload_root') . $_path,
-			'prefix' => Str::lower(Inflector::friendly_title(Sentry::user()->get('metadata.nome'))) . '_'
+			'path'           =>	DOCROOT . Config::get('sysconfig.app.upload_root') . $_path,
+			'prefix'         => Str::lower(Inflector::friendly_title(Sentry::user()->get('metadata.nome'))) . '_',
+            'mime_whitelist' => self::$allowed_mimeTypes
 		);
 
 		// Upload do comprovante
 		Upload::process($_upload_config);
 		if(Upload::is_valid())
 		{
-			Upload::save();
-			return true;
+			Upload::save(); return true;
 		}
 
 		return false;

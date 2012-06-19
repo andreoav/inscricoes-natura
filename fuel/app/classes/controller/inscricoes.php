@@ -17,7 +17,7 @@ class Controller_Inscricoes extends Controller_Auth
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Você não possui permissão para realizar uma inscrição, preencha seu perfil primeiro.'
+                    'msg_content' => '<strong>Você não possui permissão para realizar uma inscrição, preencha seu perfil primeiro.</strong>'
                 ));
 
                 Response::redirect('home');
@@ -39,16 +39,11 @@ class Controller_Inscricoes extends Controller_Auth
         Casset::css('colorbox.css');
         Casset::js('jquery.colorbox-min.js');
 
-        if($_inscricao_id == null)
-        {
-            Response::redirect('home');
-        }
-
-        if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
+        if($_inscricao_id == null || ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
-                'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar uma inscrição com o ID <strong>' . $_inscricao_id . '</strong>.'
+                'msg_content' => '<strong>Não foi possível encontrar esta inscrição.</strong>'
             ));
 
             Response::redirect('home');
@@ -59,7 +54,7 @@ class Controller_Inscricoes extends Controller_Auth
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
-                'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar esta inscrição.'
+                'msg_content' => '<strong>Não foi possível encontrar esta inscrição.</strong>'
             ));
 
             Response::redirect('home');
@@ -83,7 +78,7 @@ class Controller_Inscricoes extends Controller_Auth
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Não foi possível encontrar uma inscrição com o ID <strong>' . Input::post('inscricao_numero') . '</strong>.'
+                    'msg_content' => '<strong>Não foi possível encontrar esta inscrição.</strong>'
                 ));
             }
         }
@@ -121,16 +116,12 @@ class Controller_Inscricoes extends Controller_Auth
                     // Não conseguiu realizar o upload do comprovante
                     Session::set_flash('flash_msg', array(
                         'msg_type'    => 'alert-error',
-                        'msg_content' => '<strong>Erro!</strong> Não foi possível realizar esta inscrição! Erro ao enviar comprovante.'
+                        'msg_content' => '<strong>Não foi possível realizar esta inscrição! O formato do comprovante nao é válido.</strong>'
                     ));
                 }
             }
-            else
-            {
-                Response::redirect('etapas/visualizar/' . $_etapa_id);
-            }
 
-            Response::redirect('inscricoes/nova');
+            Response::redirect('etapas/visualizar/' . $_etapa_id);
         }
         else
         {
@@ -141,7 +132,7 @@ class Controller_Inscricoes extends Controller_Auth
                 // não possui, manda uma mensagem e redireciona
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Atualmente não existe uma etapa disponível para inscrição no sistema!'
+                    'msg_content' => '<strong>Atualmente não existe uma etapa disponível para inscrição no sistema.</strong>'
                 ));
 
                 Response::redirect('home');
@@ -167,7 +158,7 @@ class Controller_Inscricoes extends Controller_Auth
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type'    => 'alert-error',
-                        'msg_content' => '<strong>Ops!</strong> Não foi possível realizar esta inscrição! Você já está cadastrado nesta etapa.'
+                        'msg_content' => '<strong>Não foi possível realizar esta inscrição! Você já está cadastrado nesta etapa.</strong>'
                     ));
                 }
                 else
@@ -186,7 +177,7 @@ class Controller_Inscricoes extends Controller_Auth
                         // Não conseguiu realizar o upload do comprovante
                         Session::set_flash('flash_msg', array(
                             'msg_type'    => 'alert-error',
-                            'msg_content' => '<strong>Erro!</strong> Não foi possível realizar esta inscrição! Erro ao enviar comprovante.'
+                            'msg_content' => '<strong>Não foi possível realizar esta inscrição! O formato do comprovante nao é válido.</strong>'
                         ));
                     }
                 }
@@ -231,7 +222,7 @@ class Controller_Inscricoes extends Controller_Auth
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Você não pode excluir uma inscrição feita por outra pessoa!'
+                    'msg_content' => '<strong>Você não pode excluir uma inscrição feita por outra pessoa.</strong>'
                 ));
 
                 Response::redirect('home');
@@ -247,18 +238,18 @@ class Controller_Inscricoes extends Controller_Auth
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-success',
-                    'msg_content' => '<strong>Parabéns!</strong> Inscrição excluída com sucesso.'
+                    'msg_content' => '<strong>Inscrição excluída com sucesso.</strong>'
                 ));
-
-                Response::redirect('home');
             }
             else
             {
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-error',
-                    'msg_content' => '<strong>Erro!</strong> Não foi possível excluir esta inscrição!'
+                    'msg_content' => '<strong>Não foi possível excluir esta inscrição.</strong>'
                 ));
             }
+
+            Response::redirect('home');
         }
         else
         {
@@ -282,7 +273,7 @@ class Controller_Inscricoes extends Controller_Auth
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type'    => 'alert-success',
-                        'msg_content' => '<strong>Parabéns!</strong> Sua resposta foi enviada com sucesso.'
+                        'msg_content' => '<strong>Sua resposta foi enviada com sucesso.</strong>'
                     ));
 
                     Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
@@ -291,7 +282,7 @@ class Controller_Inscricoes extends Controller_Auth
                 {
                     Session::set_flash('flash_msg', array(
                         'msg_type'    => 'alert-error',
-                        'msg_content' => '<strong>Erro!</strong> Não foi possível enviar a sua resposta.'
+                        'msg_content' => '<strong>Não foi possível enviar a sua resposta.</strong>'
                     ));
                 }
             }
@@ -317,7 +308,7 @@ class Controller_Inscricoes extends Controller_Auth
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
-                'msg_content' => '<strong>Erro!</strong> Você não pode fazer download do comprovante de uma inscrição feita por outra pessoa.'
+                'msg_content' => '<strong>Você não pode fazer download do comprovante de uma inscrição feita por outra pessoa.</strong>'
             ));
 
             Response::redirect('home');
@@ -357,19 +348,19 @@ class Controller_Inscricoes extends Controller_Auth
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-success',
-                'msg_content' => '<strong>Parabéns!</strong> Seu pedido de inscrição foi enviado com sucesso.'
+                'msg_content' => '<strong>Seu pedido de inscrição foi enviado com sucesso.</strong>'
             ));
-
-            Response::redirect('home');
         }
         else
         {
             // Não conseguiu salvar a inscrição, envia uma mensagem e redireciona
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
-                'msg_content' => '<strong>Erro!</strong> Não foi possível realizar esta inscrição!'
+                'msg_content' => '<strong>Não foi possível realizar esta inscrição.</strong>'
             ));
         }
+
+        Response::redirect('home');
     }
 
     // Métodos REST -----------------------
@@ -389,37 +380,6 @@ class Controller_Inscricoes extends Controller_Auth
                 $_tableData = array(
                     'id'         => $_inscricao->id,
                     'etapa'      => Html::anchor('etapas/visualizar/' . $_inscricao->etapa->id, $_inscricao->etapa->nome),
-                    'campeonato' => $_inscricao->etapa->campeonato->nome,
-                    'status'     => Utils::status2label($_inscricao->status),
-                    'acoes'      => $_acoes
-                );
-
-                $_returnData[] = $_tableData;
-            }
-
-            $this->response(array('aaData' => $_returnData));
-        }
-    }
-
-    public function get_pendentes()
-    {
-        if(Sentry::check() && Sentry::user()->is_admin())
-        {
-            $_inscricoesData = Model_Inscricao::find('all', array(
-                'where' => array(
-                    'status' => Model_Inscricao::INSCRICAO_PENDENTE
-                )
-            ));
-
-            $_returnData     = array();
-            foreach($_inscricoesData as $_inscricao)
-            {
-                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, 'Visualizar', array('class' => 'btn btn-primary btn-mini'));
-                $_acoes .= ' ' . Html::anchor('inscricoes/excluir/' . $_inscricao->id, 'Excluir', array('class' => 'btn btn-danger btn-mini'));
-                $_tableData = array(
-                    'id'         => $_inscricao->id,
-                    'atleta'     => Sentry::user((int) $_inscricao->user->id)->get('metadata.nome'),
-                    'etapa'      => $_inscricao->etapa->nome,
                     'campeonato' => $_inscricao->etapa->campeonato->nome,
                     'status'     => Utils::status2label($_inscricao->status),
                     'acoes'      => $_acoes
