@@ -73,9 +73,9 @@ return array(
 	/**
 	 * Localization & internationalization settings
 	 */
-	'language'           => 'pt', // Default language
-	'language_fallback'  => 'pt', // Fallback language when file isn't available for default language
-	'locale'             => 'pt_BR', // PHP set_locale() setting, null to not set
+	'language'           => 'en', // Default language
+	'language_fallback'  => 'en', // Fallback language when file isn't available for default language
+	'locale'             => 'en_US', // PHP set_locale() setting, null to not set
 
 	'encoding'  => 'UTF-8',
 
