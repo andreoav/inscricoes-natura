@@ -13,7 +13,8 @@ class Model_Resposta extends \Orm\Model
 	protected static $_belongs_to = array(
 		'user',
 		'inscricao' => array(
-			'model_to' => 'Model_Inscricao'
+			'model_to'       => 'Model_Inscricao',
+            'cascade_delete' => true
 		)
 	);
 

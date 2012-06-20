@@ -26,6 +26,9 @@
 
                 <li class="divider"></li>
                 <li>
+                    <a href="<?php echo Uri::create('admin/noticias/nova'); ?>"><i class="icon-plus"></i> Inserir Notícia</a>
+                </li>
+                <li>
                     <a href="<?php echo Uri::create('admin/etapas/nova'); ?>"><i class="icon-plus"></i> Cadastrar Etapa</a>
                 </li>
                 <li>
@@ -68,27 +71,24 @@
           </table>
         </p>
     </div>
-
 </div>
+
 <div class="row">
     <div class="span12">
-        <form action="<?php echo Uri::create('admin/noticias/nova') ?>" id="nova_noticia_form" class="form well" method="POST">
-            <fieldset>
-                <div class="control-group">
-                    <div class="control-label">
-                        <h2>Nova Notícia</h2>
-                    </div>
-                    <div class="controls">
-                        <input type="text" rel="popover" title="Título" data-content="Insira um título para a notícia." data-placement="top" id="noticia_titulo" name="noticia_titulo" class="input-xxlarge span8">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <textarea name="noticia_conteudo" id="noticia_conteudo" rows="10" class="span12 redactor_content"></textarea>
-                    </div>
-                </div>
-                <button class="btn btn-success pull-right"><i class="icon-file icon-white"></i> Postar</button>
-            </fieldset>
-        </form>
+        <div class="page-header">
+            <h1>Inscrições Pendentes</h1>
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="admin_inscricoes_pendentes">
+            <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Atleta</th>
+                <th>Etapa</th>
+                <th>Campeonato</th>
+                <th>Status</th>
+                <th>A&ccedil;&otilde;es</th>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>

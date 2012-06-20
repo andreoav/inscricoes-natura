@@ -17,10 +17,11 @@ class Controller_Home extends Controller_Auth
     public function action_index()
     {
         $data = array();
-        $data['noticias']  = Model_Noticia::find('all', array(
+        $data['noticias'] = Model_Noticia::find('all', array(
             'order_by' => array('id' => 'desc'),
             'limit' => 5
         ));
+
         $data['minhas_inscricoes'] = Model_User::find(Sentry::user()->get('id'))->inscricoes;
         $this->template->conteudo  = \View::forge('home/index', $data, false);
     }

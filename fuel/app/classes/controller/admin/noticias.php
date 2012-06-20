@@ -9,6 +9,9 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 
 	public function action_nova()
 	{
+        Casset::css('redactor.css');
+        Casset::js('redactor.js');
+
 		if(Input::method() == 'POST')
 		{
 			$_noticia_titulo   = Input::post('noticia_titulo');
@@ -33,14 +36,17 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 					'msg_content' => 'Não foi possível inserir esta notícia.'
 				));
 			}
+
+            Response::redirect('admin/painel');
 		}
 
-		Response::redirect('admin/painel');
+        $this->template->conteudo = View::forge('admin/noticias/nova');
 	}
 
 	public function action_editar($_noticia_id = null)
 	{
 		# code...
+        $this->template->conteudo = View::forge('admin/noticias/editar');
 	}
 
 	public function action_excluir($_noticia_id = null)

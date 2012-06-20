@@ -57,7 +57,7 @@
         });
 
         // Inscrições pendente, parte administrativa
-        $('#admin_inscricoes_outras').dataTable({
+        $('#admin_inscricoes_todas').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
             "sAjaxSource" : base_url + 'admin/inscricoes/finalizadas',

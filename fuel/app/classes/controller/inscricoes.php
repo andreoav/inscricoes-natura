@@ -66,6 +66,7 @@ class Controller_Inscricoes extends Controller_Auth
     {
         if(Input::method() == 'POST')
         {
+            // TODO: Mudar esta busca para não usar ORM
             if(($_inscricao = Model_Inscricao::find((int) Input::post('inscricao_numero'))) != null)
             {
                 Response::redirect('inscricoes/visualizar/' . $_inscricao->id);
