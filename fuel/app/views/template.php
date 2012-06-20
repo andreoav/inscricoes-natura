@@ -58,7 +58,7 @@
 						</a>
 						<a class="brand" href="#"><?php echo Config::get('sysconfig.app.name'); ?></a>
 						<div class="btn-group pull-right" id="user_menu">
-                            <?php echo Html::anchor('usuario/perfil', '<i class="icon-user"></i> ' . Sentry::user()->get('metadata.nome') ?: 'Novo Usuário', array('class' => 'btn')); ?>
+                            <?php echo Html::anchor('usuario/perfil', '<i class="icon-user"></i> ' . Sentry::user()->get('email') ?: 'Novo Usuário', array('class' => 'btn')); ?>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<span class="caret"></span>
 							</a>

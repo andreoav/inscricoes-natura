@@ -50,7 +50,7 @@
                             <i class="icon-map-marker"></i>
                         </a>
                         <?php if (Sentry::user()->is_admin()): ?>
-                            <a href="#" class="btn btn-large" rel="tooltip" title="Gerar Lista de Inscritos">
+                            <a href="<?php echo Uri::create('admin/etapas/inscritos/' . $etapa_info->id); ?>" class="btn btn-large" rel="tooltip" title="Gerar Lista de Inscritos">
                                 <i class="icon-list-alt"></i>
                             </a>
                             <a href="#" class="btn btn-large" rel="tooltip" title="Excluir Etapa">

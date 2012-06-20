@@ -13,4 +13,9 @@ class Model_Etapa extends \Orm\Model
 	);
 
 	protected static $_belongs_to = array('campeonato');
+    protected static $_has_many = array(
+        'inscricoes' => array(
+            'model_to' => 'Model_Inscricao'
+        )
+    );
 }

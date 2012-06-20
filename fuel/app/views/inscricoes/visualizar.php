@@ -18,7 +18,6 @@
 	</div>
 
 	<div class="span9">
-		<h3>Informações da Inscrição</h3><br />
 		<p>
 			<strong>ID:</strong>
 			<?php echo $inscricao_info->id; ?></p>
@@ -89,14 +88,13 @@
 			<h1>Respostas</h1>
 		</div>
 	</div>
-	<?php $i = 0 ; foreach($inscricao_info->respostas as $resposta): ?>
-		<div class="span12">
-			<blockquote class="<?php echo ($i % 2) == 0 ? 'pull-left' : 'pull-right'; ?>">
-				<?php echo $resposta->conteudo; ?>
-				<small>Postado por <strong><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome'); ?></strong> em <?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y %H:%M:%S'); ?></small>
-			</blockquote>
+    <div class="span11 offset1 well"><p>teste</p></div>
+	<?php foreach($inscricao_info->respostas as $resposta): ?>
+		<div class="span12 well">
+            <?php echo $resposta->conteudo; ?>
+            <p><small>Postado por <strong><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome'); ?></strong> em <?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y %H:%M:%S'); ?></small></p>
 		</div>
-	<?php $i++; endforeach; ?>
+	<?php endforeach; ?>
 </div>
 <div class="row">
 	<div class="span12">
