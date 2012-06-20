@@ -84,7 +84,7 @@
             attachTo: "#etapas_cadastradas",
             buttons: [{name: "Finalizar guia", onclick: cancelGuide},
                       {name: "Próximo", onclick: redir2perfil}],
-            description: "Esta tabela possui todas as etapas cadastradas no sistema. Nela você pode ver quais ainda estão com inscrições abertas, onde será realizada e à que campeonado pertence.<br /><br />Clicando em <button class=\"btn btn-mini btn-primary\">Visualizar</button> você levará você até as informações completas da etapa.",
+            description: "Esta tabela possui todas as etapas cadastradas no sistema. Nela você pode ver quais ainda estão com inscrições abertas, onde será realizada e à que campeonado pertence.<br /><br />Clicando em <button class=\"btn btn-mini btn-primary\">Visualizar</button> o sistema levará você até as informações completas da etapa.",
             //position: 9,
             id: "g6",
             next: "g7",

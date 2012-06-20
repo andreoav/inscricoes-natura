@@ -23,9 +23,7 @@
 			<?php echo $inscricao_info->id; ?></p>
 		<p>
 			<strong>Etapa:</strong>
-			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('title' => 'Clique para mais informações',
-				'data-content' => '<ul><li>Início: ' . Date::forge($inscricao_info->etapa->data_inicio)->format('%d/%m/%Y') . '</li><li>Fim: ' . Date::forge($inscricao_info->etapa->data_final)->format('%d/%m/%Y') . '</li><li>Inscrições até: ' . Date::forge($inscricao_info->etapa->inscricao_ate)->format('%d/%m/%Y') . '</li></ul>'
-			)); ?>
+			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('title' => 'Clique para mais informações')); ?>
 		</p>
 		<p>
 			<strong>Campeonato:</strong>
@@ -55,7 +53,11 @@
 							</a>
 						</p>
 					<?php else: ?>
-						<p><a href="<?php echo Uri::create('inscricoes/download_comprovante/' . $inscricao_info->id); ?>" target="_blank"><?php echo Asset::img(Utils::get_mimeTypeIcon(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))); ?></a></p>
+						<p>
+                            <a href="<?php echo Uri::create('inscricoes/download_comprovante/' . $inscricao_info->id); ?>" target="_blank">
+                                <?php echo Asset::img(Utils::get_mimeTypeIcon(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))); ?>
+                            </a>
+                        </p>
 					<?php endif ?>
 				</li>
 			</ul>
@@ -88,13 +90,16 @@
 			<h1>Respostas</h1>
 		</div>
 	</div>
-    <div class="span11 offset1 well"><p>teste</p></div>
-	<?php foreach($inscricao_info->respostas as $resposta): ?>
-		<div class="span12 well">
+    <?php $i = 0 ; foreach($inscricao_info->respostas as $resposta): ?>
+    <div class="span12">
+        <blockquote class="<?php echo ($i % 2) == 0 ? 'pull-left' : 'pull-right'; ?>">
             <?php echo $resposta->conteudo; ?>
-            <p><small>Postado por <strong><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome'); ?></strong> em <?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y %H:%M:%S'); ?></small></p>
-		</div>
-	<?php endforeach; ?>
+            <small>
+                Postado por <strong><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome'); ?></strong> em <?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?>
+            </small>
+        </blockquote>
+    </div>
+    <?php $i++; endforeach; ?>
 </div>
 <div class="row">
 	<div class="span12">
@@ -114,11 +119,12 @@
 
 <!-- Modal de Exclusão -->
 <div class="modal hide fade" id="excluirInscricaoD">
-	<div class="modal-header">
-		<button class="close" data-dismiss="modal">&times;</button>
-		<h3>Excluir Inscrição</h3>
-	</div>
-	<form action="<?php echo Uri::create('inscricoes/excluir/' . $inscricao_info->id); ?>" class="modal-form" method="POST">
+    <form action="<?php echo Uri::create('inscricoes/excluir/' . $inscricao_info->id); ?>" class="modal-form" method="POST">
+	    <div class="modal-header">
+		    <button class="close" data-dismiss="modal">&times;</button>
+		    <h3>Excluir Inscrição</h3>
+	    </div>
+
 		<div class="modal-body modal-form alert alert-error fade in">
 			<strong>Atenção!</strong> A operação que você está prestes a fazer é irreversível.
 		</div>

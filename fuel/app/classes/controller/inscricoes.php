@@ -25,10 +25,6 @@ class Controller_Inscricoes extends Controller_Auth
         }
     }
 
-    /**
-     * [action_index description]
-     * @return [type] [description]
-     */
     public function action_index()
     {
         $this->template->conteudo = View::forge('shared/minhas_inscricoes', array('breadcrumbs' => true));
@@ -312,7 +308,7 @@ class Controller_Inscricoes extends Controller_Auth
         File::download(DOCROOT . Config::get('sysconfig.app.upload_root') . $_inscricao->comprovante);
     }
 
-    public static function criarUploadPath(Model_Etapa $_etapa)
+    public static function criarUploadPath($_etapa)
     {
         $_path  = Str::lower(Inflector::friendly_title($_etapa->campeonato->nome)) . '/';
         $_path .= Str::lower(Inflector::friendly_title($_etapa->nome)) . '/';
@@ -320,7 +316,7 @@ class Controller_Inscricoes extends Controller_Auth
         return $_path;
     }
 
-    private static function salvaInscricao(Model_Etapa $_etapa, $_path)
+    private static function salvaInscricao($_etapa, $_path)
     {
         // Upload realizado com sucesso, realiza o resto da inscrição
         $_comprovante = Arr::get(Upload::get_files(), 0);

@@ -110,6 +110,11 @@
             ]
         } );
 
+        // Fecha o modal ao seleciona um tipo de formato de arquivo
+        $('#btnFGO, #btnCBO').click(function() {
+            $('#exportModal').modal('hide');
+        });
+
         $('.carousel').carousel();
         $('a[title], button[title]').qtip({
             position: {

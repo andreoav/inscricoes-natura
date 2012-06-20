@@ -150,7 +150,7 @@ class Utils
 
 	public static function get_mimeTypeIcon($_mimeType)
 	{
-		return 'mimetypes/' . Arr::get(self::$mimetypeIcon, $_mimeType);
+		return 'mimetypes/' . self::$mimetypeIcon[$_mimeType];
 	}
 
 	public static function criarBreadcrumb($location)
@@ -234,6 +234,7 @@ class Utils
 		$_upload_config = array(
 			'path'           =>	DOCROOT . Config::get('sysconfig.app.upload_root') . $_path,
 			'prefix'         => Str::lower(Inflector::friendly_title(Sentry::user()->get('metadata.nome'))) . '_',
+            'randomize'      => true,
             'mime_whitelist' => self::$allowed_mimeTypes
 		);
 

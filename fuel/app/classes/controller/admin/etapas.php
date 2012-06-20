@@ -78,17 +78,25 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/etapas/nova', $data);
 	}
 
-	/**
-	 * [action_excluir description]
-	 * @param  [type] $_etapa_id [description]
-	 * @return [type]            [description]
-	 */
+    // TODO: Implementar a exclusão de uma etapa
 	public function action_excluir($_etapa_id = null)
 	{
+        if(Input::method() == 'POST')
+        {
 
+        }
+
+        Response::redirect('etapas/visualizar/' . $_etapa_id);
 	}
 
-	public function action_inscritos($_etapa_id = null)
+    /**
+     * TODO: DOC
+     * TODO: Maneira genérica de modelo onde o administrador pode escolher a ordem das colunas
+     *
+     * @param null $_etapa_id   ID da etapa que deseja-se obter a lista de atletas inscritos
+     * @param int  $_formato    Modelo que será gerado o arquivo de atletas inscritos
+     */
+    public function action_inscritos($_etapa_id = null, $_formato = 1)
 	{
 		if($_etapa_id == null)
 		{
@@ -111,8 +119,21 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 
             if($_etapa_info != null)
             {
-                $sheetModel = new Padrao_FGO($_etapa_info);
-                $xlsx = $sheetModel->buildExcelFile();
+                switch($_formato)
+                {
+                    // Modelo da FGO
+                    case Padrao_FGO::$myType:
+                        $sheetModel = new Padrao_FGO($_etapa_info);
+                    break;
+
+                    // Modelo da CBO
+                    case 2:
+                        // TODO: Gerar modelo da CBO
+                    break;
+                }
+
+                $sheetPath = $sheetModel->buildExcelFile();
+                File::download($sheetPath, null, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             }
             else
             {

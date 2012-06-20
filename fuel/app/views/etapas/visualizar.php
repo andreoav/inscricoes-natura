@@ -43,23 +43,23 @@
         </div>
 
         <!-- Toolbar -->
-            <div class="span2">
-                <div class="btn-toolbar pull-right">
-                    <div class="btn-group">
-                        <a href="#" class="btn btn-large" data-toggle="collapse" data-target="#demo" title="Visualizar Mapa">
-                            <i class="icon-map-marker"></i>
+        <div class="span2">
+            <div class="btn-toolbar pull-right">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-large" data-toggle="collapse" data-target="#demo" title="Visualizar Mapa">
+                        <i class="icon-map-marker"></i>
+                    </a>
+                    <?php if (Sentry::user()->is_admin()): ?>
+                        <a href="#exportModal" class="btn btn-large" rel="tooltip" title="Gerar Lista de Inscritos" data-toggle="modal">
+                            <i class="icon-list-alt"></i>
                         </a>
-                        <?php if (Sentry::user()->is_admin()): ?>
-                            <a href="<?php echo Uri::create('admin/etapas/inscritos/' . $etapa_info->id); ?>" class="btn btn-large" rel="tooltip" title="Gerar Lista de Inscritos">
-                                <i class="icon-list-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-large" rel="tooltip" title="Excluir Etapa">
-                                <i class="icon-trash"></i>
-                            </a>
-                        <?php endif ?>
-                    </div>
+                        <a href="#" class="btn btn-large" rel="tooltip" title="Excluir Etapa">
+                            <i class="icon-trash"></i>
+                        </a>
+                    <?php endif ?>
                 </div>
             </div>
+        </div>
         <!-- Fim da toolbar -->
 
         <!-- Mapa da localidade -->
@@ -124,3 +124,21 @@
         </div>
     </article>
 </div>
+
+<?php if(Sentry::user()->is_admin()): ?>
+    <div class="modal hide fade" id="exportModal">
+        <div class="modal-header">
+            <button class="close" data-dismiss="modal">&times;</button>
+            <h3>Exportar Inscritos</h3>
+        </div>
+
+        <div class="modal-body modal-form alert alert-info face in">
+            <strong>Escola um dos formatos disponíveis para gerar o arquivo com os atletas inscritos.</strong>
+        </div>
+
+        <div class="modal-footer">
+            <?php echo Html::anchor('admin/etapas/inscritos/' . $etapa_info->id . '/' . Padrao_FGO::$myType . '/', 'Modelo FGO', array('id' => 'btnFGO', 'class' => 'btn btn-success', 'title' => 'Federação Gaúcha de Orientação')); ?>
+            <?php echo Html::anchor('admin/etapas/inscritos/' . $etapa_info->id . '/' . Padrao_CBO::$myType . '/', 'Modelo CBO', array('id' => 'btnCBO', 'class' => 'btn btn-info', 'title' => 'Confederação Brasileira de Orientação')); ?>
+        </div>
+    </div>
+<?php endif; ?>

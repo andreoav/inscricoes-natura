@@ -11,7 +11,7 @@ abstract class Inscricao
     protected $etapa;
     protected $sheet;
 
-    public function __construct(\Model_Etapa $etapa)
+    public function __construct($etapa)
     {
         $this->etapa = $etapa;
     }

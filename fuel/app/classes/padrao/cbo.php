@@ -7,9 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 // TODO: Procurar um modo para que o admin escolha uma ordem das colunas.
-class Padrao_FGO extends Inscricao
+class Padrao_CBO extends Inscricao
 {
-    public static $myType = 1;
+    public static $myType = 2;
 
     public function buildExcelFile()
     {
