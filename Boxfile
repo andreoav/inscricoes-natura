@@ -1,0 +1,22 @@
+web1:
+  shared_writable_dirs:
+    - /fuel/app/cache
+    - /fuel/app/logs
+    - /fuel/app/tmp
+
+  document_root: /
+  php_version: 5.3.8
+  php_extensions:
+    - pdo_mysql
+    - gd
+    - apc
+    - curl
+    - mbstring
+
+  php_error_reporting: 'E_ALL'
+  php_display_errors: On
+  php_short_open_tag: Off
+  php_date_timezone: US/Pacific
+
+db1:
+  type: mysql
