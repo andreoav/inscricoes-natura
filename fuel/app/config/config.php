@@ -23,7 +23,7 @@ return array(
 	 *
 	 * Set this to null to have it automatically detected.
 	 */
-	'base_url'  => '/sysinscricoes/',
+	'base_url'  => null,
 
 	/**
 	 * url_suffix - Any suffix that needs to be added to
