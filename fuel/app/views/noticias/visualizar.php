@@ -18,22 +18,22 @@
 			</ul>
 		</div>
 
-		<div class="span10" id="noticiaConteudoFull">
+		<div class="span<?php echo Sentry::user()->is_admin() ? '10' : '12'; ?>" id="noticiaContent">
 			<?php echo $noticia_info->conteudo; ?>
 		</div>
 
-		<!-- Inicio Actions -->
-		<div class="span2">
-		      <div class="btn-toolbar pull-right">
-		        <div class="btn-group">
-		        	<?php if (Sentry::user()->is_admin()): ?>
-		        		<a href="<?php echo Uri::create('admin/noticias/editar/' . $noticia_info->id) ?>" class="btn btn-large" rel="tooltip" title="Editar"><i class="icon-pencil"></i></a>
-		        		<a href="<?php echo Uri::create('admin/noticias/excluir/' . $noticia_info->id) ?>" class="btn btn-large" rel="tooltip" title="Excluir"><i class="icon-trash"></i></a>
-		        	<?php endif ?>
-		        </div>
-		    </div>
-	    </div>
-		<!-- Fim Actions -->
+        <!-- Inicio Actions -->
+        <?php if (Sentry::user()->is_admin()): ?>
+            <div class="span2" id="toolbar-actions">
+                <div class="btn-toolbar pull-right">
+                    <div class="btn-group">
+                        <a href="<?php echo Uri::create('admin/noticias/editar/' . $noticia_info->id) ?>" class="btn btn-large" rel="tooltip" title="Editar"><i class="icon-pencil"></i></a>
+                        <a href="<?php echo Uri::create('admin/noticias/excluir/' . $noticia_info->id) ?>" class="btn btn-large" rel="tooltip" title="Excluir"><i class="icon-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        <?php endif ?>
+        <!-- Fim Actions -->
 
 		<div class="span12">
 			<p class="pull-right">

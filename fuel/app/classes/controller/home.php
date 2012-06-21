@@ -2,93 +2,95 @@
 
 class Controller_Home extends Controller_Auth
 {
-    public $template = 'template';
+	public $template = 'template';
 
-    public function before()
-    {
-        parent::before();
-    }
+	public function before()
+	{
+		parent::before();
+	}
 
-    public function action_404()
-    {
+	public function action_404()
+	{
 
-    }
+	}
 
-    public function action_index()
-    {
-        $data = array();
-        $data['noticias'] = Model_Noticia::find('all', array(
-            'order_by' => array('id' => 'desc'),
-            'limit' => 5
-        ));
+	public function action_index()
+	{
+		$data = array();
+		$noticias = Model_Noticia::find('all', array(
+			'order_by' => array('id' => 'desc'),
+			'limit' => 5
+		));
 
-        $data['minhas_inscricoes'] = Model_User::find(Sentry::user()->get('id'))->inscricoes;
-        $this->template->conteudo  = \View::forge('home/index', $data, false);
-    }
+		$data['minhas_inscricoes'] = Model_User::find(Sentry::user()->get('id'))->inscricoes;
 
-    public function action_cadastro()
-    {
-        if(Sentry::check())
-        {
-            Response::redirect('home');
-        }
+		$this->template->conteudo  = \View::forge('home/index', $data, false);
+		$this->template->conteudo->noticias = DB::select('*')->from('noticias')->as_object('Model_Noticia')->execute();
+	}
 
-        if(Input::method() == 'POST')
-        {
-            $_user_data = array(
-                'email'    => Input::post('cadastro_email'),
-                'username' => Input::post('cadastro_usuario'),
-                'password' => Input::post('cadastro_senha')
-            );
+	public function action_cadastro()
+	{
+		if(Sentry::check())
+		{
+			Response::redirect('home');
+		}
 
-            try
-            {
-                $_user_id = Sentry::user()->create($_user_data);
+		if(Input::method() == 'POST')
+		{
+			$_user_data = array(
+				'email'    => Input::post('cadastro_email'),
+				'username' => Input::post('cadastro_usuario'),
+				'password' => Input::post('cadastro_senha')
+			);
 
-                if($_user_id)
-                {
-                    Sentry::user($_user_id)->add_to_group(2);
-                    try
-                    {
-                        if(Sentry::login(Arr::get($_user_data, 'email'), Arr::get($_user_data, 'password'), false))
-                        {
-                            Session::set_flash('flash_msg', array(
-                                'msg_type'    => 'alert-success',
-                                'msg_content' => 'Login efetuado com sucesso!'
-                            ));
+			try
+			{
+				$_user_id = Sentry::user()->create($_user_data);
 
-                            Response::redirect('home#guider=g1');
-                        }
-                    }
-                    catch (SentryAuthException $e)
-                    {
-                        Session::set_flash('flash_msg', array(
-                            'msg_type'    => 'alert-error',
-                            'msg_content' => 'Não foi possível logar no sistema.'
-                        ));
+				if($_user_id)
+				{
+					Sentry::user($_user_id)->add_to_group(2);
+					try
+					{
+						if(Sentry::login(Arr::get($_user_data, 'email'), Arr::get($_user_data, 'password'), false))
+						{
+							Session::set_flash('flash_msg', array(
+								'msg_type'    => 'alert-success',
+								'msg_content' => 'Login efetuado com sucesso!'
+							));
 
-                        Response::redirect('login');
-                    }
-                }
-                else
-                {
-                    Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
-                        'msg_content' => 'Não foi possível realizar o seu cadastro.'
-                    ));
-                }
-            }
-            catch(SentryUserException $e)
-            {
-                Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-error',
-                    'msg_content' => 'Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.'
-                ));
-            }
+							Response::redirect('home#guider=g1');
+						}
+					}
+					catch (SentryAuthException $e)
+					{
+						Session::set_flash('flash_msg', array(
+							'msg_type'    => 'alert-error',
+							'msg_content' => 'Não foi possível logar no sistema.'
+						));
 
-            Response::redirect('cadastro');
-        }
+						Response::redirect('login');
+					}
+				}
+				else
+				{
+					Session::set_flash('flash_msg', array(
+						'msg_type'    => 'alert-error',
+						'msg_content' => 'Não foi possível realizar o seu cadastro.'
+					));
+				}
+			}
+			catch(SentryUserException $e)
+			{
+				Session::set_flash('flash_msg', array(
+					'msg_type'    => 'alert-error',
+					'msg_content' => 'Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.'
+				));
+			}
 
-        $this->template->conteudo = View::forge('home/cadastro', null, false);
-    }
+			Response::redirect('cadastro');
+		}
+
+		$this->template->conteudo = View::forge('home/cadastro');
+	}
 }

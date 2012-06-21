@@ -21,7 +21,7 @@
 
     <div class="span12">
         <div class="page-header">
-            <h1>Outras Inscrições</h1>
+            <h1>Todas Inscrições</h1>
         </div>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="admin_inscricoes_todas">
             <thead>

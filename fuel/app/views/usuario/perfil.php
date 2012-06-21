@@ -33,7 +33,7 @@
 	          	<div class="control-group">
 	          		<?php echo Form::label('Data de Nascimento', 'usuario_nascimento', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<?php echo Form::input('usuario_nascimento', $usuario_dados['nascimento'], array('id' => 'usuario_nascimento', 'class' => 'input-xlarge dataBR')); ?>
+	            		<?php echo Form::input('usuario_nascimento', $usuario_dados['nascimento'], array('id' => 'usuario_nascimento', 'class' => 'input-xlarge dataBR datepicker')); ?>
 	            	</div>
 	          	</div>
 

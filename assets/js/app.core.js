@@ -15,9 +15,9 @@
                 { "mDataProp": "acoes" }
             ],
             //"bFilter":  false,
-            "oLanguage": {
+            /*"oLanguage": {
                 "sUrl": base_url + "assets/js/dataTables.pt-BR.txt"
-            },
+            },*/
             "aoColumnDefs": [
                 { "sClass": "center", "aTargets": [ 0, 3, 4 ] },
                 { "sWidth": "5%", "aTargets": [ 0 ] },
@@ -60,7 +60,7 @@
         $('#admin_inscricoes_todas').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
-            "sAjaxSource" : base_url + 'admin/inscricoes/finalizadas',
+            "sAjaxSource" : base_url + 'admin/inscricoes/inscricoes',
             "aoColumns": [
                 { "mDataProp": "id" },
                 { "mDataProp": "atleta" },
@@ -108,7 +108,15 @@
             "aaSorting" : [
                 [ 0 , "desc" ]
             ]
-        } );
+        });
+
+        // Botões com mouseover
+        $('#noticiaVisualizar').find('#toolbar-actions').hide();
+        $('#noticiaVisualizar').mouseenter(function(){
+            $(this).find('#toolbar-actions').stop().fadeIn('fast');
+        }).mouseleave(function(){
+                $(this).find('#toolbar-actions').stop().fadeOut('fast');
+        });
 
         // Fecha o modal ao seleciona um tipo de formato de arquivo
         $('#btnFGO, #btnCBO').click(function() {
@@ -130,6 +138,11 @@
         });
 
         $("input[rel=popover]").popover();
+
+        // Datepicker
+        $('.datepicker').datepicker({
+            'format': 'dd/mm/yyyy'
+        });
 
         // Máscaras
         if(jQuery().mask)

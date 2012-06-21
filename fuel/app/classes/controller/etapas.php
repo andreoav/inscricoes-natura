@@ -43,13 +43,11 @@ class Controller_Etapas extends Controller_Auth
             )
         ));
 
-        $data = array();
-        $data['etapa_info']  = $_etapa_info;
-        $data['ja_inscrito'] = $_ja_inscrito;
-        $data['inscricoes_encerradas'] = $_etapa_info->inscricao_ate < time();
-
-        View::set_global('localidade_map', $_etapa_info->localidade, false);
-        $this->template->conteudo = View::forge('etapas/visualizar', $data);
+        $this->template->conteudo = View::forge('etapas/visualizar');
+        $this->template->conteudo->set('etapa_info', $_etapa_info);
+        $this->template->conteudo->set('ja_inscrito', $_ja_inscrito);
+        $this->template->conteudo->set('inscricoes_encerradas', $_etapa_info->inscricao_ate < time());
+        $this->template->conteudo->set_global('localidade_map', $_etapa_info->localidade);
     }
 
     // ------------------- Métodos Rest ------------------- //

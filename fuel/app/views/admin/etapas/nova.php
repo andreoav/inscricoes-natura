@@ -51,21 +51,21 @@
 	          	<div class="control-group">
 	          		<?php echo Form::label('Início', 'etapa_inicio', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<?php echo Form::input('etapa_inicio', null, array('id' => 'etapa_inicio', 'class' => 'input dataBR')); ?>
+	            		<?php echo Form::input('etapa_inicio', null, array('id' => 'etapa_inicio', 'class' => 'input dataBR datepicker')); ?>
 	            	</div>
 	          	</div>
 
 	          	<div class="control-group">
 	          		<?php echo Form::label('Final', 'etapa_final', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<?php echo Form::input('etapa_final', null, array('id' => 'etapa_final', 'class' => 'input dataBR')); ?>
+	            		<?php echo Form::input('etapa_final', null, array('id' => 'etapa_final', 'class' => 'input dataBR datepicker')); ?>
 	            	</div>
 	          	</div>
 
 	          	<div class="control-group">
 	          		<?php echo Form::label('Inscrições até', 'etapa_inscricoes_ate', array('class' => 'control-label')); ?>
 	            	<div class="controls">
-	            		<?php echo Form::input('etapa_inscricoes_ate', null, array('id' => 'etapa_inscricoes_ate', 'class' => 'input dataBR')); ?>
+	            		<?php echo Form::input('etapa_inscricoes_ate', null, array('id' => 'etapa_inscricoes_ate', 'class' => 'input dataBR datepicker')); ?>
 	            	</div>
 	          	</div>
 

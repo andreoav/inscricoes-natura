@@ -20,6 +20,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('jquery.dataTables-bootstrap.js');
         Casset::js('jquery.validate.js');
         Casset::js('jquery.qtip.min.js');
+        Casset::js('bootstrap-datepicker.js');
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 
@@ -28,6 +29,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::css('bootstrap-responsive.min.css');
         Casset::css('jquery.dataTables-bootstrap.css');
         Casset::css('jquery.qtip.min.css');
+        Casset::css('datepicker.css');
 
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))
@@ -122,10 +124,10 @@ class Controller_Auth extends Controller_Hybrid
             }
         }
 
-        $redir_location =  Input::get('redir');
-
+        $redir_location =  Input::get('redir') ?: null;
         Session::set_flash('redir_location', isset($redir_location) ? $redir_location : 'home');
-        $this->template->conteudo = View::forge('auth/login', null, false);
+
+        $this->template->conteudo = View::forge('auth/login');
     }
 
 

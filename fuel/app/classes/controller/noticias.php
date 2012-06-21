@@ -14,14 +14,9 @@ class Controller_Noticias extends Controller_Auth
 
     public function action_index()
     {
-
+        $this->template->conteudo = View::forge('noticias/index');
     }
 
-    /**
-     * [action_visualizar description]
-     * @param  [type] $_noticia_id [description]
-     * @return [type]              [description]
-     */
     public function action_visualizar($_noticia_id = null)
     {
     	if($_noticia_id == null || ($_noticia_info = Model_Noticia::find($_noticia_id)) == null)
@@ -34,8 +29,7 @@ class Controller_Noticias extends Controller_Auth
 			Response::redirect('home');
 		}
 
-		$data = array();
-		$data['noticia_info'] = $_noticia_info;
-		$this->template->conteudo = View::forge('noticias/visualizar', $data, false);
+		$this->template->conteudo = View::forge('noticias/visualizar');
+        $this->template->conteudo->set('noticia_info', $_noticia_info, false);
     }
 }

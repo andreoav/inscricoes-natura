@@ -127,25 +127,19 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
         }
     }
 
-    public function get_finalizadas()
+    public function get_inscricoes()
     {
         if(Sentry::check() && Sentry::user()->is_admin())
         {
-            $_inscricoesData = Model_Inscricao::find('all', array(
-                'where' => array(
-                    array('status', '!=', Model_Inscricao::INSCRICAO_PENDENTE)
-                )
-            ));
-
             $_returnData     = array();
-            foreach($_inscricoesData as $_inscricao)
+            foreach(Model_Inscricao::find('all') as $_inscricao)
             {
                 $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, 'Visualizar', array('class' => 'btn btn-primary btn-mini'));
                 $_acoes .= ' ' . Html::anchor('inscricoes/excluir/' . $_inscricao->id, 'Excluir', array('class' => 'btn btn-danger btn-mini'));
                 $_tableData = array(
                     'id'         => $_inscricao->id,
                     'atleta'     => Sentry::user((int) $_inscricao->user->id)->get('metadata.nome'),
-                    'etapa'      => $_inscricao->etapa->nome,
+                    'etapa'      => Html::anchor('etapas/visualizar/' . $_inscricao->etapa->id, $_inscricao->etapa->nome),
                     'campeonato' => $_inscricao->etapa->campeonato->nome,
                     'status'     => Utils::status2label($_inscricao->status),
                     'acoes'      => $_acoes

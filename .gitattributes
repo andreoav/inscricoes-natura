@@ -33,7 +33,7 @@
 *.lisp text=auto
 *.clj text=auto
 *.sql text=auto
-*.php text=auto
+*.php text eol=lf
 *.lua text=auto
 *.m text=auto
 *.asm text=auto

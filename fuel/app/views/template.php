@@ -7,14 +7,15 @@
 		<meta name="description" content="Sistema de Inscrições em etapas de campeonatos de orientação.">
 		<meta name="author" content="Andreo Vieira">
 
-		<!-- Le styles -->
+        <style type="text/css">
+            body {
+                padding-top: 50px;
+                padding-bottom: 40px;
+            }
+        </style>
+
+        <!-- Le styles -->
 		<?php echo Casset::render_css(); ?>
-		<style type="text/css">
-			body {
-				padding-top: 50px;
-				padding-bottom: 40px;
-			}
-		</style>
 
 		<style type="text/css">
 			.map {
