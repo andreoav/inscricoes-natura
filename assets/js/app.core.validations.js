@@ -213,13 +213,17 @@
 					required: true
 				},
 				usuario_cpf: {
-					required: true,
+					required:  true,
 					cpfValido: true
 				},
 				usuario_nascimento: {
 					required: true,
 					dataBR:   true
-				}
+				},
+                usuario_ncbo: {
+                    required: true,
+                    number:   true
+                }
 			},
 			messages: {
 				usuario_nome: {
@@ -233,7 +237,11 @@
 				},
 				usuario_nascimento: {
 					required: "Este campo é obrigatório."
-				}
+				},
+                usuario_ncbo: {
+                    required: "Este campo é obrigatório.",
+                    number:   "Este campo só aceita números."
+                }
 			}
 		});
 

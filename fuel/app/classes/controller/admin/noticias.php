@@ -17,10 +17,11 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 			$_noticia_titulo   = Input::post('noticia_titulo');
 			$_noticia_conteudo = Input::post('noticia_conteudo');
 
-			$_nova_noticia           = new Model_Noticia;
-			$_nova_noticia->titulo   = $_noticia_titulo;
-			$_nova_noticia->conteudo = $_noticia_conteudo;
-			$_nova_noticia->user     = Model_User::find(Sentry::user()->get('id'));
+            $_nova_noticia = Model_Noticia::forge()->set(array(
+                'titulo'   => $_noticia_titulo,
+                'conteudo' => $_noticia_conteudo,
+                'user_id'  => Sentry::user()->get('id')
+            ));
 
 			if($_nova_noticia->save())
 			{

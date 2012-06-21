@@ -14,10 +14,6 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/etapas/index');
 	}
 
-	/**
-	 * Cadastra uma nova etapa no sistema
-	 * @return [type] [description]
-	 */
 	public function action_nova()
 	{
 		Casset::css('chosen.css');
@@ -51,10 +47,6 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 			$_nova_etapa->inscricao_ate = $_etapa_inscricoes_ate;
 			$_nova_etapa->campeonato    = $_etapa_campeonato;
 
-			var_dump($_etapa_inicio);
-			var_dump($_etapa_final);
-			var_dump($_etapa_inscricoes_ate);
-
 			if($_nova_etapa->save())
 			{
 				Session::set_flash('flash_msg', array(
@@ -73,9 +65,8 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 			Response::redirect('admin');
 		}
 
-		$data = array();
-		$data['campeonatos'] = Model_Campeonato::find('all');
-		$this->template->conteudo = View::forge('admin/etapas/nova', $data);
+		$this->template->conteudo = View::forge('admin/etapas/nova');
+        $this->template->conteudo->set('campeonatos', Model_Campeonato::find('all'));
 	}
 
     // TODO: Implementar a exclusão de uma etapa

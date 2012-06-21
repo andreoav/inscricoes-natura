@@ -1,7 +1,8 @@
 <?php
 
-class Model_Noticia extends \Orm\Model
+class Model_Noticia extends Model_Crud
 {
+    protected static $_table_name = 'noticias';
 	protected static $_properties = array(
 		'id',
 		'titulo',
@@ -11,16 +12,6 @@ class Model_Noticia extends \Orm\Model
 		'user_id'
 	);
 
-	protected static $_belongs_to = array(
-		'user'
-	);
-
-	protected static $_observers = array(
-	    '\Orm\Observer_CreatedAt' => array(
-	        'events' => array('before_insert')
-	    ),
-	    '\Orm\Observer_UpdatedAt' => array(
-	    	'events' => array('before_save')
-	    )
-	);
+    protected static $_created_at = 'created_at';
+    protected static $_updated_at = 'updated_at';
 }

@@ -44,7 +44,7 @@ class Controller_Auth extends Controller_Hybrid
                 if(Sentry::check())
                 {
                     // Habilita o guia de acordo com as opções do sistema.
-                    if(Config::get('sysconfig.app.show_guide') && Sentry::user()->get('metadata.sistema_tour') == 0)
+                    if(Config::get('sysconfig.app.show_guide') and Sentry::user()->get('metadata.sistema_tour') == 0)
                     {
                         // Guide related JS
                         Casset::js('jquery.guiders.js');

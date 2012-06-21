@@ -15,11 +15,6 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/inscricoes/index');
 	}
 
-	/**
-	 * [action_aprovar description]
-	 * @param  [type] $_inscricao_id [description]
-	 * @return [type]                [description]
-	 */
 	public function action_aprovar($_inscricao_id = null)
 	{
 		if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
@@ -53,11 +48,6 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		Response::redirect('admin/inscricoes');
 	}
 
-	/**
-	 * [action_reprovar description]
-	 * @param  [type] $_inscricao_id [description]
-	 * @return [type]                [description]
-	 */
 	public function action_rejeitar($_inscricao_id = null)
 	{
 		if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)

@@ -35,7 +35,7 @@ class Controller_Inscricoes extends Controller_Auth
         Casset::css('colorbox.css');
         Casset::js('jquery.colorbox-min.js');
 
-        if($_inscricao_id == null || ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
+        if($_inscricao_id == null or ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
@@ -46,7 +46,7 @@ class Controller_Inscricoes extends Controller_Auth
         }
 
         // Verifica se o usuário é admin ou se a inscrição a ser vista não foi feita por ele
-        if( ! Sentry::user()->is_admin() && $_inscricao->user->id != Sentry::user()->get('id'))
+        if( ! Sentry::user()->is_admin() and $_inscricao->user->id != Sentry::user()->get('id'))
         {
             Session::set_flash('flash_msg', array(
                 'msg_type'    => 'alert-error',
@@ -56,10 +56,8 @@ class Controller_Inscricoes extends Controller_Auth
             Response::redirect('home');
         }
 
-
-        $data = array();
-        $data['inscricao_info'] = $_inscricao;
-        $this->template->conteudo = View::forge('inscricoes/visualizar', $data);
+        $this->template->conteudo = View::forge('inscricoes/visualizar');
+        $this->template->conteudo->set('inscricao_info', $_inscricao);
     }
 
     public function action_buscar()
@@ -97,7 +95,7 @@ class Controller_Inscricoes extends Controller_Auth
 
         // Verifica se a requisição foi feita usando o método alternativo de inscrição
         // que está disponível ao visualizar uma etapa cadastrada e disponível para novas inscrições
-        if($_etapa_id != null && Input::method() == 'POST')
+        if($_etapa_id != null and Input::method() == 'POST')
         {
             if($_etapa_id == (int) Input::post('etapa_id_verify'))
             {
@@ -182,8 +180,8 @@ class Controller_Inscricoes extends Controller_Auth
                 Response::redirect('inscricoes/nova');
             }
 
-            $data = array();
-            $data['etapas'] = Model_Etapa::find('all', array(
+            // Procura as etapas com inscrições abertas
+            $data_etapas = Model_Etapa::find('all', array(
                 'where' => array(
                     array('inscricao_ate', '>=', time())
                 ),
@@ -191,7 +189,8 @@ class Controller_Inscricoes extends Controller_Auth
             ));
 
             // Renderiza o formulário de inscrição
-            $this->template->conteudo = View::forge('inscricoes/nova', $data);
+            $this->template->conteudo = View::forge('inscricoes/nova');
+            $this->template->conteudo->set('etapas', $data_etapas);
         }
     }
 

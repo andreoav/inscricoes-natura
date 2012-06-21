@@ -44,25 +44,25 @@
 
         <section id="news">
             <div class="span8">
-                <h2>Notícias</h2><hr>
-                <div id="newsCarousel" class="carousel slide">
-                    <div class="carousel-inner">
-                        <?php $i = 0; foreach ($noticias as $noticia): ?>
-                            <div class="item <?php echo $i == 0 ? 'active' : '' ?>">
-                                <p class="lead"><?php echo $noticia->titulo; ?></p>
-                                <?php echo preg_replace("/<img[^>]+\>/i", "", Str::truncate($noticia->conteudo, 500, '...', false)); ?>
-                                <p>
-                                    <br><a href="<?php echo Uri::create('noticias/' . $noticia->id) ?>" id="btnLeiaMais" class="btn btn-small btn-info" rel="tooltip" title="Ler notícia completa">Leia mais &raquo;</a>
-                                </p>
-                                <p class="pull-right">
-                                    <span class="label label-info"><?php echo Sentry::user((int) $noticia->user->id)->get('metadata.nome'); ?></span>
-                                    <span class="label label-info"><?php echo Date::forge($noticia->created_at)->format('%d/%m/%Y às %H:%S:%I'); ?></span>
-                                </p>
-                            </div>
-                        <?php $i++; endforeach; ?>
-                    </div>
-
-                </div>
+                <table class="table" id="lastNews">
+                    <thead>
+                        <tr>
+                            <th>
+                                <h2>Últimas Notícias</h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($noticias as $noticia): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $noticia->titulo . '<span class="label pull-right">' . Date::forge($noticia->created_at)->format('%d/%m/%Y às %H:%I') . '</span> '; ?>
+                                    <?php echo Html::anchor('noticias/' . $noticia->id, 'Leia mais &raquo;', array('class' => 'btn btn-mini btn-info pull-right', 'title' => 'Leia a notícia completa.')); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </section>
 

@@ -15,17 +15,11 @@ class Controller_Home extends Controller_Auth
 	}
 
 	public function action_index()
-	{
-		$data = array();
-		$noticias = Model_Noticia::find('all', array(
-			'order_by' => array('id' => 'desc'),
-			'limit' => 5
-		));
-
-		$data['minhas_inscricoes'] = Model_User::find(Sentry::user()->get('id'))->inscricoes;
-
-		$this->template->conteudo  = \View::forge('home/index', $data, false);
-		$this->template->conteudo->noticias = DB::select('*')->from('noticias')->as_object('Model_Noticia')->execute();
+    {
+        $this->template->conteudo  = \View::forge('home/index', null, false);
+		$this->template->conteudo->set('noticias',
+            DB::select('id', 'titulo', 'created_at')->from('noticias')->order_by('id', 'desc')->limit(5)->as_object()->execute()
+        );
 	}
 
 	public function action_cadastro()

@@ -19,7 +19,7 @@ class Controller_Noticias extends Controller_Auth
 
     public function action_visualizar($_noticia_id = null)
     {
-    	if($_noticia_id == null || ($_noticia_info = Model_Noticia::find($_noticia_id)) == null)
+    	if($_noticia_id == null || ($_noticia_info = Model_Noticia::find_one_by_id($_noticia_id)) == null)
 		{
 			Session::set_flash('flash_msg', array(
 				'msg_type'    => 'alert-error',
