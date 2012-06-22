@@ -64,7 +64,11 @@ class Controller_Etapas extends Controller_Auth
             $_returnData     = array();
             foreach($_etapasData as $_etapa)
             {
-                $_acoes  = Html::anchor('etapas/visualizar/' . $_etapa->id, 'Visualizar', array('class' => 'btn btn-primary btn-mini'));
+                $_acoes  = Html::anchor('etapas/visualizar/' . $_etapa->id, '<i class="icon-search icon-white"></i>', array(
+                    'class' => 'btn btn-primary btn-mini',
+                    'rel'   => 'tooltip',
+                    'title' => 'Visualizar Inscrição'
+                ));
 
                 if($_etapa->inscricao_ate < time())
                 {

@@ -2,6 +2,12 @@
     /* Table initialisation */
     $(document).ready(function() {
 
+        function enableJqueryContent() {
+            $('tbody td a').each(function(){
+                $(this).tooltip();
+            });
+        }
+
         // Inscrições do atleta na página inicial
         $('#inscricoes_feitas').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -19,14 +25,17 @@
                 "sUrl": base_url + "assets/js/dataTables.pt-BR.txt"
             },
             "aoColumnDefs": [
+                { "bSortable": false, "aTargets": [ 4 ] },
                 { "sClass": "center", "aTargets": [ 0, 3, 4 ] },
-                { "sWidth": "5%", "aTargets": [ 0 ] },
-                { "sWidth": "10%", "aTargets": [ 3 ] },
-                { "sWidth": "15%", "aTargets": [ 4 ] }
+                { "sWidth": "5%", "aTargets": [ 0, 4 ] },
+                { "sWidth": "10%", "aTargets": [ 3 ] }
             ],
             "aaSorting" : [
                 [ 0 , "desc" ]
-            ]
+            ],
+            fnDrawCallback: function(){
+                enableJqueryContent();
+            }
         });
 
         // Inscrições pendente, parte administrativa
@@ -47,13 +56,17 @@
                 "sUrl": base_url + "/assets/js/dataTables.pt-BR.txt"
             },
             "aoColumnDefs": [
-                { "sClass": "center", "aTargets": [ 4, 5 ] },
+                { "bSortable": false, "aTargets": [ 5 ] },
+                { "sClass": "center", "aTargets": [ 0, 4, 5 ] },
                 { "sWidth": "10%", "aTargets": [ 4 ] },
-                { "sWidth": "15%", "aTargets": [ 5 ] }
+                { "sWidth": "5%", "aTargets": [ 0, 5 ] }
             ],
             "aaSorting" : [
                 [ 0 , "desc" ]
-            ]
+            ],
+            fnDrawCallback: function(){
+                enableJqueryContent();
+            }
         });
 
         // Inscrições pendente, parte administrativa
@@ -74,13 +87,17 @@
                 "sUrl": base_url + "/assets/js/dataTables.pt-BR.txt"
             },
             "aoColumnDefs": [
-                { "sClass": "center", "aTargets": [ 4, 5 ] },
+                { "bSortable": false, "aTargets": [ 5 ] },
+                { "sClass": "center", "aTargets": [ 0, 4, 5 ] },
                 { "sWidth": "10%", "aTargets": [ 4 ] },
-                { "sWidth": "15%", "aTargets": [ 5 ] }
+                { "sWidth": "5%", "aTargets": [ 0, 5 ] }
             ],
             "aaSorting" : [
                 [ 0 , "desc" ]
-            ]
+            ],
+            fnDrawCallback: function(){
+                enableJqueryContent();
+            }
         });
 
         // Início Etapas Cadastradas
@@ -101,26 +118,19 @@
                 "sUrl": base_url + "assets/js/dataTables.pt-BR.txt"
             },
             "aoColumnDefs": [
+                { "bSortable": false, "aTargets": [ 5 ] },
                 { "bVisible": false, "aTargets": [ 0 ] },
                 { "sClass": "center", "aTargets": [ 4, 5 ] },
-                { "sWidth": "10%", "aTargets": [ 4, 5 ] }
+                { "sWidth": "10%", "aTargets": [ 4 ] },
+                { "sWidth": "5%", "aTargets": [ 5 ] }
             ],
             "aaSorting" : [
                 [ 0 , "desc" ]
-            ]
+            ],
+            fnDrawCallback: function(){
+                enableJqueryContent();
+            }
         });
-
-        // Botões com mouseover
-        /*$('#noticiaVisualizar').find('#toolbar-actions').hide();
-        $('#noticiaVisualizar').mouseenter(function(){
-            $(this).find('#toolbar-actions').stop().fadeIn('fast');
-        }).mouseleave(function(){
-                $(this).find('#toolbar-actions').stop().fadeOut('fast');
-        });*/
-
-        /*$('#lastNews a.btn').each(function() {
-            $(this).hide();
-        });*/
 
         $('#lastNews td').mouseenter(function(){
             $(this).find('a.btn').show();
@@ -309,6 +319,63 @@
                 timeout: false,
                 modal: true
             });
-        })
+        });
+        // Fim $('button#inscricaoExcluir').click();
+
+        /**
+         * Load More Button
+         */
+        amplify.request.define('loadMoreNoticias', 'ajax',{
+            url: base_url + 'noticias/loadMore',
+            dateType: 'json',
+            type: 'POST'
+        });
+
+        var btnMore = $('button.more');
+        btnMore.live('click', function(){
+            var ID = $(this).attr('id');
+
+            if(ID) {
+                btnMore.button('loading');
+                amplify.request({
+                    resourceId: 'loadMoreNoticias',
+                    data: {
+                        last_id: ID
+                    },
+
+                    success: function(data, textStatus, XMLHttpRequest){
+                        $.each(data.news, function(i, item){
+                            $('div#newsContainer').append(
+                                '<div class="row hide"><div class="span1"><span class="label label-info">Horario</span>' +
+                                    '</div><div class="span11"><p class="lead">Titulo</p><p>' + item.conteudo + '</p></div></div><hr>'
+                            );
+                            $('div#newsContainer div.row').each(function(){
+                                if($(this).hasClass('hide')){
+                                    $(this).slideDown('slow');
+                                }
+                            });
+                        });
+
+                        if(data.last_id == null)
+                        {
+                            btnMore.attr('disabled', 'disabled');
+                            btnMore.html('Ops, não temos mais notícias para exibir.');
+                        } else
+                        {
+                            btnMore.button('reset');
+                            btnMore.attr('id', data.last_id);
+                        }
+                    }
+                });
+            }
+            else {
+                btnMore.attr('disabled', 'disabled');
+                btnMore.html('Ops, não temos mais notícias para exibir.');
+            }
+        });
+        /**
+         * End Load More Button
+         */
+
     });
 })(jQuery);

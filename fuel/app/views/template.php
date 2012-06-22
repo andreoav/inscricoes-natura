@@ -135,6 +135,10 @@
 			<div class="container">
 				<?php echo View::forge('flash'); ?>
 				<?php echo $conteudo; ?>
+
+                <footer>
+                    <hr><p class="pull-right"><small>Sistema desenvolvido por <a href="#" rel="tooltip" title="Acesse o site do desenvolvedor">Andreo Vieira</a></small></p>
+                </footer>
 			</div>
 		<?php endif; ?>
 

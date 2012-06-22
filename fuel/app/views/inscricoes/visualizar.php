@@ -94,16 +94,21 @@
 			<h1>Respostas</h1>
 		</div>
 	</div>
-    <?php $i = 0 ; foreach($inscricao_info->respostas as $resposta): ?>
-    <div class="span2">
-        <span class="label label-info"><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome') . ' às ' . Date::forge($resposta->created_at)->format('%d/%m às %H:%M'); ?></span>
-    </div>
-    <div class="span9">
-        <p>
-            <?php echo $resposta->conteudo; ?><br />
-        </p>
-    </div>
-    <?php $i++; endforeach; ?>
+    <?php foreach($inscricao_info->respostas as $resposta): ?>
+        <div class="span12">
+            <div class="span11 well">
+                <p>
+                    <span class="pull-right">
+                        <small>
+                            <i class="icon-user"></i> <?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome'); ?><br />
+                            <i class="icon-time"></i> <?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?>
+                        </small>
+                    </span>
+                    <?php echo $resposta->conteudo; ?>
+                </p>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
 <div class="row">
 	<div class="span12">

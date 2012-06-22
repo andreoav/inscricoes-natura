@@ -14,7 +14,7 @@
             </ul>
             <p>Se você já está cadastrado no sistema, use o formulário ao lado para efetuar o seu login, se você ainda não se cadastrou clique no botão abaixo e crie a sua conta.</p>
             <p>
-                <?php echo Html::anchor('cadastro', 'Cadastrar-se &raquo;', array('class' => 'btn btn-large btn-info', 'title' => 'Cadastrar')); ?>
+                <?php echo Html::anchor('cadastro', 'Cadastrar-se &raquo;', array('class' => 'btn btn-large btn-info', 'rel' => 'tooltip', 'title' => 'Cadastrar-se no Sistema')); ?>
             </p>
         </div>
         <div class="span5">

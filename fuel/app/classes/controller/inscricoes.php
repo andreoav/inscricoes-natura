@@ -402,8 +402,11 @@ class Controller_Inscricoes extends Controller_Auth
             $_returnData     = array();
             foreach($_inscricoesData as $_inscricao)
             {
-                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, 'Visualizar', array('class' => 'btn btn-primary btn-mini'));
-                $_acoes .= ' ' . Html::anchor('inscricoes/excluir/' . $_inscricao->id, 'Excluir', array('class' => 'btn btn-danger btn-mini'));
+                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<i class="icon-search icon-white"></i>', array(
+                    'class' => 'btn btn-primary btn-mini',
+                    'rel'   => 'tooltip',
+                    'title' => 'Visualizar Inscrição'
+                ));
 
                 $_tableData = array(
                     'id'         => $_inscricao->id,

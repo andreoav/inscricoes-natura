@@ -10,7 +10,7 @@
 				type: "POST",
 				data: { 
 					cancelGuide: true 
-				},
+				}
 			});
 		}
 
@@ -45,7 +45,7 @@
 		});
 
 		guiders.createGuider({
-			attachTo: "#newsCarousel",
+			attachTo: "#lastNews",
 			buttons: [{name: "Finalizar guia", onclick: cancelGuide},
                 	  {name: "Próximo", onclick: guiders.next}],
             description: "Aqui serão mostradas as últimas notícias do sistema.<br />Clique no botão <button class=\"btn btn-info btn-mini\">Leia Mais &raquo;</button> para ver a versão completa da notícia.",
@@ -84,7 +84,7 @@
             attachTo: "#etapas_cadastradas",
             buttons: [{name: "Finalizar guia", onclick: cancelGuide},
                       {name: "Próximo", onclick: redir2perfil}],
-            description: "Esta tabela possui todas as etapas cadastradas no sistema. Nela você pode ver quais ainda estão com inscrições abertas, onde será realizada e à que campeonado pertence.<br /><br />Clicando em <button class=\"btn btn-mini btn-primary\">Visualizar</button> o sistema levará você até as informações completas da etapa.",
+            description: "Esta tabela possui todas as etapas cadastradas no sistema. Nela você pode ver quais ainda estão com inscrições abertas, onde será realizada e à que campeonado pertence.<br /><br />Clicando em <button class=\"btn btn-mini btn-primary\"><i class=\"icon-search icon-white\"></i></button> o sistema levará você até as informações completas da etapa.",
             //position: 9,
             id: "g6",
             next: "g7",
