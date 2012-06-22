@@ -342,29 +342,52 @@
                     data: {
                         last_id: ID
                     },
-
-                    success: function(data, textStatus, XMLHttpRequest){
-                        $.each(data.news, function(i, item){
-                            $('div#newsContainer').append(
-                                '<div class="row hide"><div class="span1"><span class="label label-info">Horario</span>' +
-                                    '</div><div class="span11"><p class="lead">Titulo</p><p>' + item.conteudo + '</p></div></div><hr>'
-                            );
-                            $('div#newsContainer div.row').each(function(){
-                                if($(this).hasClass('hide')){
-                                    $(this).slideDown('slow');
-                                }
+                    success: function(data, textStatus, XMLHttpRequest) {
+                        if(data.valid)
+                        {
+                            $.each(data.news, function(i, item){
+                                $('div#newsContainer').append(
+                                    '<div class="row hide"><div class="span1"><span class="label label-info">Horario</span>' +
+                                        '</div><div class="span11"><p class="lead">Titulo</p><p>' + item.conteudo + '</p></div></div><hr>'
+                                );
+                                $('div#newsContainer div.row').each(function(){
+                                    if($(this).hasClass('hide')){
+                                        $(this).slideDown('slow');
+                                    }
+                                });
                             });
+
+                            if(data.last_id == null)
+                            {
+                                btnMore.attr('disabled', 'disabled');
+                                btnMore.html('Ops, não temos mais notícias para exibir.');
+                            } else
+                            {
+                                btnMore.button('reset');
+                                btnMore.attr('id', data.last_id);
+                            }
+                        }
+                        else
+                        {
+                            noty({
+                                text: data.msg,
+                                type: 'error',
+                                layout: 'bottomRight',
+                                speed: 200
+                            });
+
+                            btnMore.button('reset');
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        noty({
+                            text: 'Ocorreu um erro ao carregar as notícias.',
+                            type: 'error',
+                            layout: 'bottomRight',
+                            speed: 200
                         });
 
-                        if(data.last_id == null)
-                        {
-                            btnMore.attr('disabled', 'disabled');
-                            btnMore.html('Ops, não temos mais notícias para exibir.');
-                        } else
-                        {
-                            btnMore.button('reset');
-                            btnMore.attr('id', data.last_id);
-                        }
+                        btnMore.button('reset');
                     }
                 });
             }

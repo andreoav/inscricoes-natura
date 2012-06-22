@@ -41,16 +41,23 @@ class Controller_Noticias extends Controller_Auth
     {
         if(Sentry::check())
         {
-            $_last_id = (int) Input::post('last_id');
-            $_more_result = DB::select('*')->from('noticias')->where('id', '<', $_last_id)->order_by('id', 'desc')->limit(5)->execute()->as_array();
-
-            $_new_last_id = null;
-            if($_more_result)
+            try
             {
-                $_new_last_id = array(Arr::get(end($_more_result), 'id'));
-            }
+                $_last_id = (int) Input::post('last_id');
+                $_more_result = DB::select('*')->from('noticias')->where('id', '<', $_last_id)->order_by('id', 'desc')->limit(5)->execute()->as_array();
 
-            $this->response(array('valid' => true, 'news' => $_more_result, 'last_id' => $_new_last_id));
+                $_new_last_id = null;
+                if($_more_result)
+                {
+                    $_new_last_id = array(Arr::get(end($_more_result), 'id'));
+                }
+
+                $this->response(array('valid' => true, 'news' => $_more_result, 'last_id' => $_new_last_id));
+            }
+            catch(Exception $e)
+            {
+                $this->response(array('valid' => false, 'msg' => 'Ocorreu um erro ao carregar as notícias.'));
+            }
         }
     }
 }
