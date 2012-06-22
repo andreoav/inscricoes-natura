@@ -15,6 +15,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/inscricoes/index');
 	}
 
+    // TODO: Remover - Ajax implementado
 	public function action_aprovar($_inscricao_id = null)
 	{
 		if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
@@ -48,6 +49,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		Response::redirect('admin/inscricoes');
 	}
 
+    // TODO: Remover - Ajax implementado
 	public function action_rejeitar($_inscricao_id = null)
 	{
 		if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)

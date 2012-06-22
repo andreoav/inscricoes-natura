@@ -13,6 +13,7 @@ web1:
     - apc
     - curl
     - mbstring
+    - zlib
 
   php_error_reporting: 'E_ALL'
   php_display_errors: On
