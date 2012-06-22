@@ -38,7 +38,7 @@
 		<div class="span12">
 			<p class="pull-right">
 				<span class="label label-info"><?php echo Sentry::user((int) $noticia_info->user_id)->get('metadata.nome'); ?></span>
-                <span class="label label-info"><?php echo Date::forge($noticia_info->created_at)->format('%d/%m/%Y às %H:%S:%I'); ?></span>
+                <span class="label label-info"><?php echo Date::forge($noticia_info->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?></span>
 			</p>
 		</div>
 	</div>

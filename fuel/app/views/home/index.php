@@ -51,7 +51,7 @@
                     <?php foreach($noticias as $noticia): ?>
                         <tr>
                             <td>
-                                <?php echo  '<span class="label label-info">' . Date::forge($noticia->created_at)->format('%d/%m às %H:%I') . '</span> &raquo; ' . $noticia->titulo; ?>
+                                <?php echo  '<span class="label label-info">' . Date::forge($noticia->created_at)->format('%d/%m às %H:%M') . '</span> &raquo; ' . $noticia->titulo; ?>
                                 <?php echo Html::anchor('noticias/' . $noticia->id, 'Leia mais &raquo;', array('class' => 'btn btn-mini btn-info pull-right hide', 'rel' => 'tooltip', 'title' => 'Leia a notícia completa.')); ?>
                             </td>
                         </tr>
