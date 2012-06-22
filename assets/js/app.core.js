@@ -349,7 +349,7 @@
                                 var horario = new XDate(item.created_at * 1000, true).toString('dd/MM HH:mm');
                                 $('div#newsContainer').append(
                                     '<div class="row hide"><div class="span1"><span class="label label-info">'+ horario +'</span>' +
-                                        '</div><div class="span1"><p class="lead">Titulo</p><p>' + item.conteudo + '</p></div></div><hr>'
+                                        '</div><div class="span11"><p class="lead"><a href="' + base_url + 'noticias/' + item.id + '">' + item.titulo + '</a></p><p>' + item.conteudo + '</p></div></div><hr>'
                                 );
                                 $('div#newsContainer div.row').each(function(){
                                     if($(this).hasClass('hide')){

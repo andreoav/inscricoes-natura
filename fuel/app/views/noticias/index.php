@@ -8,22 +8,22 @@
     <article id="news">
         <div class="span12">
             <div class="row">
-                <div class="span9" id="newsContainer">
+                <div class="span12" id="newsContainer">
                     <?php foreach($noticias as $noticia): ?>
                         <div class="row">
                             <div class="span1">
                                 <span class="label label-info"><?php echo Date::forge($noticia['created_at'])->format('%d/%m %H:%M'); ?></span>
                             </div>
                             <div class="span11">
-                                <p class="lead">Titulo</p>
-                                <p>Conteudo</p>
+                                <p class="lead"><?php echo Html::anchor('noticias/' . $noticia['id'], $noticia['titulo']); ?></p>
+                                <p><?php echo $noticia['conteudo']; ?></p>
                             </div>
                         </div><hr />
                     <?php endforeach; ?>
                 </div>
             </div>
             <div class="row" id="loadMoreContainer">
-                <button id="<?php echo Arr::get(end($noticias), 'id'); ?>" class="btn btn-info btn-large span9 more" autocomplete="off" data-loading-text="Carregando, aguarde...">
+                <button id="<?php echo Arr::get(end($noticias), 'id'); ?>" class="btn btn-info btn-large span12 more" autocomplete="off" data-loading-text="Carregando, aguarde...">
                     Mais Notícias &raquo;
                 </button>
             </div>
