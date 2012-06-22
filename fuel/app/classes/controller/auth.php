@@ -127,10 +127,12 @@ class Controller_Auth extends Controller_Hybrid
                     'msg_content' => 'Não foi possível encontrar um usuário cadastrado com este email.'
                 ));
             }
+
+            Response::redirect('login?redir=' . Session::get_flash('redir_location'));
         }
 
-        $redir_location =  Input::get('redir') ?: null;
-        Session::set_flash('redir_location', isset($redir_location) ? $redir_location : 'home');
+        $redir_location =  Input::get('redir') != null ? Input::get('redir') : 'home';
+        Session::set_flash('redir_location', $redir_location);
 
         $this->template->conteudo = View::forge('auth/login');
     }
