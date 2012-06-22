@@ -26,6 +26,7 @@
                         <ul class="nav nav-list">
                             <li class="nav-header">Mais Lidas</li>
                             <li class="active"><a href="#"><i class="icon-white icon-home"></i> Home</a></li>
+
                             <li><a href="#"><i class="icon-book"></i> Library</a></li>
                             <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
                             <li class="nav-header">Another list header</li>
