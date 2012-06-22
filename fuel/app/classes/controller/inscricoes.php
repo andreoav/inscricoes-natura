@@ -34,6 +34,8 @@ class Controller_Inscricoes extends Controller_Auth
     {
         Casset::css('colorbox.css');
         Casset::js('jquery.colorbox-min.js');
+        Casset::css('redactor.css');
+        Casset::js('redactor.js');
 
         if($_inscricao_id == null or ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
         {
@@ -224,14 +226,15 @@ class Controller_Inscricoes extends Controller_Auth
                 Response::redirect('home');
             }
 
-            // Deleta o comprovante
-            if($_inscricao->comprovante)
-            {
-                File::delete(Config::get('sysconfig.app.upload_root') . $_inscricao->comprovante);
-            }
-
+            $comprovante = $_inscricao->comprovante;
             if($_inscricao->delete())
             {
+                if($comprovante)
+                {
+                    // Deleta o comprovante
+                    File::delete(Config::get('sysconfig.app.upload_root') . $_inscricao->comprovante);
+                }
+
                 Session::set_flash('flash_msg', array(
                     'msg_type'    => 'alert-success',
                     'msg_content' => 'Inscrição excluída com sucesso.'
@@ -350,6 +353,45 @@ class Controller_Inscricoes extends Controller_Auth
     }
 
     // Métodos REST -----------------------
+    public function post_excluir()
+    {
+        if(Sentry::check())
+        {
+            $_inscricao_id = Input::post('inscricao_id');
+
+            // Verifica se existe uma inscrição com id $_inscricao_id
+            if($_inscricao_id == null || ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
+            {
+                $this->response(array('valid' => false, 'msg' => 'Não foi possível encontrar esta inscrição.'), 200);
+            }
+            else
+            {
+                // Verifica se o usuário é admin do sistema ou dono da inscrição a ser excluída
+                if(! Sentry::user()->is_admin() && ($_inscricao->user->id != Sentry::user()->get('id')))
+                {
+                    $this->response(array('valid' => false, 'msg' => 'Você não pode excluir uma inscrição feita por outra pessoa.'));
+                }
+                else
+                {
+                    $comprovante = $_inscricao->comprovante;
+                    if($_inscricao->delete())
+                    {
+                        if($comprovante)
+                        {
+                            // Deleta o comprovante
+                            File::delete(Config::get('sysconfig.app.upload_root') . $_inscricao->comprovante);
+                        }
+
+                        $this->response(array('valid' => true, 'msg' => 'Inscrição excluída com sucesso.'), 200);
+                    }
+                    else
+                    {
+                        $this->response(array('valid' => false, 'msg' => 'Não foi possível excluir esta inscrição.'), 200);
+                    }
+                }
+            }
+        }
+    }
 
     public function get_minhas_inscricoes()
     {

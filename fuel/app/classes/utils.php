@@ -247,4 +247,13 @@ class Utils
 
 		return false;
 	}
+
+    public static function etapaPopover($etapa)
+    {
+        $_info  = '<strong>Início: </strong>' . Date::forge($etapa->data_inicio)->format('%d/%m/%Y');
+        $_info .= '<br /><strong>Final: </strong>' . Date::forge($etapa->data_final)->format('%d/%m/%Y');
+        $_info .= '<br /><strong>Inscrições até: </strong>' . Date::forge($etapa->inscricao_ate)->format('%d/%m/%Y');
+
+        return $_info;
+    }
 }

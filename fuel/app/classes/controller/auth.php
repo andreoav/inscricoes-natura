@@ -10,6 +10,7 @@ class Controller_Auth extends Controller_Hybrid
 
     public function before()
     {
+        $this->format = 'json';
         parent::before();
 
         // Inclui os assets comuns para a maioria das views
@@ -19,8 +20,10 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('jquery.dataTables.js');
         Casset::js('jquery.dataTables-bootstrap.js');
         Casset::js('jquery.validate.js');
-        Casset::js('jquery.qtip.min.js');
         Casset::js('bootstrap-datepicker.js');
+        Casset::js('amplify.min.js');
+        Casset::js('amplify.request.min.js');
+        Casset::js('jquery.noty.js');
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 
@@ -28,8 +31,10 @@ class Controller_Auth extends Controller_Hybrid
         Casset::css('bootstrap.css');
         Casset::css('bootstrap-responsive.min.css');
         Casset::css('jquery.dataTables-bootstrap.css');
-        Casset::css('jquery.qtip.min.css');
         Casset::css('datepicker.css');
+        Casset::css('jquery.noty.css');
+        Casset::css('noty_theme_default.css');
+        //Casset::css('noty_theme_twitter.css');
 
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))

@@ -77,5 +77,6 @@ var RLANG = {
 	horizontalrule: 'Linha horizontal',
 	fullscreen: 'Tela cheia',
 	deleted: 'Removido',
-	none: 'Nenhum'								
+	none: 'Nenhum',
+	anchor: 'Anchor'	
 };

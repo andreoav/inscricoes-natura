@@ -56,8 +56,8 @@
                         <?php foreach($noticias as $noticia): ?>
                             <tr>
                                 <td>
-                                    <?php echo $noticia->titulo . '<span class="label pull-right">' . Date::forge($noticia->created_at)->format('%d/%m/%Y às %H:%I') . '</span> '; ?>
-                                    <?php echo Html::anchor('noticias/' . $noticia->id, 'Leia mais &raquo;', array('class' => 'btn btn-mini btn-info pull-right', 'title' => 'Leia a notícia completa.')); ?>
+                                    <?php echo  '<span class="label label-info">' . Date::forge($noticia->created_at)->format('%d/%m às %H:%I') . '</span> &raquo; ' . $noticia->titulo; ?>
+                                    <?php echo Html::anchor('noticias/' . $noticia->id, 'Leia mais &raquo;', array('class' => 'btn btn-mini btn-info pull-right', 'rel' => 'tooltip', 'title' => 'Leia a notícia completa.')); ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -46,6 +46,9 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 
 	public function action_editar($_noticia_id = null)
 	{
+        Casset::css('redactor.css');
+        Casset::js('redactor.js');
+
 		# code...
         $this->template->conteudo = View::forge('admin/noticias/editar');
 	}

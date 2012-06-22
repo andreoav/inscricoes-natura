@@ -46,7 +46,7 @@
         <div class="span2">
             <div class="btn-toolbar pull-right">
                 <div class="btn-group">
-                    <a href="#" class="btn btn-large" data-toggle="collapse" data-target="#demo" title="Visualizar Mapa">
+                    <a href="#" class="btn btn-large" data-toggle="collapse" data-target="#demo" rel="tooltip" title="Visualizar Mapa">
                         <i class="icon-map-marker"></i>
                     </a>
                     <?php if (Sentry::user()->is_admin()): ?>

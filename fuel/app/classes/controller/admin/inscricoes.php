@@ -86,6 +86,26 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
      * Métodos Rest
      */
 
+    public function post_update()
+    {
+        if(Sentry::check() && Sentry::user()->is_admin())
+        {
+            $_inscricao_id = Input::post('inscricao_id');
+            $_update_type  = Input::post('update_type');
+
+            $result = DB::update('inscricoes')->set(array('status' => $_update_type))->where('id', '=',  $_inscricao_id)->execute();
+            if($result)
+            {
+                $typeStr = $_update_type == 1 ? 'aprovada' : 'rejeitada';
+                $this->response(array('valid' => true, 'msg' => 'Essa inscrição foi ' . $typeStr .' com sucesso.'), 200);
+            }
+            else
+            {
+                $this->response(array('valid' => false, 'msg' => 'Não foi possível atualizar esta inscrição.'), 200);
+            }
+        }
+    }
+
     public function get_pendentes()
     {
         if(Sentry::check() && Sentry::user()->is_admin())

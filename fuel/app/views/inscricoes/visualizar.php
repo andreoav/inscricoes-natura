@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
 	<div class="span12">
 		<div class="page-header">
 			<h1>Visualizar Inscrição</h1>
@@ -23,62 +23,66 @@
 			<?php echo $inscricao_info->id; ?></p>
 		<p>
 			<strong>Etapa:</strong>
-			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array('title' => 'Clique para mais informações')); ?>
+			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id,
+                    $inscricao_info->etapa->nome,
+                    array('rel' => 'popover', 'title' => 'Informações', 'data-content' => Utils::etapaPopover($inscricao_info->etapa)
+                )
+            ); ?>
 		</p>
 		<p>
 			<strong>Campeonato:</strong>
 			<?php echo $inscricao_info->etapa->campeonato->nome; ?>
 		</p>
+        <p>
+            <strong>Categoria:</strong>
+            <?php echo $inscricao_info->categoria; ?>
+        </p>
 		<p>
 			<strong>Realizada em:</strong>
 			<?php echo Date::forge($inscricao_info->created_at)->format('%d/%m/%Y %H:%M:%S'); ?>
 		</p>
-		<p>
+        <p>
+            <strong>Atleta:</strong>
+            <?php echo Sentry::user((int) $inscricao_info->user->id)->get('metadata.nome'); ?>
+        </p>
+		<p id="inscricaoStatus">
 			<strong>Status:</strong>
 			<?php echo Utils::status2label($inscricao_info->status); ?>
 		</p>
 		<?php if($inscricao_info->observacao): ?>
 			<p>
 				<strong>Observações:</strong>
-				<?php echo $inscricao_info->observacao; ?></p>
+				<?php echo $inscricao_info->observacao; ?>
+            </p>
 		<?php endif; ?>
-		<p>
-			<strong>Comprovante:</strong>
-			<ul class="thumbnails">
-				<li class="span4">
-					<?php if (Utils::isImage(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))): ?>
-						<p>
-							<a class="thumbnail" href="<?php echo Asset::get_file($inscricao_info->comprovante, 'img'); ?>">
-								<?php echo Asset::img($inscricao_info->comprovante, array('height' => 400)); ?>
-							</a>
-						</p>
-					<?php else: ?>
-						<p>
-                            <a href="<?php echo Uri::create('inscricoes/download_comprovante/' . $inscricao_info->id); ?>" target="_blank">
-                                <?php echo Asset::img(Utils::get_mimeTypeIcon(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))); ?>
-                            </a>
-                        </p>
-					<?php endif ?>
-				</li>
-			</ul>
-		</p>	
+        <p>
+            <strong>Comprovante:</strong>
+            <?php if (Utils::isImage(Arr::get(File::file_info(Asset::instance()->find_file($inscricao_info->comprovante, 'img')), 'mimetype'))): ?>
+                <a class="comprovanteMiniatura" href="<?php echo Asset::get_file($inscricao_info->comprovante, 'img'); ?>" rel="tooltip" title="Visualizar Comprovante">
+                    Visualizar comprovante
+                </a>
+            <?php else: ?>
+                Use o menu ao lado para visualizar este comprovante.
+            <?php endif ?>
+        </p>
 	</div>
 
 	<!-- Inicio Actions -->
 	<div class="span3">
 		<div class="btn-toolbar pull-right">
-			<div class="btn-group">
-				<?php echo Html::anchor('#excluirInscricaoD', '<i class="icon-trash"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Excluir Inscrição', 'data-toggle' => 'modal')); ?>
-				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Salvar Arquivo', 'target' => '_blank')); ?>
+			<div class="btn-group" id="inscricao_actions">
+                <button class="btn btn-large" id="inscricaoExcluir" rel="tooltip" title="Excluir Inscrição" data-inscricao-id="<?php echo $inscricao_info->id; ?>"><i class="icon-trash"></i></button>
+				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Salvar Comprovante', 'target' => '_blank')); ?>
 				<?php if (Sentry::user()->is_admin()): ?>
-					<?php echo Html::anchor('admin/inscricoes/aprovar/'  . $inscricao_info->id, '<i class="icon-ok"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Aprovar Inscrição')); ?>
-					<?php echo Html::anchor('admin/inscricoes/rejeitar/' . $inscricao_info->id, '<i class="icon-remove"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Rejeitar Inscrição')); ?>
+                    <button <?php echo $inscricao_info->status == 1 ? 'disabled' : '' ?> class="btn btn-large updateBtn" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="aprovar" rel="tooltip" title="Aprovar Inscrição">
+                        <i class="icon-ok"></i>
+                    </button>
+                    <button <?php echo $inscricao_info->status == 0 ? 'disabled' : '' ?> class="btn btn-large updateBtn" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="rejeitar" rel="tooltip" title="Rejeitar Inscrição">
+                        <i class="icon-remove"></i>
+                    </button>
 				<?php endif ?>
 			</div>
 		</div>
-		<p>
-			
-		</p>
 	</div>
 	<!-- Fim Actions -->
 </div>
@@ -91,13 +95,13 @@
 		</div>
 	</div>
     <?php $i = 0 ; foreach($inscricao_info->respostas as $resposta): ?>
-    <div class="span12">
-        <blockquote class="<?php echo ($i % 2) == 0 ? 'pull-left' : 'pull-right'; ?>">
-            <?php echo $resposta->conteudo; ?>
-            <small>
-                Postado por <strong><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome'); ?></strong> em <?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?>
-            </small>
-        </blockquote>
+    <div class="span2">
+        <span class="label label-info"><?php echo Sentry::user((int)$resposta->user->id)->get('metadata.nome') . ' às ' . Date::forge($resposta->created_at)->format('%d/%m às %H:%M'); ?></span>
+    </div>
+    <div class="span9">
+        <p>
+            <?php echo $resposta->conteudo; ?><br />
+        </p>
     </div>
     <?php $i++; endforeach; ?>
 </div>
@@ -107,31 +111,16 @@
 			<fieldset>
 				<div class="control-group">
 					<div class="controls">
-						<textarea name="inscricao_resposta" id="inscricao_resposta" rows="5" class="input span12"></textarea>
-						<button class="btn btn-primary pull-right" type="submit"><i class="icon-comment icon-white"></i> Enviar</button>
+						<textarea name="inscricao_resposta" id="inscricao_resposta" rows="5" class="span12"></textarea>
 					</div>
 				</div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button class="btn btn-primary pull-right" type="submit"><i class="icon-comment icon-white"></i> Enviar</button>
+                    </div>
+                </div>
 			</fieldset>
 		</form>
 	</div>
 </div>
 <!-- Fim Respostas -->
-
-<!-- Modal de Exclusão -->
-<div class="modal hide fade" id="excluirInscricaoD">
-    <form action="<?php echo Uri::create('inscricoes/excluir/' . $inscricao_info->id); ?>" class="modal-form" method="POST">
-	    <div class="modal-header">
-		    <button class="close" data-dismiss="modal">&times;</button>
-		    <h3>Excluir Inscrição</h3>
-	    </div>
-
-		<div class="modal-body modal-form alert alert-error fade in">
-			<strong>Atenção!</strong> A operação que você está prestes a fazer é irreversível.
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-			<button type="submit" class="btn btn-danger">Excluir</button>
-		</div>
-	</form>
-</div>
-<!-- Fim modal de exclusão -->

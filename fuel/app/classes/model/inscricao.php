@@ -4,7 +4,7 @@ class Model_Inscricao extends \Orm\Model
 {
 	const INSCRICAO_ACEITA = 1;
 	const INSCRICAO_PENDENTE = 2;
-	const INSCRICAO_REJEITADA = 3;
+	const INSCRICAO_REJEITADA = 0;
 
 	protected static $_table_name = 'inscricoes';
 	protected static $_properties = array(
