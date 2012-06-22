@@ -118,9 +118,9 @@
                 $(this).find('#toolbar-actions').stop().fadeOut('fast');
         });*/
 
-        $('#lastNews a.btn').each(function() {
+        /*$('#lastNews a.btn').each(function() {
             $(this).hide();
-        });
+        });*/
 
         $('#lastNews td').mouseenter(function(){
             $(this).find('a.btn').show();
