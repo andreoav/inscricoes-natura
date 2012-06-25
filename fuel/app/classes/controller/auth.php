@@ -115,6 +115,8 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_type' => 'alert-error',
                         'msg_content' => 'A senha digitada está incorreta. <small>' . Html::anchor('#', '(Esqueci minha senha!)') .'</small>'
                     ));
+
+                    Response::redirect('login?redir=' . Session::get_flash('redir_location'));
                 }
             }
             catch(SentryAuthException $e)
@@ -123,9 +125,9 @@ class Controller_Auth extends Controller_Hybrid
                     'msg_type' => 'alert-error',
                     'msg_content' => 'Não foi possível encontrar um usuário cadastrado com este email.'
                 ));
-            }
 
-            Response::redirect('login?redir=' . Session::get_flash('redir_location'));
+                Response::redirect('login?redir=' . Session::get_flash('redir_location'));
+            }
         }
         else
         {
