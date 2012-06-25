@@ -137,6 +137,7 @@ class Controller_Auth extends Controller_Hybrid
             }
         }
 
+        var_dump($this->request->action);
         $redir_location = Input::get('redir') == null ? 'home' : Input::get('redir');
 
         $this->template->conteudo = View::forge('auth/login');
