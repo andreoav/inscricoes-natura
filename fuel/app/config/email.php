@@ -19,7 +19,7 @@ return array(
 		/**
 		 * Whether to send as html, set to null for autodetection.
 		 */
-		'is_html'		=> null,
+		'is_html'		=> true,
 
 		/**
 		 * Email charset
@@ -47,7 +47,7 @@ return array(
 		 */
 		'from'		=> array(
 			'email'		=> "inscricoes@naturaco.org",
-			'name'		=> "Inscrições - Natura Clube de Orientação",
+			'name'		=> "Natura CO",
 		),
 
 		/**
