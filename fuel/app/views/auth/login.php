@@ -22,7 +22,7 @@
                 <h1>Formulário de Login</h1>
             </div>
             <div id="loginModal">
-                <?php echo Form::open(array('action' => 'login', 'id' => 'login-form', 'class' => 'form-horizontal')); ?>
+                <?php echo Form::open(array('action' => Uri::base(), 'id' => 'login-form', 'class' => 'form-horizontal')); ?>
                 <fieldset>
                     <div class="control-group">
                         <label for="username" class="control-label">Usuário:</label>
@@ -44,6 +44,7 @@
                         <div class="controls">
                             <button type="submit" class="btn btn-primary">Efetuar Login &raquo;</button>
                             <input type="hidden" value="1" id="optionsCheckbox" name="remember">
+                            <input type="hidde" value="<?php echo $redir; ?>" name="redir">
                         </div>
                     </div>
                 </fieldset>

@@ -38,12 +38,7 @@ class Controller_Auth extends Controller_Hybrid
         //Casset::css('noty_theme_twitter.css');
 
         // Autenticacao
-        if(in_arrayi($this->request->action, $this->_allowed_actions))
-        {
-
-            return;
-        }
-        else
+        if(!in_arrayi($this->request->action, $this->_allowed_actions))
         {
             try
             {
@@ -73,7 +68,7 @@ class Controller_Auth extends Controller_Hybrid
                     ));
 
                     // Redireciona para o formulario de login
-                    Response::redirect('login?redir=' . (Uri::string() == '' ? 'home' : Uri::string()));
+                    Response::redirect('login?redir=' . Uri::string() == '' ? 'home' : Uri::string());
                 }
             }
             catch(Exception $e)
@@ -99,6 +94,7 @@ class Controller_Auth extends Controller_Hybrid
         // Formulário de login enviado
         if(Input::method() == 'POST')
         {
+            $_redir    = Input::post('redir');
             $_username = Input::post('username');
             $_password = Input::post('password');
             $_remember = Input::post('remember') == 1 ? true : false;
@@ -112,8 +108,8 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    //Response::redirect(Session::get_flash('redir_location'));
-                    var_dump(Session::get('redir_location'));
+                    //Response::redirect(Session::get_flash('after_login'));
+                    var_dump($_redir);
                 }
                 else
                 {
@@ -122,7 +118,7 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'A senha digitada está incorreta. <small>' . Html::anchor('#', '(Esqueci minha senha!)') .'</small>'
                     ));
 
-                    Response::redirect('login?redir=' . Session::get('redir_location'));
+                    Response::redirect('login?redir=' . $_redir);
                 }
             }
             catch(SentryAuthException $e)
@@ -132,18 +128,14 @@ class Controller_Auth extends Controller_Hybrid
                     'msg_content' => 'Não foi possível encontrar um usuário cadastrado com este email.'
                 ));
 
-                Response::redirect('login?redir=' . Session::get_flash('redir_location'));
+                Response::redirect('login?redir=' . $_redir);
             }
         }
-        else
-        {
-            $redir_location = Input::get('redir') == null ? 'home/' : Input::get('redir');
-            Session::set('redir_location', $redir_location);
 
-            var_dump(Session::get('redir_location'));
+        $redir_location = Input::get('redir') == null ? 'home' : Input::get('redir');
 
-            $this->template->conteudo = View::forge('auth/login');
-        }
+        $this->template->conteudo = View::forge('auth/login');
+        $this->template->conteudo->set('redir', $redir_location);
     }
 
 
