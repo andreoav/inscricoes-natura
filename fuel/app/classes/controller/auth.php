@@ -112,9 +112,7 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    //Response::redirect($_redir);
-
-                    var_dump($_redir);
+                    Response::redirect($_redir);
                 }
                 else
                 {
@@ -137,11 +135,8 @@ class Controller_Auth extends Controller_Hybrid
             }
         }
 
-        var_dump($this->request->action);
-        $redir_location = Input::get('redir') == null ? 'home' : Input::get('redir');
-
         $this->template->conteudo = View::forge('auth/login');
-        $this->template->conteudo->set('redir', $redir_location);
+        $this->template->conteudo->set('redir', Input::get('redir'));
     }
 
 
