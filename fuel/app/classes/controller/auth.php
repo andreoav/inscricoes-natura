@@ -140,7 +140,7 @@ class Controller_Auth extends Controller_Hybrid
             $redir_location = Input::get('redir') == null ? 'home/' : Input::get('redir');
             Session::set_flash('redir_location', $redir_location);
 
-            var_dump(Session::set_flash('redir_location'));
+            var_dump(Session::get_flash('redir_location'));
 
             $this->template->conteudo = View::forge('auth/login');
         }
