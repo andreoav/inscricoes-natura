@@ -89,7 +89,8 @@ return array(
 		 * SMTP settings
 		 */
 		'smtp'	=> array(
-			'host'		=> 'smtp.gmail.com',
+			'host'		=> 'ssl://smtp.gmail.com',
+            'from'      => 'inscricoes@naturaco.org',
 			'port'		=> 465,
 			'username'	=> 'inscricoes@naturaco.org',
 			'password'	=> 'prisma-natura',
@@ -99,7 +100,7 @@ return array(
 		/**
 		 * Newline
 		 */
-		'newline'	=> "\n",
+		'newline'	=> "\r\n",
 
 		/**
 		 * Attachment paths

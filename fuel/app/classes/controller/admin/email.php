@@ -14,13 +14,13 @@ class Controller_Admin_Email extends Controller_Admin_Painel
 
         // TESTE de ENVIO DE EMAIL
         $_novoEmail = Email::forge();
-        $_novoEmail->from('inscricoes@naturaco.org', 'Inscriçoes - Natura CO');
         $_novoEmail->to('andreoav@gmail.com', 'Andreo Vieira');
         $_novoEmail->subject('Teste de Envio');
         $_novoEmail->body('COnteudo do email');
+
         try
         {
-            //$_novoEmail->send();
+            $_novoEmail->send();
         }
         catch(\EmailValidationFailedException $e)
         {
