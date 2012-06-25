@@ -112,7 +112,8 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    Response::redirect(Session::get_flash('redir_location'));
+                    //Response::redirect(Session::get_flash('redir_location'));
+                    var_dump(Session::get_flash('redir_location'));
                 }
                 else
                 {
