@@ -8,7 +8,7 @@
             <ul>
                 <li>Controle de Atletas do Clube</li>
                 <li>Controle de Inscrições</li>
-                <li>Etapas dos vários compeonatos disponível com informações completas e mapas</li>
+                <li>Etapas dos vários compeonatos disponíveis com informações completas e mapas</li>
                 <li>Envio de email para todos atletas cadastrados de maneira prática. <span class="label label-success">Novo!</span></li>
                 <li>Entre muitos outros...</li>
             </ul>

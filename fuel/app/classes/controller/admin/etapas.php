@@ -86,7 +86,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
                     $_name    = Input::post('arquivos_upload_' . $_i . '_name');
 
                     // Move o boletin para este novo diretorio
-                    File::rename(APPPATH . 'tmp/' . $_tmpName, DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title($_nova_etapa->nome) . '/' . $_name);
+                    File::rename(APPPATH . 'tmp/' . $_tmpName, DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title(Str::lower($_nova_etapa->nome)) . '/' . $_name);
 
                     list($insert_id, $rows_affected) = DB::insert('boletins')->set(array(
                         'nome'    =>    $_name,

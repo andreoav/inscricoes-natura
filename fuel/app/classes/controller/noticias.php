@@ -14,7 +14,7 @@ class Controller_Noticias extends Controller_Auth
 
     public function action_index()
     {
-        $_noticias = DB::select('*')->from('noticias')->order_by('id', 'desc')->limit(2)->execute()->as_array();
+        $_noticias = DB::select('*')->from('noticias')->order_by('id', 'desc')->limit(5)->execute()->as_array();
         if(! count($_noticias))
         {
             Session::set_flash('flash_msg', array(
