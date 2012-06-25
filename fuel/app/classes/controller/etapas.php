@@ -43,11 +43,20 @@ class Controller_Etapas extends Controller_Auth
             )
         ));
 
+        $_arquivos = DB::select("nome")->from('boletins')->where('etapa_id', '=', $_etapa_id)->execute()->as_array();
+
         $this->template->conteudo = View::forge('etapas/visualizar');
         $this->template->conteudo->set('etapa_info', $_etapa_info);
         $this->template->conteudo->set('ja_inscrito', $_ja_inscrito);
         $this->template->conteudo->set('inscricoes_encerradas', $_etapa_info->inscricao_ate < time());
+        $this->template->conteudo->set('arquivos', $_arquivos);
         $this->template->conteudo->set_global('localidade_map', $_etapa_info->localidade);
+    }
+
+    public function action_arquivo($_arquivo = null, $_etapa_id = null)
+    {
+        $_etapa_nome = Inflector::friendly_title(Str::lower(Model_Etapa::find($_etapa_id)->nome));
+        File::download(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . $_etapa_nome . '/' . $_arquivo);
     }
 
     // ------------------- Métodos Rest ------------------- //

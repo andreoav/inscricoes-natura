@@ -11,7 +11,7 @@ class Controller_Home extends Controller_Auth
 
 	public function action_404()
 	{
-
+        $this->template->conteudo = View::forge('home/404');
 	}
 
 	public function action_index()

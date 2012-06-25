@@ -264,6 +264,28 @@
             });
         }
 
+        if(jQuery().pluploadQueue)
+        {
+            $("#arquivos_upload").pluploadQueue({
+                // General settings
+                runtimes : 'html5,html4,browserplus',
+                url : base_url + 'admin/etapas/upload',
+                max_file_size : '10mb',
+                chunk_size : '1mb',
+                unique_names : true,
+
+                // Resize images on clientside if we can
+                resize : {width : 320, height : 240, quality : 90},
+
+                // Specify what files to browse for
+                filters : [
+                    {title : "Arquivos de Imagem", extensions : "jpg,gif,png"},
+                    {title: "Arquivos PDF", extensions: "pdf"},
+                    {title: "Arquivos do Word", extensions: "doc, docx"}
+                ]
+            });
+        }
+
         /**
          * Trata os eventos de aprovar e desaprovar um inscrição
          *

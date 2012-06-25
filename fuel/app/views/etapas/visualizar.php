@@ -19,7 +19,7 @@
 
 <div class="row">
     <article id="etapaInfo">
-        <div class="span10">
+        <div class="span9">
             <p>
                 <strong>Nome:</strong>
                 <?php echo $etapa_info->nome; ?>
@@ -43,9 +43,14 @@
         </div>
 
         <!-- Toolbar -->
-        <div class="span2">
+        <div class="span3">
             <div class="btn-toolbar pull-right">
                 <div class="btn-group">
+                    <?php if($arquivos): ?>
+                        <button class="btn btn-large" rel="tooltip" title="Arquivos Disponíveis" data-toggle="modal" data-target="#arquivos">
+                            <i class="icon-file"></i>
+                        </button>
+                    <?php endif; ?>
                     <a href="#" class="btn btn-large" data-toggle="collapse" data-target="#demo" rel="tooltip" title="Visualizar Mapa">
                         <i class="icon-map-marker"></i>
                     </a>
@@ -139,6 +144,33 @@
         <div class="modal-footer">
             <?php echo Html::anchor('admin/etapas/inscritos/' . $etapa_info->id . '/' . Padrao_FGO::$myType . '/', 'Modelo FGO', array('id' => 'btnFGO', 'class' => 'btn btn-success', 'title' => 'Federação Gaúcha de Orientação')); ?>
             <?php echo Html::anchor('admin/etapas/inscritos/' . $etapa_info->id . '/' . Padrao_CBO::$myType . '/', 'Modelo CBO', array('id' => 'btnCBO', 'class' => 'btn btn-info', 'title' => 'Confederação Brasileira de Orientação')); ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if($arquivos): ?>
+    <div class="modal hide fade" id="arquivos">
+        <div class="modal-header">
+            <button class="close" data-dismiss="modal">&times;</button>
+            <h3>Arquivos Disponíveis</h3>
+        </div>
+
+        <div class="modal-body">
+            <ul class="nav nav-tabs nav-stacked">
+                <?php foreach($arquivos as $arquivo):?>
+                    <li>
+                        <?php echo Html::anchor('etapas/arquivo/' . $arquivo['nome'] . '/' . $etapa_info->id, '<i class="icon-file"></i> ' . $arquivo['nome'], array(
+                            'target' => '_blank',
+                            'rel'    => 'tooltip',
+                            'title'  => 'Clique para baixar'
+                        )); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-info" data-dismiss="modal"><i class="icon-remove icon-white"></i> Fechar</button>
         </div>
     </div>
 <?php endif; ?>

@@ -21,7 +21,7 @@
 	</div>
 	<!-- Fim Breadcrumb -->
 	<div class="span12">
-		<form action="<?php echo Uri::create('admin/etapas/nova'); ?>" id="nova_etapa_form" class="form form-horizontal" method="POST">
+		<form action="<?php echo Uri::create('admin/etapas/nova'); ?>" id="nova_etapa_form" class="form form-horizontal" method="POST" enctype="multipart/form-data">
 			<fieldset>
 	          	<div class="control-group">
 	          		<?php echo Form::label('Campeonato', 'etapa_campeonato', array('class' => 'control-label')); ?>
@@ -68,6 +68,13 @@
 	            		<?php echo Form::input('etapa_inscricoes_ate', null, array('id' => 'etapa_inscricoes_ate', 'class' => 'input dataBR datepicker')); ?>
 	            	</div>
 	          	</div>
+
+                <div class="control-group">
+                    <?php echo Form::label('Arquivos', 'etapa_arquivos', array('class' => 'control-label')); ?>
+                    <div class="controls" id="arquivos_upload">
+                        <p>Teste</p>
+                    </div>
+                </div>
 
 	          	<div class="form-actions">
 	            	<button type="submit" class="btn btn-primary">Criar Etapa</button>
