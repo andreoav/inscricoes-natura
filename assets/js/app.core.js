@@ -284,12 +284,22 @@
                 update_type:  $(this).data('update-type') == 'aprovar' ? 1 : 0
             }
 
+            noty({
+                text: 'Atualizando inscrição, aguarde...',
+                layout: 'center',
+                speed: 200,
+                modal: true,
+                timeout: false,
+                closeOnSelfClick: false
+            });
+
             // faz a chamada ajax
             amplify.request({
                 resourceId: 'inscricaoUpdate',
                 data: dados,
                 success: function(data, textStatus, XMLHttpRequest)
                 {
+                    $.noty.closeAll();
                     if(data.valid)
                     {
                         if(dados.update_type == 1)
@@ -307,7 +317,7 @@
                     }
                     else
                     {
-                        $('button.updateBtn').remoteAttr('disabled');
+                        $('button.updateBtn').removeAttr('disabled');
                     }
 
                     noty({
@@ -319,7 +329,8 @@
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
-                    $('button.updateBtn').remoteAttr('disabled');
+                    $('button.updateBtn').removeAttr('disabled');
+                    $.noty.closeAll();
                     noty({
                         text: 'Não foi possível atualizar esta inscrição.',
                         layout: 'bottom',
