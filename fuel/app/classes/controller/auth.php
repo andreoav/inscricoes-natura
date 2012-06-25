@@ -6,7 +6,7 @@
 class Controller_Auth extends Controller_Hybrid
 {
     public    $template = 'template';
-    protected $_allowed_actions = array('login', 'auth', 'cadastro');
+    protected $_allowed_actions = array('login', 'cadastro');
 
     public function before()
     {
