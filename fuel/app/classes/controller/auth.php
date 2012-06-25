@@ -6,7 +6,7 @@
 class Controller_Auth extends Controller_Hybrid
 {
     public    $template = 'template';
-    protected $_allowed_actions = array('login', 'logout', 'cadastro');
+    protected $_allowed_actions = array('login', 'logout', 'cadastro', '404');
 
     public function before()
     {
@@ -114,7 +114,7 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    Response::redirect($_redirect);
+                    //Response::redirect($_redirect);
                 }
                 else
                 {
