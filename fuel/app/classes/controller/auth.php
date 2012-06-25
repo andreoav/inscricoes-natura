@@ -113,7 +113,7 @@ class Controller_Auth extends Controller_Hybrid
                     ));
 
                     //Response::redirect(Session::get_flash('redir_location'));
-                    var_dump(Session::get_flash('redir_location'));
+                    var_dump(Session::get('redir_location'));
                 }
                 else
                 {
@@ -122,7 +122,7 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'A senha digitada está incorreta. <small>' . Html::anchor('#', '(Esqueci minha senha!)') .'</small>'
                     ));
 
-                    Response::redirect('login?redir=' . Session::get_flash('redir_location'));
+                    Response::redirect('login?redir=' . Session::get('redir_location'));
                 }
             }
             catch(SentryAuthException $e)
@@ -138,9 +138,9 @@ class Controller_Auth extends Controller_Hybrid
         else
         {
             $redir_location = Input::get('redir') == null ? 'home/' : Input::get('redir');
-            Session::set_flash('redir_location', $redir_location);
+            Session::set('redir_location', $redir_location);
 
-            var_dump(Session::get_flash('redir_location'));
+            var_dump(Session::get('redir_location'));
 
             $this->template->conteudo = View::forge('auth/login');
         }
