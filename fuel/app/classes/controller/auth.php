@@ -92,7 +92,8 @@ class Controller_Auth extends Controller_Hybrid
         // Caso o usuário já esteja logado redireciona o mesmo para a dashboard do sistema
         if(Sentry::check())
         {
-            Response::redirect('home');
+            echo 'OOOOOOOOOO';
+            //Response::redirect('home');
         }
 
         // Formulário de login enviado
