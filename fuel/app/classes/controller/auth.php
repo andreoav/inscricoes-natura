@@ -114,7 +114,7 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    //Response::redirect($_redirect);
+                    Response::redirect($_redirect == 'home/404' ? 'home/index' : $_redirect);
                 }
                 else
                 {
