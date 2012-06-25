@@ -146,6 +146,7 @@ class Controller_Auth extends Controller_Hybrid
     public function action_logout()
     {
         Sentry::logout();
+        Session::delete('profile_unfinished');
 
         Session::set_flash('flash_msg', array(
             'msg_type' => 'alert-success',
