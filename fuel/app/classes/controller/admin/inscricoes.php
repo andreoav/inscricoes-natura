@@ -90,7 +90,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 
     public function post_update()
     {
-        if(Sentry::check() && Sentry::user()->is_admin())
+        if(Sentry::check() and Sentry::user()->is_admin())
         {
             $_inscricao_id = Input::post('inscricao_id');
             $_update_type  = Input::post('update_type');
@@ -98,6 +98,22 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
             $result = DB::update('inscricoes')->set(array('status' => $_update_type))->where('id', '=',  $_inscricao_id)->execute();
             if($result)
             {
+                $_user = DB::select('user_id')->from('inscricoes')->where('id', '=', $_inscricao_id)->limit(1)->execute();
+                $_body  = '<p>Houve uma interação em seu pedido de inscrição</p>';
+                $_body .= '<p>Para visualizar a sua inscrição <a href="' . Uri::create('inscricoes/visualizar/' . $_inscricao_id) . '">clique aqui</a>.</p>';
+                $_body .= '<br /><p>Natura Clube de Orientação</p>';
+
+                try
+                {
+                    $_notification = Email::forge();
+                    $_notification->subject('Nova interação em sua inscrição');
+                    $_notification->to(Sentry::user((int) $_user)->get('email'));
+                    $_notification->body($_body);
+                    $_notification->send();
+                }
+                catch(\EmailValidationFailedException $e){}
+                catch(\EmailSendingFailedException $e){}
+
                 $typeStr = $_update_type == 1 ? 'aprovada' : 'rejeitada';
                 $this->response(array('valid' => true, 'msg' => 'Essa inscrição foi ' . $typeStr .' com sucesso.'), 200);
             }
@@ -110,7 +126,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 
     public function get_pendentes()
     {
-        if(Sentry::check() && Sentry::user()->is_admin())
+        if(Sentry::check() and Sentry::user()->is_admin())
         {
             $_inscricoesData = Model_Inscricao::find('all', array(
                 'where' => array(
@@ -145,7 +161,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 
     public function get_inscricoes()
     {
-        if(Sentry::check() && Sentry::user()->is_admin())
+        if(Sentry::check() and Sentry::user()->is_admin())
         {
             $_returnData     = array();
             foreach(Model_Inscricao::find('all') as $_inscricao)
