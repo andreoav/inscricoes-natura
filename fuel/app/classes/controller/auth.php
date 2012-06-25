@@ -40,6 +40,7 @@ class Controller_Auth extends Controller_Hybrid
         // Autenticacao
         if(in_arrayi($this->request->action, $this->_allowed_actions))
         {
+
             return;
         }
         else
@@ -131,6 +132,8 @@ class Controller_Auth extends Controller_Hybrid
 
             Response::redirect('login?redir=' . Session::get_flash('redir_location'));
         }
+
+        var_dump(Input::get('redir'));
 
         $redir_location = Input::get('redir');
         Session::set_flash('redir_location', isset($redir_location) ? $redir_location : 'home');

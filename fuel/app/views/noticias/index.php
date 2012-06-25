@@ -5,6 +5,15 @@
         </div>
     </div>
 
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li>
+                <?php echo Html::anchor('home', 'Home'); ?> <span class="divider">/</span>
+            </li>
+            <li class="active">Notícias</li>
+        </ul>
+    </div>
+
     <article id="news">
         <div class="span12">
             <div class="row">
