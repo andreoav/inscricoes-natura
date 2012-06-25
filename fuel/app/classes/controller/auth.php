@@ -108,8 +108,7 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    //Response::redirect(Session::get_flash('after_login'));
-                    var_dump($_redir);
+                    Response::redirect($_redir);
                 }
                 else
                 {

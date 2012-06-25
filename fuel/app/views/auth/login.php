@@ -44,7 +44,7 @@
                         <div class="controls">
                             <button type="submit" class="btn btn-primary">Efetuar Login &raquo;</button>
                             <input type="hidden" value="1" id="optionsCheckbox" name="remember">
-                            <input type="hidde" value="<?php echo $redir; ?>" name="redir">
+                            <input type="hidden" value="<?php echo $redir; ?>" name="redir">
                         </div>
                     </div>
                 </fieldset>
