@@ -38,7 +38,11 @@ class Controller_Auth extends Controller_Hybrid
         //Casset::css('noty_theme_twitter.css');
 
         // Autenticacao
-        if(!in_arrayi($this->request->action, $this->_allowed_actions))
+        if(in_arrayi($this->request->action, $this->_allowed_actions))
+        {
+            return;
+        }
+        else
         {
             try
             {
