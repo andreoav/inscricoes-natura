@@ -10,7 +10,7 @@ return array(
 		/**
 		 * Mail useragent string
 		 */
-		'useragent'	=> 'Natura Clube de Orientação - Sistema de Inscrições',
+		'useragent'	=> 'Natura CO',
 		/**
 		 * Mail driver (mail, smtp, sendmail)
 		 */
@@ -46,7 +46,7 @@ return array(
 		 * Default sender details
 		 */
 		'from'		=> array(
-			'email'		=> "inscrições@naturaco.org",
+			'email'		=> "inscricoes@naturaco.org",
 			'name'		=> "Inscrições - Natura Clube de Orientação",
 		),
 

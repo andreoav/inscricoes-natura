@@ -16,7 +16,7 @@ class Controller_Admin_Email extends Controller_Admin_Painel
         $_novoEmail = Email::forge();
         $_novoEmail->to('andreoav@gmail.com', 'Andreo Vieira');
         $_novoEmail->subject('Teste de Envio');
-        $_novoEmail->body('COnteudo do email');
+        $_novoEmail->body('Conteudo do email');
 
         try
         {
