@@ -90,12 +90,6 @@ class Controller_Auth extends Controller_Hybrid
      */
     public function action_login()
     {
-        // Caso o usuário já esteja logado redireciona o mesmo para a dashboard do sistema
-        if(Sentry::check())
-        {
-            Response::redirect('home');
-        }
-
         // Formulário de login enviado
         if(Input::method() == 'POST')
         {
@@ -133,13 +127,21 @@ class Controller_Auth extends Controller_Hybrid
 
             Response::redirect('login?redir=' . Session::get_flash('redir_location'));
         }
+        else
+        {
+            // Caso o usuário já esteja logado redireciona o mesmo para a dashboard do sistema
+            if(Sentry::check())
+            {
+                Response::redirect('home');
+            }
 
-        $redir_location = Input::get('redir') == null ? 'home' : Input::get('redir');
-        Session::set_flash('redir_location', $redir_location);
+            $redir_location = Input::get('redir') == null ? 'home' : Input::get('redir');
+            Session::set_flash('redir_location', $redir_location);
 
-        var_dump($redir_location);
+            var_dump($redir_location);
 
-        $this->template->conteudo = View::forge('auth/login');
+            $this->template->conteudo = View::forge('auth/login');
+        }
     }
 
 
