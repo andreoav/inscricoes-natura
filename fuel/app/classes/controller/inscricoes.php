@@ -391,6 +391,10 @@ class Controller_Inscricoes extends Controller_Auth
                 }
             }
         }
+        else
+        {
+            $this->response(null, 200);
+        }
     }
 
     public function get_minhas_inscricoes()
@@ -420,6 +424,10 @@ class Controller_Inscricoes extends Controller_Auth
             }
 
             $this->response(array('aaData' => $_returnData));
+        }
+        else
+        {
+            $this->response(array('aaData' => null));
         }
     }
 }

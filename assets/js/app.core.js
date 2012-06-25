@@ -1,4 +1,14 @@
 (function($){
+
+    /**
+     * Jquery DataTable plugin to reload the table content with
+     * an new Ajax Call.
+     *
+     * @param oSettings
+     * @param sNewSource
+     * @param fnCallback
+     * @param bStandingRedraw
+     */
     $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
     {
         if ( typeof sNewSource != 'undefined' && sNewSource != null )
@@ -109,22 +119,23 @@
             "aaSorting" : [
                 [ 0 , "desc" ]
             ],
-            bRetrieve: true,
+            "bRetrieve": true,
             fnDrawCallback: function(){
                 enableJqueryContent();
             }
         });
-            /*
-            TODO: DESCOBRI SE O O OBJETO ESTA VAZIO
-        if(tPendentes.length != 'undefined')
+
+        // Atualiza a tabela de inscrições pendentes a cada 30 segundos
+        if(! _.isEmpty(_.values(tPendentes)))
         {
             setInterval(function(){
                 tPendentes.fnReloadAjax();
-            }, 5000);
-        }  */
+            }, 30000);
+        }
+        // Fim das inscrições pendentes
 
-        // Inscrições pendente, parte administrativa
-        $('#admin_inscricoes_todas').dataTable({
+        // Inscrições Existentes, parte administrativa
+        var tTodas = $('#admin_inscricoes_todas').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
             "sAjaxSource" : base_url + 'admin/inscricoes/inscricoes',
@@ -153,6 +164,15 @@
                 enableJqueryContent();
             }
         });
+
+        // Atualiza a tabela de inscrições existentes a cada 30 segundos
+        if(! _.isEmpty(_.values(tTodas)))
+        {
+            setInterval(function(){
+                tTodas.fnReloadAjax();
+            }, 30000);
+        }
+        // Fim das inscricoes existentes
 
         // Início Etapas Cadastradas
         $('#etapas_cadastradas').dataTable( {
@@ -310,7 +330,7 @@
         });
 
         /**
-         *
+         * AJAX request para excluir uma inscrição
          */
         amplify.request.define('inscricaoDelete', 'ajax', {
             url: base_url + 'inscricoes/excluir',
@@ -378,6 +398,7 @@
 
         /**
          * Load More Button
+         * Carrega mais notícias
          */
         amplify.request.define('loadMoreNoticias', 'ajax',{
             url: base_url + 'noticias/loadMore',
@@ -402,8 +423,9 @@
                             $.each(data.news, function(i, item){
                                 var horario = new XDate(item.created_at * 1000, true).toString('dd/MM HH:mm');
                                 $('div#newsContainer').append(
-                                    '<div class="row hide"><div class="span1"><span class="label label-info">'+ horario +'</span>' +
-                                        '</div><div class="span11"><p class="lead"><a href="' + base_url + 'noticias/' + item.id + '">' + item.titulo + '</a></p><p>' + item.conteudo + '</p></div></div><hr>'
+                                    '<div class="row hide" id="noticia"><div class="span1"><span class="label label-info">'+ horario +'</span></div>' +
+                                    '<div class="span11"><p class="lead"><a href="' + base_url + 'noticias/' + item.id + '">' + item.titulo + '</a>' +
+                                    '</p><p>' + item.conteudo + '</p></div></div><hr>'
                                 );
                                 $('div#newsContainer div.row').each(function(){
                                     if($(this).hasClass('hide')){
@@ -416,6 +438,14 @@
                             {
                                 btnMore.attr('disabled', 'disabled');
                                 btnMore.html('Ops, não temos mais notícias para exibir.');
+
+                                noty({
+                                    text: 'Todas as notícias do site foram carregadas.',
+                                    type: 'information',
+                                    layout: 'bottom',
+                                    speed: 200
+                                });
+
                             } else
                             {
                                 btnMore.button('reset');

@@ -25,6 +25,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('amplify.request.min.js');
         Casset::js('jquery.noty.js');
         Casset::js('xdate.js');
+        Casset::js('underscore-min.js');
         Casset::js('app.core.js');
         Casset::js('app.core.validations.js');
 

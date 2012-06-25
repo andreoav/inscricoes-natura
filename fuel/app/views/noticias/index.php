@@ -19,12 +19,14 @@
             <div class="row">
                 <div class="span12" id="newsContainer">
                     <?php foreach($noticias as $noticia): ?>
-                        <div class="row">
+                        <div class="row" id="noticia">
                             <div class="span1">
                                 <span class="label label-info"><?php echo Date::forge($noticia['created_at'])->format('%d/%m %H:%M'); ?></span>
                             </div>
                             <div class="span11">
-                                <p class="lead"><?php echo Html::anchor('noticias/' . $noticia['id'], $noticia['titulo']); ?></p>
+                                <p class="lead">
+                                    <?php echo Html::anchor('noticias/' . $noticia['id'], $noticia['titulo']); ?>
+                                </p>
                                 <p><?php echo $noticia['conteudo']; ?></p>
                             </div>
                         </div><hr />
