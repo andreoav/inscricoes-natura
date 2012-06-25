@@ -108,7 +108,9 @@ class Controller_Auth extends Controller_Hybrid
                         'msg_content' => 'Login efetuado com sucesso.'
                     ));
 
-                    Response::redirect($_redir);
+                    //Response::redirect($_redir);
+
+                    var_dump($_redir);
                 }
                 else
                 {
