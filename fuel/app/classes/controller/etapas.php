@@ -43,7 +43,7 @@ class Controller_Etapas extends Controller_Auth
             )
         ));
 
-        $_arquivos = DB::select("nome")->from('boletins')->where('etapa_id', '=', $_etapa_id)->execute()->as_array();
+        $_arquivos = DB::select("id", "nome")->from('boletins')->where('etapa_id', '=', $_etapa_id)->execute()->as_array();
 
         $this->template->conteudo = View::forge('etapas/visualizar');
         $this->template->conteudo->set('etapa_info', $_etapa_info);
@@ -53,10 +53,13 @@ class Controller_Etapas extends Controller_Auth
         $this->template->conteudo->set_global('localidade_map', $_etapa_info->localidade);
     }
 
-    public function action_arquivo($_arquivo = null, $_etapa_id = null)
+    // TODO: usar ID do arquivo para buscar o download
+    public function action_arquivo($_arquivo = null)
     {
-        $_etapa_nome = Inflector::friendly_title(Str::lower(Model_Etapa::find($_etapa_id)->nome));
-        File::download(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . $_etapa_nome . '/' . $_arquivo);
+        $_tmp = DB::select('nome', 'etapa_id')->from('boletins')->where('id', '=', $_arquivo)->limit(1)->execute()->as_array();
+        $_etapa_nome = Inflector::friendly_title(Str::lower(Model_Etapa::find($_tmp[0]['etapa_id'])->nome));
+
+        File::download(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . $_etapa_nome . '/' . $_tmp[0]['nome']);
     }
 
     // ------------------- Métodos Rest ------------------- //

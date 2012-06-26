@@ -130,6 +130,7 @@
     </article>
 </div>
 
+<!-- Modal para exportar inscritos -->
 <?php if(Sentry::user()->is_admin()): ?>
     <div class="modal hide fade" id="exportModal">
         <div class="modal-header">
@@ -147,7 +148,9 @@
         </div>
     </div>
 <?php endif; ?>
+<!-- Fim do modal para exportar inscritos -->
 
+<!-- Modal de arquivos da etapa -->
 <?php if($arquivos): ?>
     <div class="modal hide fade" id="arquivos">
         <div class="modal-header">
@@ -159,7 +162,7 @@
             <ul class="nav nav-tabs nav-stacked">
                 <?php foreach($arquivos as $arquivo):?>
                     <li>
-                        <?php echo Html::anchor('etapas/arquivo/' . $arquivo['nome'] . '/' . $etapa_info->id, '<i class="icon-file"></i> ' . $arquivo['nome'], array(
+                        <?php echo Html::anchor('etapas/arquivo/' . $arquivo['id'], '<i class="icon-file"></i> ' . $arquivo['nome'], array(
                             'target' => '_blank',
                             'rel'    => 'tooltip',
                             'title'  => 'Clique para baixar'
@@ -174,3 +177,4 @@
         </div>
     </div>
 <?php endif; ?>
+<!-- Fim do modal de arquivos da etapa -->

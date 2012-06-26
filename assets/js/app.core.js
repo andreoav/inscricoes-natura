@@ -518,5 +518,10 @@
          * End Load More Button
          */
 
+        $('a.download').click(function(event){
+            event.preventDefault();
+            var resource_href = $(this).attr('href');
+            $.download(resource_href + '/', true);
+        });
     });
 })(jQuery);

@@ -156,8 +156,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
                     break;
                 }
 
-                $sheetPath = $sheetModel->buildExcelFile();
-                File::download($sheetPath, null, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                $sheetModel->buildExcelFile();
             }
             else
             {

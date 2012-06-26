@@ -33,9 +33,10 @@ class Controller_Inscricoes extends Controller_Auth
     public function action_visualizar($_inscricao_id = null)
     {
         Casset::css('colorbox.css');
-        Casset::js('jquery.colorbox-min.js');
         Casset::css('redactor.css');
+        Casset::js('jquery.colorbox-min.js');
         Casset::js('redactor.js');
+        Casset::js('jquery.download.js'); // Ajax file request
 
         if($_inscricao_id == null or ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
         {

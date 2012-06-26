@@ -94,7 +94,7 @@ return array(
 			'port'		=> 465,
 			'username'	=> 'inscricoes@naturaco.org',
 			'password'	=> 'prisma-natura',
-			'timeout'	=> 5,
+			'timeout'	=> 35,
 		),
 
 		/**

@@ -108,16 +108,12 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
                 try
                 {
                     $_notification = Email::forge();
-                    $_notification->subject('Nova interação em sua inscriçãos');
+                    $_notification->subject('Nova interação em sua inscrição');
                     $_notification->to(Sentry::user((int) $_user[0]['user_id'])->get('email'));
                     $_notification->body($_body);
-                    $_notification->send();
+                    //$_notification->send();
                 }
-                catch(\EmailValidationFailedException $e)
-                {
-                    $this->response(array('valid' => true, 'msg' => 'Essa inscrição foi ' . $typeStr .' com sucesso.'), 200);
-                }
-                catch(\EmailSendingFailedException $e)
+                catch(Exception $e)
                 {
                     $this->response(array('valid' => true, 'msg' => 'Essa inscrição foi ' . $typeStr .' com sucesso.'), 200);
                 }

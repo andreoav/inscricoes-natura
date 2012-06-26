@@ -38,7 +38,7 @@
 
 	          	<!-- Select pata a categoria -->
 	          	<div class="control-group">
-	          		<?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
+	          		<?php echo Form::label('Categoria', 'inscricao_categoria', array('class' => 'control-label')); ?>
 	            	<div class="controls">
 	            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge chzn-select">
                             <?php foreach(Utils::$categorias as $categoria): ?>

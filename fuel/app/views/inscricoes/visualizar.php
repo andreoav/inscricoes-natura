@@ -10,9 +10,15 @@
 			<li>
 				<?php echo Html::anchor('home', 'Home'); ?> <span class="divider">/</span>
 			</li>
-			<li>
-				<?php echo Html::anchor('inscricoes', 'Inscrições'); ?> <span class="divider">/</span>
-			</li>
+            <?php if(Sentry::user()->is_admin()): ?>
+                <li>
+                    <?php echo Html::anchor('admin/inscricoes', 'Inscrições'); ?> <span class="divider">/</span>
+                </li>
+            <?php else: ?>
+                <li>
+                    <?php echo Html::anchor('inscricoes', 'Inscrições'); ?> <span class="divider">/</span>
+                </li>
+            <?php endif; ?>
 			<li class="active">Visualizar</li>
 		</ul>
 	</div>
@@ -20,14 +26,15 @@
 	<div class="span9">
 		<p>
 			<strong>ID:</strong>
-			<?php echo $inscricao_info->id; ?></p>
+			<?php echo $inscricao_info->id; ?>
+        </p>
 		<p>
 			<strong>Etapa:</strong>
-			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id,
-                    $inscricao_info->etapa->nome,
-                    array('rel' => 'popover', 'title' => 'Informações', 'data-content' => Utils::etapaPopover($inscricao_info->etapa)
-                )
-            ); ?>
+			<?php echo \Html::anchor('etapas/visualizar/' . $inscricao_info->etapa->id, $inscricao_info->etapa->nome, array(
+                'rel' => 'popover',
+                'title' => 'Informações',
+                'data-content' => Utils::etapaPopover($inscricao_info->etapa)
+            )); ?>
 		</p>
 		<p>
 			<strong>Campeonato:</strong>
@@ -72,7 +79,7 @@
 		<div class="btn-toolbar pull-right">
 			<div class="btn-group" id="inscricao_actions">
                 <button class="btn btn-large" id="inscricaoExcluir" rel="tooltip" title="Excluir Inscrição" data-inscricao-id="<?php echo $inscricao_info->id; ?>"><i class="icon-trash"></i></button>
-				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Salvar Comprovante', 'target' => '_blank')); ?>
+				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large download', 'rel' => 'tooltip', 'title' => 'Salvar Comprovante', 'target' => '_blank')); ?>
 				<?php if (Sentry::user()->is_admin()): ?>
                     <button <?php echo $inscricao_info->status == 1 ? 'disabled' : '' ?> class="btn btn-large updateBtn" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="aprovar" rel="tooltip" title="Aprovar Inscrição">
                         <i class="icon-ok"></i>
