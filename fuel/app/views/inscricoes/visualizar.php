@@ -79,7 +79,7 @@
 		<div class="btn-toolbar pull-right">
 			<div class="btn-group" id="inscricao_actions">
                 <button class="btn btn-large" id="inscricaoExcluir" rel="tooltip" title="Excluir Inscrição" data-inscricao-id="<?php echo $inscricao_info->id; ?>"><i class="icon-trash"></i></button>
-				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large download', 'rel' => 'tooltip', 'title' => 'Salvar Comprovante', 'target' => '_blank')); ?>
+				<?php echo Html::anchor('inscricoes/download_comprovante/' . $inscricao_info->id, '<i class="icon-download-alt"></i>', array('class' => 'btn btn-large', 'rel' => 'tooltip', 'title' => 'Salvar Comprovante', 'target' => '_blank')); ?>
 				<?php if (Sentry::user()->is_admin()): ?>
                     <button <?php echo $inscricao_info->status == 1 ? 'disabled' : '' ?> class="btn btn-large updateBtn" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="aprovar" rel="tooltip" title="Aprovar Inscrição">
                         <i class="icon-ok"></i>
