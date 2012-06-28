@@ -43,6 +43,7 @@
                     <div class="control-group">
                         <div class="controls">
                             <button type="submit" class="btn btn-primary">Efetuar Login &raquo;</button>
+                            <button data-toggle="modal" data-target="#recuperar_senha_modal" class="btn btn-info">Recuperar Senha &raquo;</button>
                             <input type="hidden" value="1" id="optionsCheckbox" name="remember">
                         </div>
                     </div>
@@ -52,3 +53,32 @@
         </div>
     </div>
 </section>
+
+<div class="modal hide fade" id="recuperar_senha_modal">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>Recuperar Senha</h3>
+    </div>
+
+    <form class="modal-form form-horizontal" action="<?php echo Uri::create('recuperar-senha'); ?>" method="POST" id="recuperar_senha_form">
+        <fieldset>
+            <div class="modal-body">
+                <div class="control-group">
+                    <label class="control-label" for="email">Digite seu email:</label>
+                    <div class="controls">
+                        <input class="input-xlarge" type="text" name="email" id="email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="senha">Nova Senha:</label>
+                    <div class="controls">
+                        <input class="input-xlarge" type="password" name="senha" id="senha">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info">Enviar &raquo;</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

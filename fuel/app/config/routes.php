@@ -8,6 +8,10 @@ return array(
     'login' => 'auth/login',
     'logout' => 'auth/logout',
 
+    // rota para resetar a senha
+    'recuperar-senha' => 'auth/recuperar_senha',
+    'recuperar-senha/(:alnum)/(:alnum)' => 'auth/recuperar_senha/$1/$2',
+
     'admin' => 'admin/painel',
     'cadastro' => 'home/cadastro',
 
