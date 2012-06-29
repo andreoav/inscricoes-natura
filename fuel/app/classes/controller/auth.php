@@ -5,7 +5,7 @@
  */
 class Controller_Auth extends Controller_Hybrid
 {
-    public    $template = 'template';
+    public    $template = 'login';
     protected $_allowed_actions = array('login', 'cadastro', 'recuperar_senha', '404');
 
     public function before()
@@ -13,9 +13,17 @@ class Controller_Auth extends Controller_Hybrid
         parent::before();
         $this->format = 'json';
 
+        // Asset Paths for Aquincum
+        /*Asset::add_path(DOCROOT . 'aquincum/js', 'js');
+        Asset::add_path(DOCROOT . 'aquincum/css', 'css');
+        Asset::add_path(DOCROOT . 'aquincum/images', 'img');*/
+        self::include_assets();
+        Date::display_timezone('America/Sao_Paulo');
+
+
         // Inclui os assets comuns para a maioria das views
         // JavaScripts
-        Casset::js('jquery-1.7.2.min.js');
+        /*Casset::js('jquery-1.7.2.min.js');
         Casset::js('bootstrap.js');
         Casset::js('jquery.dataTables.js');
         Casset::js('jquery.dataTables-bootstrap.js');
@@ -36,7 +44,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::css('jquery.dataTables-bootstrap.css');
         Casset::css('datepicker.css');
         Casset::css('jquery.noty.css');
-        Casset::css('noty_theme_default.css');
+        Casset::css('noty_theme_default.css');*/
         //Casset::css('noty_theme_twitter.css');
 
         // Autenticacao
@@ -65,7 +73,7 @@ class Controller_Auth extends Controller_Hybrid
                 {
                     // Usuario não esta logado
                     Session::set_flash('flash_msg', array(
-                        'msg_type' => 'alert-error',
+                        'msg_type' => 'nFailure',
                         'msg_content' => 'Você precisa estar logado no sistema para acessar este recurso.'
                     ));
 
@@ -87,6 +95,8 @@ class Controller_Auth extends Controller_Hybrid
      */
     public function action_login()
     {
+        Casset::js('aquincum::files/login.js');
+
         // Caso o usuário já esteja logado redireciona o mesmo para a dashboard do sistema
         if(Sentry::check())
         {
@@ -98,7 +108,7 @@ class Controller_Auth extends Controller_Hybrid
         {
             $_username = Input::post('username');
             $_password = Input::post('password');
-            $_remember = Input::post('remember') == 1 ? true : false;
+            $_remember = true;
 
             if(Session::get('redirect'))
             {
@@ -111,8 +121,8 @@ class Controller_Auth extends Controller_Hybrid
                 if(Sentry::login($_username, $_password, $_remember))
                 {
                     Session::set_flash('flash_msg', array(
-                        'msg_type' => 'alert-success',
-                        'msg_content' => 'Login efetuado com sucesso.'
+                        'msg_type' => 'nSuccess',
+                        'msg_content' => 'Você efetuou login no sistema com sucesso.'
                     ));
 
                     Response::redirect($_redirect == 'home/404' ? 'home/index' : $_redirect);
@@ -120,7 +130,7 @@ class Controller_Auth extends Controller_Hybrid
                 else
                 {
                     Session::set_flash('flash_msg', array(
-                        'msg_type' => 'alert-error',
+                        'msg_type' => 'nFailure',
                         'msg_content' => 'A senha digitada está incorreta. <small>' . Html::anchor('#recuperar_senha_modal', '(Esqueci minha senha!)', array('data-toggle' => 'modal')) .'</small>'
                     ));
                 }
@@ -128,7 +138,7 @@ class Controller_Auth extends Controller_Hybrid
             catch(SentryAuthException $e)
             {
                 Session::set_flash('flash_msg', array(
-                    'msg_type' => 'alert-error',
+                    'msg_type' => 'nFailure',
                     'msg_content' => 'Não foi possível encontrar um usuário cadastrado com este email.'
                 ));
             }
@@ -228,10 +238,86 @@ class Controller_Auth extends Controller_Hybrid
         Session::delete('profile_unfinished');
 
         Session::set_flash('flash_msg', array(
-            'msg_type' => 'alert-success',
+            'msg_type'    => 'nSuccess',
             'msg_content' => 'Você deslogou do sistema com sucesso.'
         ));
 
         Response::redirect('login');
+    }
+
+    public static function include_assets()
+    {
+        Casset::add_path('aquincum', 'aquincum/');
+
+        Casset::css('aquincum::styles.css'); // General Styles
+        Casset::js('aquincum::jquery.min.js'); // Jquery
+
+        // Forms
+        Casset::js('aquincum::plugins/forms/ui.spinner.js');
+        Casset::js('aquincum::jquery-ui.min.js');
+        Casset::js('aquincum::plugins/forms/jquery.mousewheel.js');
+
+        // Charts
+        Casset::js('aquincum::plugins/charts/excanvas.min.js');
+        Casset::js('aquincum::plugins/charts/jquery.flot.js');
+        Casset::js('aquincum::plugins/charts/jquery.flot.orderBars.js');
+        Casset::js('aquincum::plugins/charts/jquery.flot.pie.js');
+        Casset::js('aquincum::plugins/charts/jquery.flot.resize.js');
+        Casset::js('aquincum::plugins/charts/jquery.sparkline.min.js');
+
+        // Tables
+        Casset::js('aquincum::plugins/tables/jquery.dataTables.js');
+        Casset::js('aquincum::plugins/tables/jquery.sortable.js');
+        Casset::js('aquincum::plugins/tables/jquery.resizable.js');
+
+        // Forms [2]
+        Casset::js('aquincum::plugins/forms/autogrowtextarea.js');
+        Casset::js('aquincum::plugins/forms/jquery.uniform.js');
+        Casset::js('aquincum::plugins/forms/jquery.inputlimiter.min.js');
+        Casset::js('aquincum::plugins/forms/jquery.tagsinput.min.js');
+        Casset::js('aquincum::plugins/forms/jquery.maskedinput.min.js');
+        Casset::js('aquincum::plugins/forms/jquery.autotab.js');
+        Casset::js('aquincum::plugins/forms/jquery.chosen.min.js');
+        Casset::js('aquincum::plugins/forms/jquery.dualListBox.js');
+        Casset::js('aquincum::plugins/forms/jquery.cleditor.js');
+        Casset::js('aquincum::plugins/forms/jquery.ibutton.js');
+        Casset::js('aquincum::plugins/forms/jquery.validationEngine-en.js');
+        Casset::js('aquincum::plugins/forms/jquery.validationEngine.js');
+
+
+        // File upload
+        Casset::js('aquincum::plugins/uploader/plupload.js');
+        Casset::js('aquincum::plugins/uploader/plupload.html4.js');
+        Casset::js('aquincum::plugins/uploader/plupload.html5.js');
+        Casset::js('aquincum::plugins/uploader/jquery.plupload.queue.js');
+
+        // Wizards
+        Casset::js('aquincum::plugins/wizards/jquery.form.wizard.js');
+        Casset::js('aquincum::plugins/wizards/jquery.validate.js');
+        Casset::js('aquincum::plugins/forms/methods_pt.js');
+        Casset::js('aquincum::plugins/forms/messages_ptbr.js');
+        Casset::js('aquincum::plugins/wizards/jquery.form.js');
+
+        // UI
+        Casset::js('aquincum::plugins/ui/jquery.collapsible.min.js');
+        Casset::js('aquincum::plugins/ui/jquery.breadcrumbs.js');
+        Casset::js('aquincum::plugins/ui/jquery.tipsy.js');
+        Casset::js('aquincum::plugins/ui/jquery.progress.js');
+        Casset::js('aquincum::plugins/ui/jquery.timeentry.min.js');
+        Casset::js('aquincum::plugins/ui/jquery.colorpicker.js');
+        Casset::js('aquincum::plugins/ui/jquery.jgrowl.js');
+        Casset::js('aquincum::plugins/ui/jquery.fancybox.js');
+        Casset::js('aquincum::plugins/ui/jquery.fileTree.js');
+        Casset::js('aquincum::plugins/ui/jquery.sourcerer.js');
+
+        // Others
+        Casset::js('aquincum::plugins/others/jquery.fullcalendar.js');
+        Casset::js('aquincum::plugins/others/jquery.elfinder.js');
+
+        // Custom
+        Casset::js('aquincum::plugins/ui/jquery.easytabs.min.js');
+        Casset::js('aquincum::files/bootstrap.js');
+        Casset::js('aquincum::app.core.js');
+        Casset::js('aquincum::files/functions.js');
     }
 }

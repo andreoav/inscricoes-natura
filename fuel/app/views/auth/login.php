@@ -1,84 +1,39 @@
-<section id="loginForm">
-    <div class="row">
-        <div class="span6">
-            <div class="page-header">
-                <h1>Sobre o Sistema</h1>
-            </div>
-            <p>O Natura Clube de Orientação apresenta sua mais nova ferramenta para gerenciamento de atletas e inscrições em etapas. Veja os recursos disponíveis no sistema:</p>
-            <ul>
-                <li>Controle de Atletas do Clube</li>
-                <li>Controle de Inscrições</li>
-                <li>Etapas dos vários compeonatos disponíveis com informações completas e mapas</li>
-                <li>Envio de email para todos atletas cadastrados de maneira prática. <span class="label label-success">Novo!</span></li>
-                <li>Entre muitos outros...</li>
-            </ul>
-            <p>Se você já está cadastrado no sistema, use o formulário ao lado para efetuar o seu login, se você ainda não se cadastrou clique no botão abaixo e crie a sua conta.</p>
-            <p>
-                <?php echo Html::anchor('cadastro', 'Cadastrar-se &raquo;', array('class' => 'btn btn-large btn-info', 'rel' => 'tooltip', 'title' => 'Cadastrar-se no Sistema')); ?>
-            </p>
-        </div>
-        <div class="span5">
-            <div class="page-header">
-                <h1>Formulário de Login</h1>
-            </div>
-            <div id="loginModal">
-                <?php echo Form::open(array('action' => 'login', 'id' => 'login-form', 'class' => 'form-horizontal')); ?>
-                <fieldset>
-                    <div class="control-group">
-                        <label for="username" class="control-label">Usuário:</label>
-                        <div class="controls">
-                            <div class="input-prepend">
-                                <span class="add-on"><i class="icon-user"></i></span><input type="text" class="input-xlarge" name="username" id="username">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label for="password" class="control-label">Senha:</label>
-                        <div class="controls">
-                            <div class="input-prepend">
-                                <span class="add-on"><i class="icon-lock"></i></span><input type="password" class="input-xlarge" name="password" id="password">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <button type="submit" class="btn btn-primary">Efetuar Login &raquo;</button>
-                            <button data-toggle="modal" data-target="#recuperar_senha_modal" class="btn btn-info">Recuperar Senha &raquo;</button>
-                            <input type="hidden" value="1" id="optionsCheckbox" name="remember">
-                        </div>
-                    </div>
-                </fieldset>
-                <?php echo Form::close(); ?>
-            </div>
+<!-- Current user form -->
+<?php echo Form::open(array('action' => 'login', 'id' => 'login')) ?>
+    <div class="loginPic">
+        <a href="#" title=""><?php echo Casset::img('aquincum::userLogin2.png'); ?></a>
+        <span>// Login</span>
+        <div class="loginActions">
+            <div><a href="#" title="Cadastrar-se" class="logleft flip tipE"></a></div>
+            <div><a href="#" title="Esqueci minha senha!" class="logright tipW"></a></div>
         </div>
     </div>
-</section>
 
-<div class="modal hide fade" id="recuperar_senha_modal">
-    <div class="modal-header">
-        <button class="close" data-dismiss="modal">&times;</button>
-        <h3>Recuperar Senha</h3>
+    <input type="text" name="username" id="username" placeholder="Insira o seu email" class="loginEmail" />
+    <input type="password" name="password" id="password" placeholder="Insira a sua senha" class="loginPassword" />
+
+    <div class="logControl">
+        <input type="submit" name="submit" value="Entrar" class="buttonM bBlue" />
+        <div class="clear"></div>
+    </div>
+<?php echo Form::close(); ?>
+
+<!-- New user form -->
+<?php echo Form::open(array('action' => 'cadastro', 'id' => 'recover')) ?>
+    <div class="loginPic">
+        <a href="#" title=""><?php echo Casset::img('aquincum::userLogin2.png'); ?></a>
+        <span>// Cadastro</span>
+        <div class="loginActions">
+            <div><a href="#" title="Login" class="logback flip tipE"></a></div>
+            <div><a href="#" title="Esqueci minha senha!" class="logright tipW"></a></div>
+        </div>
     </div>
 
-    <form class="modal-form form-horizontal" action="<?php echo Uri::create('recuperar-senha'); ?>" method="POST" id="recuperar_senha_form">
-        <fieldset>
-            <div class="modal-body">
-                <div class="control-group">
-                    <label class="control-label" for="email">Digite seu email:</label>
-                    <div class="controls">
-                        <input class="input-xlarge" type="text" name="email" id="email">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="senha">Nova Senha:</label>
-                    <div class="controls">
-                        <input class="input-xlarge" type="password" name="senha" id="senha">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info">Enviar &raquo;</button>
-            </div>
-        </fieldset>
-    </form>
-</div>
+    <input type="text" name="username" placeholder="Digite o seu email" class="loginEmail" />
+    <input type="password" name="password" placeholder="Digite uma senha" class="loginPassword" />
+    <input type="text" name="password_2" placeholder="Digite a senha novamente" class="loginPassword" />
+
+    <div class="logControl">
+        <input type="submit" name="submit" value="Cadastrar" class="buttonM bBlue" />
+    </div>
+<?php echo Form::close(); ?>

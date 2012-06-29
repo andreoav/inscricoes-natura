@@ -32,16 +32,10 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_visualizar($_inscricao_id = null)
     {
-        Casset::css('colorbox.css');
-        Casset::css('redactor.css');
-        Casset::js('jquery.colorbox-min.js');
-        Casset::js('redactor.js');
-        Casset::js('jquery.download.js'); // Ajax file request
-
         if($_inscricao_id == null or ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível encontrar esta inscrição.'
             ));
 
@@ -52,7 +46,7 @@ class Controller_Inscricoes extends Controller_Auth
         if( ! Sentry::user()->is_admin() and $_inscricao->user->id != Sentry::user()->get('id'))
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível encontrar esta inscrição.'
             ));
 
@@ -272,7 +266,7 @@ class Controller_Inscricoes extends Controller_Auth
                 if($_nova_resposta->save())
                 {
                     Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-success',
+                        'msg_type'    => 'nSuccess',
                         'msg_content' => 'Sua resposta foi enviada com sucesso.'
                     ));
 
@@ -281,7 +275,7 @@ class Controller_Inscricoes extends Controller_Auth
                 else
                 {
                     Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
+                        'msg_type'    => 'nFailure',
                         'msg_content' => 'Não foi possível enviar a sua resposta.'
                     ));
                 }
@@ -407,9 +401,8 @@ class Controller_Inscricoes extends Controller_Auth
             $_returnData     = array();
             foreach($_inscricoesData as $_inscricao)
             {
-                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<i class="icon-search icon-white"></i>', array(
-                    'class' => 'btn btn-primary btn-mini',
-                    'rel'   => 'tooltip',
+                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<span class="iconb" data-icon="&#xe044;"></span>', array(
+                    'class' => 'tablectrl_large bDefault tipS',
                     'title' => 'Visualizar Inscrição'
                 ));
 

@@ -155,32 +155,44 @@ class Utils
 
 	public static function criarBreadcrumb($location)
 	{
+        /*<div class="breadLine">
+            <div class="bc">
+                <ul id="breadcrumbs" class="breadcrumbs">
+                    <li><a href="#">Home</a></li>
+                    <li class="current"><a href="#">Index</a></li>
+                </ul>
+            </div>
+        </div>*/
+
 		if(is_array($location))
 		{
 			$_i = 0; $_url = '';
-			$_breadcrumb  = '<div class="span12"><ul class="breadcrumb">';
-			$_breadcrumb .= '<li><a href="' . Uri::base() . '">Início</a></li> <span class="divider">/</span> ';
-			foreach ($location as $segmento)
-			{
-				if($_i + 1 == count($location))
-				{
-					$_breadcrumb .= '<li class="active">' . Inflector::humanize($segmento) . '</li>';
-				}
-				else
-				{
-					$_breadcrumb .= '<li><a href="' . Uri::create($_url . $segmento) . '">' . Inflector::humanize($segmento) . '</a></li>';
-					$_breadcrumb .= ' <span class="divider">/</span> ';
-				}
+			$_breadcrumb  = '<div class="breadLine"><div class="bc"><ul class="breadcrumbs">';
+			$_breadcrumb .= '<li><a href="' . Uri::base() . '">Home</a></li>';
 
-				$_i++;
-				$_url .= $segmento . '/';
-			}
+            if(count($location) > 1)
+            {
+                foreach ($location as $segmento)
+                {
+                    if($_i + 1 == count($location))
+                    {
+                        $_breadcrumb .= '<li class="current"><a href="#">' . Inflector::humanize($segmento) . '</a></li>';
+                    }
+                    else
+                    {
+                        $_breadcrumb .= '<li><a href="' . Uri::create($_url . $segmento) . '">' . ($segmento == 'inscricoes' ? 'Inscrições' : Inflector::humanize($segmento)) . '</a></li>';
+                    }
 
-			return $_breadcrumb . '</ul></div>';
-		}
-		else
-		{
-			return '<div class="span12"><ul class="breadcrumb"><li><a href="' . Uri::base() . '">Início</a></li></ul></div>';
+                    $_i++;
+                    $_url .= $segmento . '/';
+                }
+            }
+            else
+            {
+                $_breadcrumb .= '<li class="current"><a href="#">' . Inflector::humanize('index') . '</a></li>';
+            }
+
+			return $_breadcrumb . '</ul></div></div>';
 		}
 	}
 

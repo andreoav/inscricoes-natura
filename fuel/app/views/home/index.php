@@ -1,65 +1,63 @@
-<div class="row">
-    <div class="span12">
-        <div class="page-header"><h1>Meu Painel</h1></div>
-    </div>
+<?php echo View::forge('template/topbar', array('tPage' => 'Meu Painel', 'icon' => 'icon-screen')); ?>
+<?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
 
-    <aside id="sistemaNavegacao">
-        <div class="span4">
-            <nav style="padding: 8px 0;" class="well">
-                <ul class="nav nav-list" id="navegacao">
-                    <li class="nav-header">Navegação</li>
-                    <li class="active">
-                        <a href="<?php echo Uri::create('home'); ?>"><i class="icon-white icon-home"></i> Início</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo Uri::create('noticias'); ?>"><i class="icon-bullhorn"></i> Notícias</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo Uri::create('etapas'); ?>"><i class="icon-calendar"></i> Etapas</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo Uri::create('inscricoes/nova'); ?>"><i class="icon-plus"></i> Nova Inscrição</a>
-                    </li>
-                    <?php if (Sentry::user()->is_admin()): ?>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="<?php echo Uri::create('admin/painel'); ?>"><i class="icon-wrench"></i> Administração</a>
-                        </li>
-                    <?php endif ?>
+<!-- Main content -->
+<div class="wrapper">
+    <?php echo View::forge('flash'); ?>
 
-                    <li class="divider"></li>
-                    <li>
-                        <a href="<?php echo Uri::create('usuario/perfil'); ?>"><i class="icon-user"></i> Perfil</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo Uri::create('logout'); ?>"><i class="icon-off"></i> Sair</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </aside>
+    <!-- First row -->
+    <div class="fluid">
 
-    <section id="lastNewsSection">
-        <div class="span8">
-            <table class="table" id="lastNews">
-                <thead>
-                    <tr>
-                        <th><h2>Últimas Notícias</h2></th>
-                    </tr>
-                </thead>
-                <tbody>
+        <!-- LAST NEWS -->
+        <div class="widget grid6">
+            <div class="whead">
+                <h6>Últimas Notícias</h6>
+                <div class="clear"></div>
+            </div>
+            <?php if($noticias): ?>
+                <ul class="updates">
                     <?php foreach($noticias as $noticia): ?>
-                        <tr>
-                            <td>
-                                <?php echo  '<span class="label label-info">' . Date::forge($noticia->created_at)->format('%d/%m às %H:%M') . '</span> &raquo; ' . $noticia->titulo; ?>
-                                <?php echo Html::anchor('noticias/' . $noticia->id, 'Leia mais &raquo;', array('class' => 'btn btn-mini btn-info pull-right hide', 'rel' => 'tooltip', 'title' => 'Leia a notícia completa.')); ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                        <li>
+                            <span class="uNotice">
+                                <?php echo Html::anchor('noticias/' . $noticia->id, $noticia->titulo); ?>
+                                <span>
+                                    <?php echo Str::truncate($noticia->conteudo, 90, '...', true); ?>
+                                </span>
+                            </span>
+                            <span class="uDate"><span><?php echo date('d', $noticia->created_at); ?></span><?php echo date('M', $noticia->created_at); ?></span>
+                            <span class="clear"></span>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
         </div>
-    </section>
+        <!-- END LAST NEWS -->
 
+        <!-- CONTATO -->
+        <div class="widget grid6">
+            <div class="whead">
+                <h6>Fale Conosco</h6>
+                <div class="clear"></div>
+            </div>
+            <div class="body">
+                <div class="messageTo">
+                    <a class="uName" title="" href="#"><?php echo Casset::img('aquincum::live/face5.png'); ?></a><span> Envie uma mensagem para <strong>Natura CO</strong></span>
+                    <a class="uEmail" title="" href="#">natura@naturaco.org</a>
+                </div>
+                <textarea placeholder="Escreva a sua mensagem" class="auto" name="textarea" cols="" rows="5" ></textarea>
+                <div class="mesControls">
+                    <span><span data-icon="&#xe20d;" class="iconb"></span><a title="" href="#">HTML</a> básico habilitado</span>
+
+                    <div class="sendBtn sendwidget">
+                        <button type="submit" class="buttonM bLightBlue" id="btnEnviar"><i class="icol-arrowright"></i>&nbsp; Enviar</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM CONTATO -->
+
+    </div>
+    <!-- END FIRST ROW -->
+    <?php echo View::forge('shared/minhas_inscricoes'); ?>
 </div>
-<?php echo View::forge('shared/minhas_inscricoes'); ?>

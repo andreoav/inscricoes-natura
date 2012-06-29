@@ -64,7 +64,7 @@ return array(
 	 */
 	'js_dir' => 'js/',
 	'css_dir' => 'css/',
-	'img_dir' => 'img/',
+	'img_dir' => 'images/',
 
 	/**
 	 * When minifying, the minified, combined files are cached.
@@ -72,7 +72,7 @@ return array(
 	 *
 	 * This MUST include the trailing slash ('/')
 	 */
-	'cache_path' => 'assets/cache/',
+	'cache_path' => 'aquincum/cache/',
 
 	/**
 	 * Note the following with regards to combining / minifying files:

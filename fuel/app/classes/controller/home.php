@@ -18,7 +18,7 @@ class Controller_Home extends Controller_Auth
     {
         $this->template->conteudo  = \View::forge('home/index', null, false);
 		$this->template->conteudo->set('noticias',
-            DB::select('id', 'titulo', 'created_at')->from('noticias')->order_by('id', 'desc')->limit(5)->as_object()->execute()
+            DB::select()->from('noticias')->order_by('id', 'desc')->limit(5)->as_object()->execute()
         );
 	}
 
@@ -49,18 +49,19 @@ class Controller_Home extends Controller_Auth
 						if(Sentry::login(Arr::get($_user_data, 'email'), Arr::get($_user_data, 'password'), false))
 						{
 							Session::set_flash('flash_msg', array(
-								'msg_type'    => 'alert-success',
-								'msg_content' => 'Login efetuado com sucesso!'
+								'msg_type'    => 'nSuccess',
+								'msg_content' => 'Cadastro efetuado com sucesso. Seja muito bem vindo!'
 							));
 
-							Response::redirect('home#guider=g1');
+							//Response::redirect('home#guider=g1');
+                            Response::redirect('home/index');
 						}
 					}
 					catch (SentryAuthException $e)
 					{
 						Session::set_flash('flash_msg', array(
-							'msg_type'    => 'alert-error',
-							'msg_content' => 'Não foi possível logar no sistema.'
+							'msg_type'    => 'nFailure',
+							'msg_content' => 'Não foi possível efetuar login no sistema.'
 						));
 
 						Response::redirect('login');
@@ -69,7 +70,7 @@ class Controller_Home extends Controller_Auth
 				else
 				{
 					Session::set_flash('flash_msg', array(
-						'msg_type'    => 'alert-error',
+						'msg_type'    => 'nFailure',
 						'msg_content' => 'Não foi possível realizar o seu cadastro.'
 					));
 				}
@@ -77,7 +78,7 @@ class Controller_Home extends Controller_Auth
 			catch(SentryUserException $e)
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-error',
+					'msg_type'    => 'nFailure',
 					'msg_content' => 'Não foi possível realizar o seu cadastro pois este email/usuário já está cadastrado.'
 				));
 			}
