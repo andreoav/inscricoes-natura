@@ -1,4 +1,4 @@
-<div class="widget grid12">
+<div class="widget">
     <div class="whead"><h6>Minhas Inscrições</h6><div class="clear"></div></div>
     <div id="dyn" class="hiddenpars">
         <a class="tOptions tipS" title="Opções"><?php echo Casset::img('aquincum::icons/options'); ?></a>

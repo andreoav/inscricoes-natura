@@ -27,7 +27,7 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_index()
     {
-        $this->template->conteudo = View::forge('shared/minhas_inscricoes', array('breadcrumbs' => true));
+        $this->template->conteudo = View::forge('inscricoes/index');
     }
 
     public function action_visualizar($_inscricao_id = null)

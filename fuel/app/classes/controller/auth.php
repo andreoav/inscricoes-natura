@@ -314,6 +314,9 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('aquincum::plugins/others/jquery.fullcalendar.js');
         Casset::js('aquincum::plugins/others/jquery.elfinder.js');
 
+        Casset::js('amplify.min.js');
+        Casset::js('amplify.request.min.js');
+
         // Custom
         Casset::js('aquincum::plugins/ui/jquery.easytabs.min.js');
         Casset::js('aquincum::files/bootstrap.js');

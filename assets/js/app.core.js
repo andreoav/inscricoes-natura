@@ -295,6 +295,7 @@
             dateType: 'json',
             type: 'POST'
         });
+
         $('button.updateBtn').click(function(event) {
             // Desabilita o botao
             $.noty.closeAll();

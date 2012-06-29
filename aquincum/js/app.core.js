@@ -1,5 +1,7 @@
 $(function() {
 
+    $.jGrowl.defaults.position = 'bottom-right';
+
     var dataTablePT = {
         "sProcessing":   "Processando...",
         "sLengthMenu":   "Mostrar _MENU_ registros",
@@ -78,6 +80,79 @@ $(function() {
             reEnableJqueryContent();
         }
     });
+
+    // ========= Atualizar Inscrição  ========= //
+    amplify.request.define('inscricaoUpdate', 'ajax', {
+        url: base_url + 'admin/inscricoes/update',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    $('a.updateBtn').click(function(event) {
+        var dados = {
+            inscricao_id: $(this).data('inscricao-id'),
+            update_type:  $(this).data('update-type') == 'aprovar' ? 1 : 0
+        }
+
+        // faz a chamada ajax
+        amplify.request({
+            resourceId: 'inscricaoUpdate',
+            data: dados,
+            success: function(data, textStatus, XMLHttpRequest)
+            {
+                if(data.valid)
+                {
+                    if(dados.update_type == 1)
+                    {
+                        $('#inscricaoStatus').html('<strong>Status: </strong><span class="label label-success">Aprovada</span>');
+                        $.jGrowl(data.msg, { header: 'Atualização Concluída' });
+                    }
+                    else
+                    {
+                        $('#inscricaoStatus').html('<strong>Status: </strong><span class="label label-important">Rejeitada</span>');
+                        $.jGrowl(data.msg, { header: 'Atualização Concluída' });
+                    }
+
+                }
+                else
+                {
+                    $.jGrowl(data.msg, { header: 'Ops!' });
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                $.jGrowl('Ocorreu um erro durante a atualização.', { header: 'Ops!' });
+            }
+        });
+
+        return false;
+    });
+    // ========= Atualizar Inscrição  ========= //
+
+
+
+
+    // TODO: Seperar JQUERY
+    $('#inscricao_resposta_form').validate({
+        rules: {
+            inscricao_resposta: "required"
+        }
+        /*submitHandler: function( form ) {
+            var dados = $(form).serialize();
+
+            $.ajax({
+                type: "POST",
+                url:  base_url + 'inscricoes/responder/' + dados.inscricaoID,
+                data: dados,
+                success: function(data, textStatus, XMLHttpRequest) {
+
+                }
+            });
+
+            return false;
+        }*/
+    });
+
 });
 
 

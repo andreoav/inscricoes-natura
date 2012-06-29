@@ -170,7 +170,7 @@ class Utils
 			$_breadcrumb  = '<div class="breadLine"><div class="bc"><ul class="breadcrumbs">';
 			$_breadcrumb .= '<li><a href="' . Uri::base() . '">Home</a></li>';
 
-            if(count($location) > 1)
+            if(count($location) > 2)
             {
                 foreach ($location as $segmento)
                 {
@@ -189,7 +189,7 @@ class Utils
             }
             else
             {
-                $_breadcrumb .= '<li class="current"><a href="#">' . Inflector::humanize('index') . '</a></li>';
+                $_breadcrumb .= '<li class="current"><a href="#">' . ($location[0] == 'home' ? Inflector::humanize('index') : ($location[0] == 'inscricoes' ? 'Inscrições' : Inflector::humanize($location[0]))). '</a></li>';
             }
 
 			return $_breadcrumb . '</ul></div></div>';

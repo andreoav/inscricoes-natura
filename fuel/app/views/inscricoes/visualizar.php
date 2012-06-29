@@ -11,23 +11,39 @@
                 <ul class="headIconSet">
                     <li><a class="icon-remove-3 tipS" href="#" title="Excluir Inscrição"></a></li>
                     <?php if(Sentry::user()->is_admin()): ?>
-                        <li><a class="icon-checkmark tipS" href="#"  title="Aprovar"></a></li>
-                        <li><a class="icon-minus-2 tipS" href="#"  title="Rejeitar"></a></li>
+                        <li><a class="icon-checkmark updateBtn tipS" href="#"  title="Aprovar" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="aprovar"></a></li>
+                        <li><a class="icon-minus-2 updateBtn tipS" href="#"  title="Rejeitar" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="rejeitar"></a></li>
                     <?php endif ?>
                 </ul>
                 <div class="clear"></div>
             </div>
             <div class="body">
                 <ul class="liArrow">
-                    <li><strong>Número:</strong> <?php echo $inscricao_info->id; ?></li>
-                    <li><strong>Atleta:</strong> <?php echo Sentry::user((int) $inscricao_info->user->id)->get('metadata.nome'); ?></li>
-                    <li><strong>Categoria:</strong> <?php echo $inscricao_info->categoria; ?></li>
-                    <li><strong>Realizada em:</strong> <?php echo Date::forge($inscricao_info->created_at)->format('%d/%m/%Y %H:%M:%S'); ?></li>
-                    <li><strong>Campeonato:</strong> <?php echo $inscricao_info->etapa->campeonato->nome; ?></li>
-                    <li><strong>Etapa:</strong> <?php echo $inscricao_info->etapa->nome; ?></li>
-                    <li><strong>Status:</strong> <?php echo Utils::status2label($inscricao_info->status); ?></li>
+                    <li>
+                        <strong>Número:</strong> <?php echo $inscricao_info->id; ?>
+                    </li>
+                    <li>
+                        <strong>Atleta:</strong> <?php echo Sentry::user((int) $inscricao_info->user->id)->get('metadata.nome'); ?>
+                    </li>
+                    <li>
+                        <strong>Categoria:</strong> <?php echo $inscricao_info->categoria; ?>
+                    </li>
+                    <li>
+                        <strong>Realizada em:</strong> <?php echo Date::forge($inscricao_info->created_at)->format('%d/%m/%Y %H:%M:%S'); ?>
+                    </li>
+                    <li>
+                        <strong>Campeonato:</strong> <?php echo $inscricao_info->etapa->campeonato->nome; ?>
+                    </li>
+                    <li>
+                        <strong>Etapa:</strong> <?php echo $inscricao_info->etapa->nome; ?>
+                    </li>
+                    <li id="inscricaoStatus">
+                        <strong>Status:</strong> <?php echo Utils::status2label($inscricao_info->status); ?>
+                    </li>
                     <?php if($inscricao_info->observacao): ?>
-                        <li><strong>Observação:</strong> <?php echo $inscricao_info->observacao; ?></li>
+                        <li>
+                            <strong>Observação:</strong> <?php echo $inscricao_info->observacao; ?>
+                        </li>
                     <?php endif ?>
                 </ul>
             </div>
@@ -111,9 +127,10 @@
 
     <!-- Enter messages field -->
     <div class="enterMessage">
-        <?php echo Form::open(array('action' => 'inscricoes/responder/' . $inscricao_info->id, 'id' => 'nova_resposta_form')); ?>
+        <?php echo Form::open(array('action' => 'inscricoes/responder/' . $inscricao_info->id, 'id' => 'inscricao_resposta_form')); ?>
             <input type="text" name="inscricao_resposta" id="inscricao_resposta" placeholder="Envie uma mensagem nesta inscrição." />
             <div class="sendBtn">
+                <input type="hidden" name="inscricaoID" id="inscricaoID" value="<?php echo $inscricao_info->id; ?>">
                 <input type="submit" class="buttonS bLightBlue" value="Enviar" />
             </div>
         </form>
