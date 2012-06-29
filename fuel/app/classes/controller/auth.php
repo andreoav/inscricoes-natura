@@ -32,6 +32,7 @@ class Controller_Auth extends Controller_Hybrid
         // Css
         Casset::css('bootstrap.css');
         Casset::css('bootstrap-responsive.min.css');
+        Casset::css('font-awesome.css');
         Casset::css('jquery.dataTables-bootstrap.css');
         Casset::css('datepicker.css');
         Casset::css('jquery.noty.css');

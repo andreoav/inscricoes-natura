@@ -15,7 +15,7 @@
                     <a href="<?php echo Uri::create('admin/email'); ?>"><i class="icon-envelope"></i> Email</a>
                 </li>
                 <li>
-                    <a href="<?php echo Uri::create('usuario/atletas'); ?>"><i class="icon-user"></i> Atletas</a>
+                    <a href="<?php echo Uri::create('admin/usuarios'); ?>"><i class="icon-user"></i> Atletas</a>
                 </li>
                 <li>
                     <a href="<?php echo Uri::create('admin/etapas'); ?>"><i class="icon-calendar"></i> Etapas</a>
