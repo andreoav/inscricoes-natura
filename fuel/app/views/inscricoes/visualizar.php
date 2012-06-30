@@ -86,53 +86,58 @@
     </div>
 
     <!-- Respostas -->
-    <?php if($inscricao_info->respostas): ?>
-        <div class="widget">
-        <div class="whead">
-            <h6>Respostas</h6>
-            <div class="clear"></div>
-        </div>
+    <div id="inscricao_mensagens">
+        <?php if($inscricao_info->respostas): ?>
+            <div class="widget">
+            <div class="whead">
+                <h6>Respostas</h6>
+                <div class="clear"></div>
+            </div>
 
-            <ul class="messagesTwo">
-                <?php foreach($inscricao_info->respostas as $resposta): ?>
-                    <?php if($resposta->user->id === Sentry::user()->get('id')): ?>
-                        <li class="by_me">
-                            <a href="#"><?php echo Casset::img('aquincum::live/face1.png'); ?></a>
-                            <div class="messageArea">
-                                <div class="infoRow">
-                                    <span class="name"><strong><?php echo Sentry::user((int) $resposta->user->id)->get('metadata.nome') ?></strong> postou:</span>
-                                    <span class="time"><?php echo Date::forge($resposta->created_at)->format('%d/%m/%y às %H:%M:%S'); ?></span>
-                                    <span class="clear"></span>
+                <ul class="messagesTwo">
+                    <?php foreach($inscricao_info->respostas as $resposta): ?>
+                        <?php if($resposta->user->id === Sentry::user()->get('id')): ?>
+                            <li class="by_me">
+                                <a href="#"><?php echo Casset::img('aquincum::icons/color/user.png', null, array('width' => 37, 'height' => 35)); ?></a>
+                                <div class="messageArea">
+                                    <div class="infoRow">
+                                        <span class="name"><strong><?php echo Sentry::user((int) $resposta->user->id)->get('metadata.nome') ?></strong> postou:</span>
+                                        <span class="time"><?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?></span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <?php echo $resposta->conteudo ?>
                                 </div>
-                                <?php echo $resposta->conteudo ?>
-                            </div>
-                        </li>
-                    <?php else: ?>
-                        <li class="by_user">
-                            <a href="#"><?php echo Casset::img('aquincum::live/face2.png'); ?></a>
-                            <div class="messageArea">
-                                <div class="infoRow">
-                                    <span class="name"><strong><?php echo Sentry::user((int) $resposta->user->id)->get('metadata.nome') ?></strong> postou:</span>
-                                    <span class="time"><?php echo Date::forge($resposta->created_at)->format('%d/%m/%y às %H:%M:%S'); ?></span>
-                                    <span class="clear"></span>
+                            </li>
+                        <?php else: ?>
+                            <li class="by_user">
+                                <a href="#"><?php echo Casset::img('aquincum::icons/color/user.png', null, array('width' => 37, 'height' => 35)); ?></a>
+                                <div class="messageArea">
+                                    <div class="infoRow">
+                                        <span class="name"><strong><?php echo Sentry::user((int) $resposta->user->id)->get('metadata.nome') ?></strong> postou:</span>
+                                        <span class="time"><?php echo Date::forge($resposta->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?></span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <?php echo $resposta->conteudo ?>
                                 </div>
-                                <?php echo $resposta->conteudo ?>
-                            </div>
-                        </li>
-                    <?php endif ?>
-                <?php endforeach ?>
-            </ul>
-        </div>
-    <?php endif ?>
+                            </li>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        <?php endif ?>
+    </div>
 
-    <!-- Enter messages field -->
+    <!-- Campo para inserir uma resposta -->
     <div class="enterMessage">
         <?php echo Form::open(array('action' => 'inscricoes/responder/' . $inscricao_info->id, 'id' => 'inscricao_resposta_form')); ?>
             <input type="text" name="inscricao_resposta" id="inscricao_resposta" placeholder="Envie uma mensagem nesta inscrição." />
             <div class="sendBtn">
-                <input type="hidden" name="inscricaoID" id="inscricaoID" value="<?php echo $inscricao_info->id; ?>">
+                <input type="hidden" name="inscricaoID" id="inscricaoID" value="<?php echo $inscricao_info->id; ?>" />
+                <input type="hidden" name="inscricaoUSER" id="inscricaoUSER" value="<?php echo Sentry::user()->get('metadata.nome'); ?>" />
                 <input type="submit" class="buttonS bLightBlue" value="Enviar" />
             </div>
-        </form>
+        <?php echo Form::close(); ?>
     </div>
+    <!-- Fim do campo para inserir uma resposta -->
+
 </div>

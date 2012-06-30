@@ -129,28 +129,68 @@ $(function() {
     });
     // ========= Atualizar Inscrição  ========= //
 
+    function createNote(type, message, location)
+    {
+        $(location).append('<div class="widget"><div class="nNote ' + type +'"><p>' + message + '</p></div></div>');
+    }
 
-
+    var loading_modal = $('<div id="loading_dialog"></div>')
+        .html('<p><img src=' + base_url + 'aquincum/images/elements/loaders/10s.gif' + '> Sua requisição está sendo processada.</p>')
+        .dialog({
+            height: 85,
+            title: 'Aguarde...',
+            closeOnEscape: false,
+            autoOpen: false,
+            modal: true
+        });
 
     // TODO: Seperar JQUERY
-    $('#inscricao_resposta_form').validate({
+    var resposta_form = $('#inscricao_resposta_form').validate({
         rules: {
             inscricao_resposta: "required"
-        }
-        /*submitHandler: function( form ) {
+        },
+        submitHandler: function( form ) {
             var dados = $(form).serialize();
+
+            loading_modal.dialog('open');
 
             $.ajax({
                 type: "POST",
-                url:  base_url + 'inscricoes/responder/' + dados.inscricaoID,
+                url:  base_url + 'inscricoes/responder',
                 data: dados,
                 success: function(data, textStatus, XMLHttpRequest) {
+                    loading_modal.dialog('close');
+                    $.jGrowl(data.msg, { header: 'Nova Resposta!' });
 
+                    if(data.valid)
+                    {
+                        var dataAtual = new XDate();
+                        if($('div#inscricao_mensagens ul.messagesTwo').length == 0) {
+                            $('div#inscricao_mensagens').append('<div class="widget"><div class="whead"><h6>Respostas</h6>' +
+                                '<div class="clear"></div></div><ul class="messagesTwo"></ul></div>'
+                            );
+                        }
+
+                        $('ul.messagesTwo').append('<li class="by_me"><a href="#"><img width="37" height="37" src="' + base_url + 'aquincum/images/icons/color/user.png' +
+                            '"></a><div class="messageArea"><div class="infoRow"><span class="name"><strong>' +
+                            $('input#inscricaoUSER').val() + '</strong>  postou:</span><span class="time">' +
+                            dataAtual.toString("dd/MM/yyyy 'às' HH:mm:ss") + '</span><span class="clear"></span></div>' +
+                            $('input#inscricao_resposta').val() + '</div></li>');
+
+                        $('ul.messagesTwo li.by_me:last').hide();
+                        $('ul.messagesTwo li.by_me:last').slideDown('slow');
+                        //resposta.slideDown('slow');
+                        resposta_form.resetForm();
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    loading_modal.dialog('close');
+                    resposta_form.resetForm();
                 }
             });
 
             return false;
-        }*/
+        }
     });
 
 });

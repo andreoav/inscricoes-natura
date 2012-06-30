@@ -255,6 +255,7 @@ class Controller_Auth extends Controller_Hybrid
         // Forms
         Casset::js('aquincum::plugins/forms/ui.spinner.js');
         Casset::js('aquincum::jquery-ui.min.js');
+        Casset::js('aquincum::plugins/ui/jquery.ui.datepicker-pt-BR.js');
         Casset::js('aquincum::plugins/forms/jquery.mousewheel.js');
 
         // Charts
@@ -314,8 +315,9 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('aquincum::plugins/others/jquery.fullcalendar.js');
         Casset::js('aquincum::plugins/others/jquery.elfinder.js');
 
-        Casset::js('amplify.min.js');
-        Casset::js('amplify.request.min.js');
+        Casset::js('amplify.min.js'); // TODO: MUDAR DE DIRETÓRIO
+        Casset::js('amplify.request.min.js'); // TODO: MUDAR DE DIRETÓRIO
+        Casset::js('xdate.js'); // TODO: MUDAR DE DIRETÓRIO
 
         // Custom
         Casset::js('aquincum::plugins/ui/jquery.easytabs.min.js');

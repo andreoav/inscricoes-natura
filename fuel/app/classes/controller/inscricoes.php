@@ -253,9 +253,10 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_responder($_inscricao_id = null)
     {
-        if(Input::method() == 'POST' && $_inscricao_id != null)
+        sleep(2);
+        if((Input::method() == 'POST' and $_inscricao_id != null) or (Input::method() == 'POST' and Input::is_ajax()))
         {
-            $_inscricao = Model_Inscricao::find($_inscricao_id);
+            $_inscricao = Model_Inscricao::find(Input::is_ajax() ? Input::post('inscricaoID') : $_inscricao_id);
             if($_inscricao != null)
             {
                 $_nova_resposta = new Model_Resposta;
@@ -265,24 +266,42 @@ class Controller_Inscricoes extends Controller_Auth
 
                 if($_nova_resposta->save())
                 {
-                    Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'nSuccess',
-                        'msg_content' => 'Sua resposta foi enviada com sucesso.'
-                    ));
+                    if(Input::is_ajax())
+                    {
+                        $this->response(array('valid' => true, 'msg' => 'Sua resposta foi enviada com sucesso.'));
+                    }
+                    else
+                    {
+                        Session::set_flash('flash_msg', array(
+                            'msg_type'    => 'nSuccess',
+                            'msg_content' => 'Sua resposta foi enviada com sucesso.'
+                        ));
 
-                    Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
+                        Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
+                    }
                 }
                 else
                 {
-                    Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'nFailure',
-                        'msg_content' => 'Não foi possível enviar a sua resposta.'
-                    ));
+                    if(Input::is_ajax())
+                    {
+                        $this->response(array('valid' => false, 'msg' => 'Não foi possível enviar a sua resposta.'));
+                    }
+                    else
+                    {
+                        Session::set_flash('flash_msg', array(
+                            'msg_type'    => 'nFailure',
+                            'msg_content' => 'Não foi possível enviar a sua resposta.'
+                        ));
+
+                        Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
+                    }
                 }
             }
         }
-
-        Response::redirect('home');
+        else
+        {
+            Response::redirect('home');
+        }
     }
 
     public function action_download_comprovante($_inscricao_id = null)

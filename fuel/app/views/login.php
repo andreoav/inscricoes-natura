@@ -7,6 +7,7 @@
     <?php echo Casset::render_css(); ?>
     <!--[if IE]><link href="<?php echo Uri::create('aquincum/css/ie.css'); ?>" rel="stylesheet" type="text/css"><![endif]-->
     <!-- Javascripts -->
+    <script type="text/javascript">var base_url = "<?php echo \Uri::base(); ?>";</script>
     <?php echo Casset::render_js(); ?>
 </head>
 <body>
