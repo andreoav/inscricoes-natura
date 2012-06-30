@@ -1,4 +1,4 @@
-<?php echo View::forge('template/topbar', array('tPage' => 'Meu Painel', 'icon' => 'icon-screen')); ?>
+<?php echo View::forge('template/topbar', array('tPage' => 'Visualizar Inscrição', 'icon' => 'icon-screen')); ?>
 <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
 
 <div class="wrapper">

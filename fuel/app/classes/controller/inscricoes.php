@@ -53,8 +53,10 @@ class Controller_Inscricoes extends Controller_Auth
             Response::redirect('home');
         }
 
+
         $this->template->conteudo = View::forge('inscricoes/visualizar');
         $this->template->conteudo->set('inscricao_info', $_inscricao);
+        $this->template->conteudo->set_global('pagina_titulo', 'Inscrições :: Visualizar - ' . $_inscricao_id);
     }
 
     public function action_buscar()
@@ -87,8 +89,8 @@ class Controller_Inscricoes extends Controller_Auth
      */
     public function action_nova($_etapa_id = null)
     {
-        Casset::css('chosen.css');
-        Casset::js('chosen.jquery.min.js');
+        /*Casset::css('chosen.css');
+        Casset::js('chosen.jquery.min.js'); */
 
         // Verifica se a requisição foi feita usando o método alternativo de inscrição
         // que está disponível ao visualizar uma etapa cadastrada e disponível para novas inscrições
@@ -182,7 +184,12 @@ class Controller_Inscricoes extends Controller_Auth
                 'where' => array(
                     array('inscricao_ate', '>=', time())
                 ),
-                'order_by' => array('data_inicio' => 'asc')
+                'order_by' => array('data_inicio' => 'asc'),
+                'related'  => array(
+                    'campeonato' => array(
+                        'order_by' => array('nome' => 'desc')
+                    )
+                )
             ));
 
             // Renderiza o formulário de inscrição
@@ -253,7 +260,6 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_responder($_inscricao_id = null)
     {
-        sleep(2);
         if((Input::method() == 'POST' and $_inscricao_id != null) or (Input::method() == 'POST' and Input::is_ajax()))
         {
             $_inscricao = Model_Inscricao::find(Input::is_ajax() ? Input::post('inscricaoID') : $_inscricao_id);

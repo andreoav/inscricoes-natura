@@ -170,7 +170,7 @@ class Utils
 			$_breadcrumb  = '<div class="breadLine"><div class="bc"><ul class="breadcrumbs">';
 			$_breadcrumb .= '<li><a href="' . Uri::base() . '">Home</a></li>';
 
-            if(count($location) > 2)
+            if(count($location) > 1 and $location[0] != 'home')
             {
                 foreach ($location as $segmento)
                 {
