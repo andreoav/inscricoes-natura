@@ -11,15 +11,16 @@ class Controller_Home extends Controller_Auth
 
 	public function action_404()
 	{
-        $this->template->conteudo = View::forge('home/404');
+        Response::redirect('home/index');
+        //$this->template->conteudo = View::forge('home/404');
 	}
 
 	public function action_index()
     {
+        $_noticias = DB::select()->from('noticias')->order_by('id', 'desc')->limit(5)->as_object()->execute();
+
         $this->template->conteudo  = \View::forge('home/index', null, false);
-		$this->template->conteudo->set('noticias',
-            DB::select()->from('noticias')->order_by('id', 'desc')->limit(5)->as_object()->execute()
-        );
+		$this->template->conteudo->set_global('noticias', $_noticias, false);
 	}
 
 	public function action_cadastro()
@@ -32,9 +33,9 @@ class Controller_Home extends Controller_Auth
 		if(Input::method() == 'POST')
 		{
 			$_user_data = array(
-				'email'    => Input::post('cadastro_email'),
-				'username' => Input::post('cadastro_usuario'),
-				'password' => Input::post('cadastro_senha')
+				'email'    => Input::post('cadastro_username'),
+				'username' => Input::post('cadastro_username'),
+				'password' => Input::post('cadastro_password')
 			);
 
 			try
@@ -85,7 +86,9 @@ class Controller_Home extends Controller_Auth
 
 			Response::redirect('cadastro');
 		}
-
-		$this->template->conteudo = View::forge('home/cadastro');
+        else
+        {
+            Response::redirect('login');
+        }
 	}
 }

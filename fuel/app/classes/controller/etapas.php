@@ -2,6 +2,8 @@
 
 class Controller_Etapas extends Controller_Auth
 {
+    public $template = 'template';
+
     public function before()
     {
         parent::before();
@@ -14,8 +16,6 @@ class Controller_Etapas extends Controller_Auth
 
     public function action_visualizar($_etapa_id = null)
     {
-        Casset::css('chosen.css');
-        Casset::js('chosen.jquery.min.js');
         Casset::js('jquery.gmap.min.js');
 
         if($_etapa_id == null || ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
@@ -50,10 +50,8 @@ class Controller_Etapas extends Controller_Auth
         $this->template->conteudo->set('ja_inscrito', $_ja_inscrito);
         $this->template->conteudo->set('inscricoes_encerradas', $_etapa_info->inscricao_ate < time());
         $this->template->conteudo->set('arquivos', $_arquivos);
-        $this->template->conteudo->set_global('localidade_map', $_etapa_info->localidade);
     }
 
-    // TODO: usar ID do arquivo para buscar o download
     public function action_arquivo($_arquivo = null)
     {
         $_tmp = DB::select('nome', 'etapa_id')->from('boletins')->where('id', '=', $_arquivo)->limit(1)->execute()->as_array();
@@ -76,10 +74,9 @@ class Controller_Etapas extends Controller_Auth
             $_returnData     = array();
             foreach($_etapasData as $_etapa)
             {
-                $_acoes  = Html::anchor('etapas/visualizar/' . $_etapa->id, '<i class="icon-search icon-white"></i>', array(
-                    'class' => 'btn btn-primary btn-mini',
-                    'rel'   => 'tooltip',
-                    'title' => 'Visualizar Inscrição'
+                $_acoes  = Html::anchor('etapas/visualizar/' . $_etapa->id, '<span class="iconb" data-icon="&#xe044;"></span>', array(
+                    'class' => 'tablectrl_large bDefault tipS',
+                    'title' => 'Visualizar Etapa'
                 ));
 
                 if($_etapa->inscricao_ate < time())

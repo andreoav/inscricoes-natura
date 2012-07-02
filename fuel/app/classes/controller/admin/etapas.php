@@ -153,6 +153,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
                     // Modelo da CBO
                     case 2:
                         // TODO: Gerar modelo da CBO
+                        $sheetModel = new Padrao_CBO($_etapa_info);
                     break;
                 }
 

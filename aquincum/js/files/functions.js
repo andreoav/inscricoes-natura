@@ -21,16 +21,16 @@ $(function() {
 
 
 	//===== Login pic hover animation =====//
-	
+
 	$(".loginPic").hover(
-		function() { 
+		function() {
 		
-		$('.logleft, .logback').animate({left:10, opacity:1},200); 
-		$('.logright').animate({right:10, opacity:1},200); },
-		
-		function() { 
-		$('.logleft, .logback').animate({left:0, opacity:0},200);
-		$('.logright').animate({right:0, opacity:0},200); }
+		$('.logleft, .logback').stop().animate({left:10, opacity:1},200);
+		$('.logright').stop().animate({right:10, opacity:1},200); },
+
+		function() {
+		$('.logleft, .logback').stop().animate({left:0, opacity:0},200);
+		$('.logright').stop().animate({right:0, opacity:0},200); }
 	);
 	
 	
@@ -395,7 +395,7 @@ $(function() {
 	//===== Masked input =====//
 	
 	$.mask.definitions['~'] = "[+-]";
-	$(".maskDate").mask("99/99/9999",{completed:function(){alert("Callback when completed");}});
+	$(".maskDate").mask("99/99/9999");
 	$(".maskPhone").mask("(999) 999-9999");
 	$(".maskPhoneExt").mask("(999) 999-9999? x99999");
 	$(".maskIntPhone").mask("+33 999 999 999");
@@ -859,8 +859,8 @@ $(function() {
 		defaultDate: +7,
 		showOtherMonths:true,
 		autoSize: true,
-		appendText: '(dd-mm-yyyy)',
-		dateFormat: 'dd-mm-yy'
+		appendText: '(dd/mm/yyyy)',
+		dateFormat: 'dd/mm/yy'
 	});	
 	
 	$(function() {

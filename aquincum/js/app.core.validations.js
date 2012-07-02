@@ -94,11 +94,6 @@
 				noticia_titulo: {
 					required: true
 				}
-			},
-			messages: {
-				noticia_titulo: {
-					required: "Este campo é obrigatório."
-				}
 			}
 		});
 
@@ -116,16 +111,16 @@
         //===== Validação Cadastro =====//
         $('form#recover').validate({
             rules: {
-                username: {
+                cadastro_username: {
                     required: true,
                     email:    true
                 },
-                password: "required",
-                password_2: {
-                    required: true,
-                    equalTo: '#password'
+                cadastro_password: "required",
+                cadastro_password_2: {
+                    equalTo: '#cadastro_password'
                 }
-            }
+            },
+            ignore: false
         });
 
 		$('#usuario_perfil_form').validate({

@@ -13,39 +13,8 @@ class Controller_Auth extends Controller_Hybrid
         parent::before();
         $this->format = 'json';
 
-        // Asset Paths for Aquincum
-        /*Asset::add_path(DOCROOT . 'aquincum/js', 'js');
-        Asset::add_path(DOCROOT . 'aquincum/css', 'css');
-        Asset::add_path(DOCROOT . 'aquincum/images', 'img');*/
         self::include_assets();
         Date::display_timezone('America/Sao_Paulo');
-
-
-        // Inclui os assets comuns para a maioria das views
-        // JavaScripts
-        /*Casset::js('jquery-1.7.2.min.js');
-        Casset::js('bootstrap.js');
-        Casset::js('jquery.dataTables.js');
-        Casset::js('jquery.dataTables-bootstrap.js');
-        Casset::js('jquery.validate.js');
-        Casset::js('bootstrap-datepicker.js');
-        Casset::js('amplify.min.js');
-        Casset::js('amplify.request.min.js');
-        Casset::js('jquery.noty.js');
-        Casset::js('xdate.js');
-        Casset::js('underscore-min.js');
-        Casset::js('app.core.js');
-        Casset::js('app.core.validations.js');
-
-        // Css
-        Casset::css('bootstrap.css');
-        Casset::css('bootstrap-responsive.min.css');
-        Casset::css('font-awesome.css');
-        Casset::css('jquery.dataTables-bootstrap.css');
-        Casset::css('datepicker.css');
-        Casset::css('jquery.noty.css');
-        Casset::css('noty_theme_default.css');*/
-        //Casset::css('noty_theme_twitter.css');
 
         // Autenticacao
         if(! in_arrayi($this->request->action, $this->_allowed_actions))
@@ -59,11 +28,11 @@ class Controller_Auth extends Controller_Hybrid
                     if(Config::get('sysconfig.app.show_guide') and Sentry::user()->get('metadata.sistema_tour') == 0)
                     {
                         // Guide related JS
-                        Casset::js('jquery.guiders.js');
-                        Casset::js('guides/home.guide.js');
+                        //Casset::js('jquery.guiders.js');
+                        //Casset::js('guides/home.guide.js');
 
                         // Guide related Css
-                        Casset::css('guiders.css');
+                        //Casset::css('guiders.css');
                     }
 
                     // Usuario logado, verificar permissoes e perfil completo
@@ -320,7 +289,8 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('aquincum::plugins/others/jquery.fullcalendar.js');
         Casset::js('aquincum::plugins/others/jquery.elfinder.js');
 
-        Casset::js('amplify.min.js'); // TODO: MUDAR DE DIRETÓRIO
+        // TODO: MUDAR DE DIRETÓRIO
+        Casset::js('amplify.min.js');
         Casset::js('amplify.request.min.js'); // TODO: MUDAR DE DIRETÓRIO
         Casset::js('xdate.js'); // TODO: MUDAR DE DIRETÓRIO
 
@@ -328,6 +298,7 @@ class Controller_Auth extends Controller_Hybrid
         Casset::js('aquincum::plugins/ui/jquery.easytabs.min.js');
         Casset::js('aquincum::files/bootstrap.js');
         Casset::js('aquincum::app.core.js');
+        Casset::js('aquincum::app.core.validations.js');
         Casset::js('aquincum::files/functions.js');
     }
 }

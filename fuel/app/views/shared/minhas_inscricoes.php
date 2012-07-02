@@ -4,13 +4,13 @@
         <a class="tOptions tipS" title="Opções"><?php echo Casset::img('aquincum::icons/options'); ?></a>
         <table id="minhas_inscricoes">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Etapa</th>
-                <th>Campeonato</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Etapa</th>
+                    <th>Campeonato</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody>
             </tbody>

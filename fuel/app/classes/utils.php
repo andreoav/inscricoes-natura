@@ -167,7 +167,7 @@ class Utils
 		if(is_array($location))
 		{
 			$_i = 0; $_url = '';
-			$_breadcrumb  = '<div class="breadLine"><div class="bc"><ul class="breadcrumbs">';
+			$_breadcrumb  = '<div class="bc"><ul class="breadcrumbs">';
 			$_breadcrumb .= '<li><a href="' . Uri::base() . '">Home</a></li>';
 
             if(count($location) > 1 and $location[0] != 'home')
@@ -192,7 +192,7 @@ class Utils
                 $_breadcrumb .= '<li class="current"><a href="#">' . ($location[0] == 'home' ? Inflector::humanize('index') : ($location[0] == 'inscricoes' ? 'Inscrições' : Inflector::humanize($location[0]))). '</a></li>';
             }
 
-			return $_breadcrumb . '</ul></div></div>';
+			return $_breadcrumb . '</ul></div>';
 		}
 	}
 

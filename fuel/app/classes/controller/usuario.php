@@ -41,14 +41,14 @@ class Controller_Usuario extends Controller_Auth
 				if(Sentry::user()->update($_new_metadata))
 				{
 					Session::set_flash('flash_msg', array(
-						'msg_type'    => 'alert-success',
+						'msg_type'    => 'nSuccess',
 						'msg_content' => 'Seu perfil foi atualizado com sucesso.'
 					));
 				}
 				else
 				{
 					Session::set_flash('flash_msg', array(
-						'msg_type'    => 'alert-error',
+						'msg_type'    => 'nFailure',
 						'msg_content' => 'Não foi possível atualizar o seu perfil.'
 					));
 				}
@@ -64,9 +64,9 @@ class Controller_Usuario extends Controller_Auth
 			Response::redirect('home');
 		}
 
-		$data = array();
-		$data['usuario_dados'] = Sentry::user()->get('metadata');
-		$this->template->conteudo = View::forge('usuario/perfil', $data);
+		$this->template->conteudo = View::forge('usuario/perfil');
+        $this->template->conteudo->set('usuario_dados', Sentry::user()->get('metadata'));
+        $this->template->conteudo->set_global('pagina_titulo', 'Inscrições :: Perfil');
 	}
 
 	public function post_cancelGuide()

@@ -15,14 +15,14 @@
 <!-- Top line begins -->
 <div id="top">
     <div class="wrapper">
-        <a href="index.html" title="" class="logo"><?php echo Casset::img('aquincum::logo.png');?></a>
+        <a href="<?php echo Uri::create('home/index'); ?>" title="" class="logo"><?php echo Casset::img('aquincum::logo.png');?></a>
 
         <!-- Right top nav -->
         <div class="topNav">
             <ul class="userNav">
                 <li><a title="" class="search"></a></li>
-                <li><a href="#" title="" class="profile"></a></li>
-                <li><a href="#" title="Sair" class="logout"></a></li>
+                <li><a href="<?php echo Uri::create('perfil'); ?>" title="" class="profile"></a></li>
+                <li><a href="<?php echo Uri::create('logout'); ?>" title="Sair" class="logout"></a></li>
                 <li class="showTabletP"><a href="#" title="" class="sidebar"></a></li>
             </ul>
             <a title="" class="iButton"></a>
@@ -41,7 +41,7 @@
 <!-- Top line ends -->
 
 <!-- Inicio Sidebar -->
-<?php echo View::forge('template/sidebar'); ?>
+<?php echo View::forge(isset($custom_sidebar) ? $custom_sidebar : 'template/sidebar'); ?>
 <!-- Final Sidebar -->
 
 <!-- Content begins -->

@@ -1,6 +1,13 @@
 $(function() {
 
     $.jGrowl.defaults.position = 'bottom-right';
+    function reEnableJqueryContent()
+    {
+        $('.tipN').tipsy({gravity: 'n',fade: true, html:true});
+        $('.tipS').tipsy({gravity: 's',fade: true, html:true});
+        $('.tipW').tipsy({gravity: 'w',fade: true, html:true});
+        $('.tipE').tipsy({gravity: 'e',fade: true, html:true});
+    }
 
     var dataTablePT = {
         "sProcessing":   "Processando...",
@@ -20,40 +27,6 @@ $(function() {
         }
     }
 
-    function reEnableJqueryContent()
-    {
-        $('.tipN').tipsy({gravity: 'n',fade: true, html:true});
-        $('.tipS').tipsy({gravity: 's',fade: true, html:true});
-        $('.tipW').tipsy({gravity: 'w',fade: true, html:true});
-        $('.tipE').tipsy({gravity: 'e',fade: true, html:true});
-    }
-
-    //===== Validação Login =====//
-    $('form#login').validate({
-        rules: {
-            username: {
-                required: true,
-                email:    true
-            },
-            password: "required"
-        }
-    });
-
-    //===== Validação Cadastro =====//
-    $('form#recover').validate({
-        rules: {
-            username: {
-                required: true,
-                email:    true
-            },
-            password: "required",
-            password_2: {
-                required: true,
-                equalTo: '#password'
-            }
-        }
-    });
-
     $('#minhas_inscricoes').dataTable({
         "bJQueryUI": false,
         "bAutoWidth": false,
@@ -72,6 +45,35 @@ $(function() {
             { "sClass": "center", "aTargets": [ 0, 3, 4 ] },
             { "sWidth": "5%", "aTargets": [ 0, 4 ] },
             { "sWidth": "10%", "aTargets": [ 3 ] }
+        ],
+        "aaSorting" : [
+            [ 0 , "desc" ]
+        ],
+        fnDrawCallback: function(){
+            reEnableJqueryContent();
+        }
+    });
+
+    $('#etapas_cadastradas').dataTable( {
+        "bJQueryUI": false,
+        "bAutoWidth": false,
+        "sPaginationType": "full_numbers",
+        "sDom": '<"H"fl>t<"F"ip>',
+        "sAjaxSource" : base_url + 'etapas/cadastradas',
+        "aoColumns": [
+            { "mDataProp": "id" },
+            { "mDataProp": "nome" },
+            { "mDataProp": "campeonato" },
+            { "mDataProp": "localidade" },
+            { "mDataProp": "status" },
+            { "mDataProp": "acoes" }
+        ],
+        "oLanguage": dataTablePT,
+        "aoColumnDefs": [
+            { "bVisible": false, "aTargets": [ 0 ] },
+            { "sClass": "center", "aTargets": [ 4, 5 ] },
+            { "sWidth": "10%", "aTargets": [ 4 ] },
+            { "sWidth": "5%", "aTargets": [ 5 ] }
         ],
         "aaSorting" : [
             [ 0 , "desc" ]
@@ -127,8 +129,9 @@ $(function() {
 
         return false;
     });
-    // ========= Atualizar Inscrição  ========= //
+    // ========= Atualizar Inscrição ========= //
 
+    // ========= Inscrição Resposta ========= //
     var loading_modal = $('<div id="loading_dialog"></div>')
         .html('<p><img src=' + base_url + 'aquincum/images/elements/loaders/10s.gif' + '> Sua requisição está sendo processada.</p>')
         .dialog({
@@ -139,7 +142,6 @@ $(function() {
             modal: true
         });
 
-    // TODO: Seperar JQUERY
     var resposta_form = $('#inscricao_resposta_form').validate({
         rules: {
             inscricao_resposta: "required"
@@ -186,11 +188,10 @@ $(function() {
             return false;
         }
     });
+    // ========= Inscrição Resposta FIm ========= //
 
 
-    /**
-     * AJAX request para excluir uma inscrição
-     */
+    // ========= Excluir Inscrição ========= //
     amplify.request.define('inscricaoDelete', 'ajax', {
         url: base_url + 'inscricoes/excluir',
         dateType: 'json',
@@ -241,19 +242,10 @@ $(function() {
         event.preventDefault();
         excluir_inscricao_modal.dialog('open');
     });
-    /** FIIIIIIIIIIIIM */
+    // ========= Excluir Inscrição FIM ========= //
 
 
     // ================= NOVA INSCRICAO INICIO ========================//
-    $('form#nova_inscricao_form').validate({
-        rules: {
-            inscricao_etapa: "required",
-            inscricao_categoria: "required",
-            inscricao_comprovante: "required"
-        },
-        ignore: false
-    });
-
     amplify.request.define('informacaoEtapa', 'ajax', {
         url: base_url + 'etapas/informacaoEtapa',
         dateType: 'json',
@@ -277,10 +269,10 @@ $(function() {
                     if(data.valid)
                     {
                         $('div#informacao_etapa').html('<ul class="liInfo">' +
-                            '<li>Localidade: ' + data.localidade + '</li>' +
-                            '<li>Data de Início: </li>' +
-                            '<li>Data de Encerramento: </li>' +
-                            '<li>Prazo de Inscrição: </li>' +
+                            '<li><strong>Localidade: </strong>' + data.localidade + '</li>' +
+                            '<li><strong>Data de Início: </strong>' + XDate(data.inicio * 1000).toString('dd/MM/yyyy') + '</li>' +
+                            '<li><strong>Data de Encerramento: </strong>' + XDate(data.fim * 1000).toString('dd/MM/yyyy') + '</li>' +
+                            '<li><strong>Inscrições até: </strong>' + XDate(data.ate * 1000).toString('dd/MM/yyyy') + '</li>' +
                             '</ul>'
                         );
 
@@ -292,6 +284,28 @@ $(function() {
     });
     // ================= NOVA INSCRICAO FINAL ========================//
 
+    $('#usuario_cpf').mask('999.999.999-99');
+
+
+    $('#inscritos_modal').dialog({
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Padrão CBO": function() {
+                $(this).dialog('close');
+                document.location.href = base_url + 'admin/etapas/inscritos/' + $('a#lista_inscritos').data('etapa-id') + '/2/'
+            },
+            "Padrão FGO": function() {
+                $(this).dialog('close')
+                document.location.href = base_url + 'admin/etapas/inscritos/' + $('a#lista_inscritos').data('etapa-id') + '/1/'
+            }
+        }
+    });
+
+    $('a#lista_inscritos').click(function(event) {
+        event.preventDefault();
+        $('#inscritos_modal').dialog('open');
+    })
 });
 
 

@@ -1,5 +1,9 @@
 <?php echo View::forge('template/topbar', array('tPage' => 'Meu Painel', 'icon' => 'icon-screen')); ?>
-<?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+
+<div class="breadLine">
+    <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+    <?php echo View::forge('shared/breadcrumbs/inscricoes_status'); ?>
+</div>
 
 <!-- Main content -->
 <div class="wrapper">
@@ -10,26 +14,7 @@
 
         <!-- LAST NEWS -->
         <div class="widget grid6">
-            <div class="whead">
-                <h6>Últimas Notícias</h6>
-                <div class="clear"></div>
-            </div>
-            <?php if($noticias): ?>
-                <ul class="updates">
-                    <?php foreach($noticias as $noticia): ?>
-                        <li>
-                            <span class="uNotice">
-                                <?php echo Html::anchor('noticias/' . $noticia->id, $noticia->titulo); ?>
-                                <span>
-                                    <?php echo Str::truncate($noticia->conteudo, 90, '...', true); ?>
-                                </span>
-                            </span>
-                            <span class="uDate"><span><?php echo date('d', $noticia->created_at); ?></span><?php echo date('M', $noticia->created_at); ?></span>
-                            <span class="clear"></span>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
-            <?php endif ?>
+            <?php echo View::forge('shared/ultimas_noticias'); ?>
         </div>
         <!-- END LAST NEWS -->
 
@@ -41,7 +26,7 @@
             </div>
             <div class="body">
                 <div class="messageTo">
-                    <a class="uName" title="" href="#"><?php echo Casset::img('aquincum::live/face5.png'); ?></a><span> Envie uma mensagem para <strong>Natura CO</strong></span>
+                    <a class="uName" title="" href="#"></a><span> Envie uma mensagem para <strong>Natura CO</strong></span>
                     <a class="uEmail" title="" href="#">natura@naturaco.org</a>
                 </div>
                 <textarea placeholder="Escreva a sua mensagem" class="auto" name="textarea" cols="" rows="5" ></textarea>
