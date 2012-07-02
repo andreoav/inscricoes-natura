@@ -115,6 +115,11 @@ class Controller_Auth extends Controller_Hybrid
                 $_redirect = Session::get('redirect');
                 Session::delete('redirect');
             }
+            else
+            {
+                $_redirect = 'home/index';
+            }
+
 
             try
             {

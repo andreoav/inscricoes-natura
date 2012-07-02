@@ -188,6 +188,62 @@ $(function() {
     });
 
 
+    /**
+     * AJAX request para excluir uma inscrição
+     */
+    amplify.request.define('inscricaoDelete', 'ajax', {
+        url: base_url + 'inscricoes/excluir',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    var excluir_inscricao_modal = $('<div id="excluir_inscricao_modal"></div>')
+        .html('Deseja realmente excluir esta inscrição?')
+        .dialog({
+            height: 140,
+            title: 'Confirmar exclusão',
+            closeOnEscape: false,
+            autoOpen: false,
+            modal: true,
+            buttons: {
+                'Sim': function() {
+                    $(this).dialog('close');
+                    var dados = {
+                        inscricao_id: $('a#inscricaoExcluir').data('inscricao-id')
+                    }
+                    amplify.request({
+                        resourceId: 'inscricaoDelete',
+                        data: dados,
+                        success: function(data, textStatus, XMLHttpRequest) {
+                            if(data.valid) {
+                                $.jGrowl(data.msg, {
+                                    life: 1000,
+                                    header: 'Inscrição Excluída!',
+                                    beforeClose: function() {
+                                        document.location.href = base_url;
+                                    }
+                                });
+                            }
+                            else {
+                                $.jGrowl(data.msg, { header: 'Ops!' });
+                            }
+                        }
+                    });
+                },
+                'Não': function()
+                {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+    $('a#inscricaoExcluir').click(function(event){
+        event.preventDefault();
+        excluir_inscricao_modal.dialog('open');
+    });
+    /** FIIIIIIIIIIIIM */
+
+
     // ================= NOVA INSCRICAO INICIO ========================//
     $('form#nova_inscricao_form').validate({
         rules: {

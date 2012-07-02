@@ -9,7 +9,7 @@
             <div class="whead">
                 <h6>Visualizar Inscrição</h6>
                 <ul class="headIconSet">
-                    <li><a class="icon-remove-3 tipS" href="#" title="Excluir Inscrição"></a></li>
+                    <li><a class="icon-remove-3 tipS" href="#" title="Excluir Inscrição" id="inscricaoExcluir" data-inscricao-id="<?php echo $inscricao_info->id; ?>"></a></li>
                     <?php if(Sentry::user()->is_admin()): ?>
                         <li><a class="icon-checkmark updateBtn tipS" href="#"  title="Aprovar" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="aprovar"></a></li>
                         <li><a class="icon-minus-2 updateBtn tipS" href="#"  title="Rejeitar" data-inscricao-id="<?php echo $inscricao_info->id; ?>" data-update-type="rejeitar"></a></li>
