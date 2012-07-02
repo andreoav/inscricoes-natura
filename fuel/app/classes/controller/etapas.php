@@ -16,8 +16,6 @@ class Controller_Etapas extends Controller_Auth
 
     public function action_visualizar($_etapa_id = null)
     {
-        Casset::js('jquery.gmap.min.js');
-
         if($_etapa_id == null || ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
         {
             Session::set_flash('flash_msg', array(

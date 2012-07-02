@@ -6,15 +6,19 @@
 
 <div class="wrapper">
     <?php echo View::forge('flash'); ?>
+
     <div class="fluid">
         <div class="widget">
             <?php echo View::forge('shared/ultimas_noticias'); ?>
         </div>
     </div>
 
-    <div class="grid12">
-        <div class="wButton">
-            <button class="buttonL bBlue first" disabled="disabled">Carregar Mais</button>
+    <div class="fluid">
+        <div class="grid2">
+            <div class="wButton">
+                <a class="buttonL bGreen first" href="#" id="noticias_carregar_mais">Carregar Mais</a>
+            </div>
         </div>
     </div>
+
 </div>

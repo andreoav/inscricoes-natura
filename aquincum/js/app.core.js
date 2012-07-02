@@ -305,7 +305,85 @@ $(function() {
     $('a#lista_inscritos').click(function(event) {
         event.preventDefault();
         $('#inscritos_modal').dialog('open');
-    })
+    });
+
+
+
+
+
+
+
+
+    // ======================= FIM CARREGAR MAIS =============================/
+    amplify.request.define('loadMoreNoticias', 'ajax', {
+        url: base_url + 'noticias/loadMore',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    var btnMore = $('a#noticias_carregar_mais');
+    btnMore.live('click', function(event) {
+        event.preventDefault();
+        var ID = $('ul.updates').data('last-id');
+
+        $('span.headLoad').html('<img src="' + base_url + 'aquincum/images/elements/loaders/1s.gif" />');
+
+        if(ID) {
+
+            amplify.request({
+                resourceId: 'loadMoreNoticias',
+                data: {
+                    last_id: ID
+                },
+                success: function(data, textStatus, XMLHttpRequest) {
+                    if(data.valid)
+                    {
+                        $.each(data.news, function(i, item){
+
+                            $('ul.updates').append(
+                                '<li class="hide" style="display: none;"><span class="uNotice"><a title="Clique aqui para ler mais" class="tipS" href="'
+                                    + base_url + 'noticias/' + item.id + '">' + item.titulo + '</a><span>'+ item.conteudo.substring(0, 90) + '...</span></span>' +
+                                    '<span class="uDate"><span>' + XDate(item.created_at * 1000, true).toString('dd') + '</span>' +
+                                    XDate(item.created_at * 1000, true).toString('MMM')+ '</span>' +
+                                    '<span class="clear"></span></li>'
+                            );
+
+                            $('ul.updates li').each(function(){
+                                if($(this).hasClass('hide')) {
+                                    $(this).fadeIn(1000);
+                                }
+                            });
+
+                        });
+
+                        if(data.last_id == null)
+                        {
+                            $.jGrowl('Não há mais notícias para carregar!', { header: 'Notícias carregadas!' });
+                            btnMore.hide();
+                        }
+                        else
+                        {
+                            $('ul.updates').data('last-id', data.last_id)
+                        }
+
+                        $('span.headLoad').html('');
+                        reEnableJqueryContent();
+                    }
+                    else
+                    {
+                        $.jGrowl('Não há mais notícias para carregar!', { header: 'Notícias carregadas!' });
+                        btnMore.hide();
+                    }
+                }
+            });
+        }
+        else
+        {
+            btnMore.hide();
+        }
+    });
+    // ======================= FIM CARREGAR MAIS =============================/
+
 });
 
 

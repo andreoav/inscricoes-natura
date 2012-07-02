@@ -14,7 +14,7 @@ class Controller_Noticias extends Controller_Auth
 
     public function action_index()
     {
-        $_noticias = DB::select('*')->from('noticias')->order_by('id', 'desc')->limit(5)->as_object()->execute();
+        $_noticias = DB::select('*')->from('noticias')->order_by('id', 'desc')->limit(10)->as_object()->execute();
         if(!count($_noticias))
         {
             Session::set_flash('flash_msg', array(
@@ -53,7 +53,7 @@ class Controller_Noticias extends Controller_Auth
             try
             {
                 $_last_id = (int) Input::post('last_id');
-                $_more_result = DB::select('*')->from('noticias')->where('id', '<', $_last_id)->order_by('id', 'desc')->limit(5)->execute()->as_array();
+                $_more_result = DB::select('*')->from('noticias')->where('id', '<', $_last_id)->order_by('id', 'desc')->limit(10)->execute()->as_array();
 
                 $_new_last_id = null;
                 if($_more_result)

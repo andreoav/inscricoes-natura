@@ -10,8 +10,8 @@
         <div class="widget">
             <div class="whead">
                 <h6><?php echo $noticia['titulo']; ?></h6>
-                <a class="dataNumBlue" href="#"><?php echo Sentry::user((int) $noticia['user_id'])->get('metadata.nome'); ?></a>
                 <a class="dataNumBlue" href="#"><?php echo Date::forge($noticia['created_at'])->format('%d/%m/%Y às %H:%M:%S'); ?></a>
+                <a class="dataNumBlue" href="#"><?php echo Sentry::user((int) $noticia['user_id'])->get('metadata.nome'); ?></a>
                 <div class="clear"></div>
             </div>
             <div class="body">

@@ -44,7 +44,7 @@
     <div class="secNav">
         <div class="secWrapper">
             <ul class="iconsLine ic1">
-                <li><a href="#general" title="" class="exp subClosed">Natura Clube de Orientação</a></li>
+                <li><a href="#general" title="" class="exp subClosed"><?php echo Sentry::user()->get('email'); ?></a></li>
             </ul>
             <div class="divider"><span></span></div>
 
