@@ -268,4 +268,26 @@ class Utils
 
         return $_info;
     }
+
+    public static function etapasOptGroup($etapas)
+    {
+        $current = -1; $return = '';
+        foreach($etapas as $etapa)
+        {
+            if($current != $etapa->campeonato->id)
+            {
+                if($current != -1)
+                {
+                    $return .= '</optgroup>';
+                }
+
+                $return .= '<optgroup label="' . $etapa->campeonato->nome . '">';
+                $current = $etapa->campeonato->id;
+            }
+
+            $return .= '    <option value="' . $etapa->id . '">' . $etapa->nome . '</option>';
+        }
+
+        return $return . '</optgroup>';
+    }
 }

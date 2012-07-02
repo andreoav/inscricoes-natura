@@ -89,9 +89,6 @@ class Controller_Inscricoes extends Controller_Auth
      */
     public function action_nova($_etapa_id = null)
     {
-        /*Casset::css('chosen.css');
-        Casset::js('chosen.jquery.min.js'); */
-
         // Verifica se a requisição foi feita usando o método alternativo de inscrição
         // que está disponível ao visualizar uma etapa cadastrada e disponível para novas inscrições
         if($_etapa_id != null and Input::method() == 'POST')
@@ -109,7 +106,7 @@ class Controller_Inscricoes extends Controller_Auth
                 {
                     // Não conseguiu realizar o upload do comprovante
                     Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
+                        'msg_type'    => 'nFailure',
                         'msg_content' => 'Não foi possível realizar esta inscrição! O formato do comprovante nao é válido.'
                     ));
                 }
@@ -125,7 +122,7 @@ class Controller_Inscricoes extends Controller_Auth
             {
                 // não possui, manda uma mensagem e redireciona
                 Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-error',
+                    'msg_type'    => 'nFailure',
                     'msg_content' => 'Atualmente não existe uma etapa disponível para inscrição no sistema.'
                 ));
 
@@ -151,7 +148,7 @@ class Controller_Inscricoes extends Controller_Auth
                 if($_insc_existente != null)
                 {
                     Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
+                        'msg_type'    => 'nFailure',
                         'msg_content' => 'Não foi possível realizar esta inscrição! Você já está cadastrado nesta etapa.'
                     ));
                 }
@@ -170,7 +167,7 @@ class Controller_Inscricoes extends Controller_Auth
                     {
                         // Não conseguiu realizar o upload do comprovante
                         Session::set_flash('flash_msg', array(
-                            'msg_type'    => 'alert-error',
+                            'msg_type'    => 'nFailure',
                             'msg_content' => 'Não foi possível realizar esta inscrição! O formato do comprovante nao é válido.'
                         ));
                     }
@@ -184,7 +181,6 @@ class Controller_Inscricoes extends Controller_Auth
                 'where' => array(
                     array('inscricao_ate', '>=', time())
                 ),
-                'order_by' => array('data_inicio' => 'asc'),
                 'related'  => array(
                     'campeonato' => array(
                         'order_by' => array('nome' => 'desc')
@@ -356,7 +352,7 @@ class Controller_Inscricoes extends Controller_Auth
         if($_nova_inscricao->save())
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-success',
+                'msg_type'    => 'nSuccess',
                 'msg_content' => 'Seu pedido de inscrição foi enviado com sucesso.'
             ));
         }
@@ -364,7 +360,7 @@ class Controller_Inscricoes extends Controller_Auth
         {
             // Não conseguiu salvar a inscrição, envia uma mensagem e redireciona
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível realizar esta inscrição.'
             ));
         }

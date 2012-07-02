@@ -106,4 +106,30 @@ class Controller_Etapas extends Controller_Auth
             $this->response(array('aaData' => $_returnData));
         }
     }
+
+    public function post_informacaoEtapa()
+    {
+        if(Input::method() == 'POST' and Input::is_ajax())
+        {
+            $_etapa_id = Input::post('etapa_id');
+
+            if(($etapa = Model_Etapa::find($_etapa_id)))
+            {
+                $data = array(
+                    'valid'      => true,
+                    'localidade' => $etapa->localidade,
+                    'inicio'     => $etapa->data_inicio,
+                    'fim'        => $etapa->data_final,
+                    'ate'        => $etapa->inscricao_ate,
+                );
+
+                $this->response($data);
+            }
+            else
+            {
+                $this->response(array('valid' => false));
+            }
+        }
+    }
+
 }

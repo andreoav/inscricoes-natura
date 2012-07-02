@@ -129,11 +129,6 @@ $(function() {
     });
     // ========= Atualizar Inscrição  ========= //
 
-    function createNote(type, message, location)
-    {
-        $(location).append('<div class="widget"><div class="nNote ' + type +'"><p>' + message + '</p></div></div>');
-    }
-
     var loading_modal = $('<div id="loading_dialog"></div>')
         .html('<p><img src=' + base_url + 'aquincum/images/elements/loaders/10s.gif' + '> Sua requisição está sendo processada.</p>')
         .dialog({
@@ -179,7 +174,6 @@ $(function() {
 
                         $('ul.messagesTwo li.by_me:last').hide();
                         $('ul.messagesTwo li.by_me:last').slideDown('slow');
-                        //resposta.slideDown('slow');
                         resposta_form.resetForm();
                     }
                 },
@@ -192,6 +186,55 @@ $(function() {
             return false;
         }
     });
+
+
+    // ================= NOVA INSCRICAO INICIO ========================//
+    $('form#nova_inscricao_form').validate({
+        rules: {
+            inscricao_etapa: "required",
+            inscricao_categoria: "required",
+            inscricao_comprovante: "required"
+        },
+        ignore: false
+    });
+
+    amplify.request.define('informacaoEtapa', 'ajax', {
+        url: base_url + 'etapas/informacaoEtapa',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    var previous_etapa = -1;
+    $('div#informacao_etapa_container').hide();
+    $('select#inscricao_etapa').bind("change", function() {
+        if(previous_etapa != $(this).val())
+        {
+            previous_etapa = $(this).val();
+
+            $('div#informacao_etapa_container').fadeOut();
+            amplify.request({
+                resourceId: 'informacaoEtapa',
+                data: {
+                    etapa_id: $(this).val()
+                },
+                success: function(data, textStatus, XMLHttpRequest) {
+                    if(data.valid)
+                    {
+                        $('div#informacao_etapa').html('<ul class="liInfo">' +
+                            '<li>Localidade: ' + data.localidade + '</li>' +
+                            '<li>Data de Início: </li>' +
+                            '<li>Data de Encerramento: </li>' +
+                            '<li>Prazo de Inscrição: </li>' +
+                            '</ul>'
+                        );
+
+                        $('div#informacao_etapa_container').fadeIn();
+                    }
+                }
+            });
+        }
+    });
+    // ================= NOVA INSCRICAO FINAL ========================//
 
 });
 
