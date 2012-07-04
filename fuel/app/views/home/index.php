@@ -25,6 +25,7 @@
                 <div class="clear"></div>
             </div>
             <div class="body">
+                <?php echo Form::open(array('action' => 'fale-conosco')); ?>
                 <div class="messageTo">
                     <a class="uName" title="" href="#"></a><span> Envie uma mensagem para <strong>Natura CO</strong></span>
                     <a class="uEmail" title="" href="#">natura@naturaco.org</a>
@@ -38,6 +39,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
+                <?php echo Form::close(); ?>
             </div>
         </div>
         <!-- FIM CONTATO -->

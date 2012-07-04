@@ -16,6 +16,7 @@ return array(
     'cadastro' => 'home/cadastro',
     'perfil'   => 'usuario/perfil',
     'faq'      => 'home/faq',
+    'fale-conosco' => 'home/faleconosco',
 
     // Routing para visualização da notícia
     'noticias/(:num)' => 'noticias/visualizar/$1',

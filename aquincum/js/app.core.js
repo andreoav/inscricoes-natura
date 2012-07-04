@@ -96,6 +96,7 @@ $(function() {
             update_type:  $(this).data('update-type') == 'aprovar' ? 1 : 0
         }
 
+        loading_modal.dialog('open');
         // faz a chamada ajax
         amplify.request({
             resourceId: 'inscricaoUpdate',
@@ -120,10 +121,13 @@ $(function() {
                 {
                     $.jGrowl(data.msg, { header: 'Ops!' });
                 }
+
+                loading_modal.dialog('close');
             },
             error: function(XMLHttpRequest, textStatus, errorThrown)
             {
                 $.jGrowl('Ocorreu um erro durante a atualização.', { header: 'Ops!' });
+                loading_modal.dialog('close');
             }
         });
 
@@ -342,10 +346,10 @@ $(function() {
 
                             $('ul.updates').append(
                                 '<li class="hide" style="display: none;"><span class="uNotice"><a title="Clique aqui para ler mais" class="tipS" href="'
-                                    + base_url + 'noticias/' + item.id + '">' + item.titulo + '</a><span>'+ item.conteudo.substring(0, 90) + '...</span></span>' +
-                                    '<span class="uDate"><span>' + XDate(item.created_at * 1000, true).toString('dd') + '</span>' +
-                                    XDate(item.created_at * 1000, true).toString('MMM')+ '</span>' +
-                                    '<span class="clear"></span></li>'
+                                + base_url + 'noticias/' + item.id + '">' + item.titulo + '</a><span>'+ item.conteudo.substring(0, 90) + '...</span></span>' +
+                                '<span class="uDate"><span>' + XDate(item.created_at * 1000, true).toString('dd') + '</span>' +
+                                XDate(item.created_at * 1000, true).toString('MMM')+ '</span>' +
+                                '<span class="clear"></span></li>'
                             );
 
                             $('ul.updates li').each(function(){

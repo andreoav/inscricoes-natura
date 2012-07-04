@@ -228,9 +228,11 @@ class Controller_Auth extends Controller_Hybrid
 
         // Forms
         Casset::js('aquincum::plugins/forms/ui.spinner.js');
-        Casset::js('aquincum::jquery-ui.min.js');
+		Casset::js('aquincum::plugins/forms/jquery.mousewheel.js');
+        
+		// Jquery UI
+		Casset::js('aquincum::jquery-ui.min.js');
         Casset::js('aquincum::plugins/ui/jquery.ui.datepicker-pt-BR.js');
-        Casset::js('aquincum::plugins/forms/jquery.mousewheel.js');
 
         // Charts
         Casset::js('aquincum::plugins/charts/excanvas.min.js');

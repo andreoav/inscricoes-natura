@@ -23,6 +23,16 @@ class Controller_Home extends Controller_Auth
 		$this->template->conteudo->set_global('noticias', $_noticias, false);
 	}
 
+    public function action_faleconosco()
+    {
+        Session::set_flash('flash_msg', array(
+            'msg_type'    => 'nInformation',
+            'msg_content' => 'Esta recurso ainda não está implementado, em breve estará funcionando...'
+        ));
+
+        Response::redirect('home');
+    }
+
 	public function action_cadastro()
 	{
 		if(Sentry::check())
