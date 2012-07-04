@@ -27,21 +27,15 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_index()
     {
-        $this->template->conteudo = View::forge('shared/minhas_inscricoes', array('breadcrumbs' => true));
+        $this->template->conteudo = View::forge('inscricoes/index');
     }
 
     public function action_visualizar($_inscricao_id = null)
     {
-        Casset::css('colorbox.css');
-        Casset::css('redactor.css');
-        Casset::js('jquery.colorbox-min.js');
-        Casset::js('redactor.js');
-        Casset::js('jquery.download.js'); // Ajax file request
-
         if($_inscricao_id == null or ($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível encontrar esta inscrição.'
             ));
 
@@ -52,15 +46,17 @@ class Controller_Inscricoes extends Controller_Auth
         if( ! Sentry::user()->is_admin() and $_inscricao->user->id != Sentry::user()->get('id'))
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível encontrar esta inscrição.'
             ));
 
             Response::redirect('home');
         }
 
+
         $this->template->conteudo = View::forge('inscricoes/visualizar');
         $this->template->conteudo->set('inscricao_info', $_inscricao);
+        $this->template->conteudo->set_global('pagina_titulo', 'Inscrições :: Visualizar - ' . $_inscricao_id);
     }
 
     public function action_buscar()
@@ -93,9 +89,6 @@ class Controller_Inscricoes extends Controller_Auth
      */
     public function action_nova($_etapa_id = null)
     {
-        Casset::css('chosen.css');
-        Casset::js('chosen.jquery.min.js');
-
         // Verifica se a requisição foi feita usando o método alternativo de inscrição
         // que está disponível ao visualizar uma etapa cadastrada e disponível para novas inscrições
         if($_etapa_id != null and Input::method() == 'POST')
@@ -113,7 +106,7 @@ class Controller_Inscricoes extends Controller_Auth
                 {
                     // Não conseguiu realizar o upload do comprovante
                     Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
+                        'msg_type'    => 'nFailure',
                         'msg_content' => 'Não foi possível realizar esta inscrição! O formato do comprovante nao é válido.'
                     ));
                 }
@@ -129,7 +122,7 @@ class Controller_Inscricoes extends Controller_Auth
             {
                 // não possui, manda uma mensagem e redireciona
                 Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-error',
+                    'msg_type'    => 'nFailure',
                     'msg_content' => 'Atualmente não existe uma etapa disponível para inscrição no sistema.'
                 ));
 
@@ -155,7 +148,7 @@ class Controller_Inscricoes extends Controller_Auth
                 if($_insc_existente != null)
                 {
                     Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
+                        'msg_type'    => 'nFailure',
                         'msg_content' => 'Não foi possível realizar esta inscrição! Você já está cadastrado nesta etapa.'
                     ));
                 }
@@ -174,7 +167,7 @@ class Controller_Inscricoes extends Controller_Auth
                     {
                         // Não conseguiu realizar o upload do comprovante
                         Session::set_flash('flash_msg', array(
-                            'msg_type'    => 'alert-error',
+                            'msg_type'    => 'nFailure',
                             'msg_content' => 'Não foi possível realizar esta inscrição! O formato do comprovante nao é válido.'
                         ));
                     }
@@ -188,7 +181,11 @@ class Controller_Inscricoes extends Controller_Auth
                 'where' => array(
                     array('inscricao_ate', '>=', time())
                 ),
-                'order_by' => array('data_inicio' => 'asc')
+                'related'  => array(
+                    'campeonato' => array(
+                        'order_by' => array('nome' => 'desc')
+                    )
+                )
             ));
 
             // Renderiza o formulário de inscrição
@@ -259,9 +256,9 @@ class Controller_Inscricoes extends Controller_Auth
 
     public function action_responder($_inscricao_id = null)
     {
-        if(Input::method() == 'POST' && $_inscricao_id != null)
+        if((Input::method() == 'POST' and $_inscricao_id != null) or (Input::method() == 'POST' and Input::is_ajax()))
         {
-            $_inscricao = Model_Inscricao::find($_inscricao_id);
+            $_inscricao = Model_Inscricao::find(Input::is_ajax() ? Input::post('inscricaoID') : $_inscricao_id);
             if($_inscricao != null)
             {
                 $_nova_resposta = new Model_Resposta;
@@ -271,24 +268,42 @@ class Controller_Inscricoes extends Controller_Auth
 
                 if($_nova_resposta->save())
                 {
-                    Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-success',
-                        'msg_content' => 'Sua resposta foi enviada com sucesso.'
-                    ));
+                    if(Input::is_ajax())
+                    {
+                        $this->response(array('valid' => true, 'msg' => 'Sua resposta foi enviada com sucesso.'));
+                    }
+                    else
+                    {
+                        Session::set_flash('flash_msg', array(
+                            'msg_type'    => 'nSuccess',
+                            'msg_content' => 'Sua resposta foi enviada com sucesso.'
+                        ));
 
-                    Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
+                        Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
+                    }
                 }
                 else
                 {
-                    Session::set_flash('flash_msg', array(
-                        'msg_type'    => 'alert-error',
-                        'msg_content' => 'Não foi possível enviar a sua resposta.'
-                    ));
+                    if(Input::is_ajax())
+                    {
+                        $this->response(array('valid' => false, 'msg' => 'Não foi possível enviar a sua resposta.'));
+                    }
+                    else
+                    {
+                        Session::set_flash('flash_msg', array(
+                            'msg_type'    => 'nFailure',
+                            'msg_content' => 'Não foi possível enviar a sua resposta.'
+                        ));
+
+                        Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
+                    }
                 }
             }
         }
-
-        Response::redirect('home');
+        else
+        {
+            Response::redirect('home');
+        }
     }
 
     public function action_download_comprovante($_inscricao_id = null)
@@ -337,7 +352,7 @@ class Controller_Inscricoes extends Controller_Auth
         if($_nova_inscricao->save())
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-success',
+                'msg_type'    => 'nSuccess',
                 'msg_content' => 'Seu pedido de inscrição foi enviado com sucesso.'
             ));
         }
@@ -345,7 +360,7 @@ class Controller_Inscricoes extends Controller_Auth
         {
             // Não conseguiu salvar a inscrição, envia uma mensagem e redireciona
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível realizar esta inscrição.'
             ));
         }
@@ -407,9 +422,8 @@ class Controller_Inscricoes extends Controller_Auth
             $_returnData     = array();
             foreach($_inscricoesData as $_inscricao)
             {
-                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<i class="icon-search icon-white"></i>', array(
-                    'class' => 'btn btn-primary btn-mini',
-                    'rel'   => 'tooltip',
+                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<span class="iconb" data-icon="&#xe044;"></span>', array(
+                    'class' => 'tablectrl_large bDefault tipS',
                     'title' => 'Visualizar Inscrição'
                 ));
 

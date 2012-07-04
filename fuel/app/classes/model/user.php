@@ -36,7 +36,9 @@ class Model_User extends \Orm\Model
 	public static function validate_profile()
 	{
 		$_user_metadata = Sentry::user()->get('metadata');
+
 		if(empty($_user_metadata['nome']) or empty($_user_metadata['nascimento']) or empty($_user_metadata['identidade']))
+
 		{
 			return false;
 		}

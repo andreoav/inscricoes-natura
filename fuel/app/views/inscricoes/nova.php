@@ -1,78 +1,79 @@
-<div class="row">
-	<div class="span12">
-		<div class="page-header">
-			<h1>Nova Inscrição</h1>
-		</div>
-	</div>
+<?php echo View::forge('template/topbar', array('tPage' => 'Nova Inscrição', 'icon' => 'icon-screen')); ?>
+<div class="breadLine">
+    <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+    <?php echo View::forge('shared/breadcrumbs/inscricoes_status'); ?>
+</div>
 
-	<!-- Início Breadcrumb -->
-	<div class="span12">
-		<ul class="breadcrumb">
-			<li>
-				<?php echo Html::anchor('home', 'Home'); ?> <span class="divider">/</span>
-			</li>
-			<li>
-				<?php echo Html::anchor('inscricoes', 'Inscrições'); ?> <span class="divider">/</span>
-			</li>
-			<li class="active">Nova Inscrição</li>
-		</ul>
-	</div>
-	<!-- Fim Breadcrumb -->
+<div class="wrapper">
+    <?php echo View::forge('flash'); ?>
 
-	<!-- Formulário de Inscrição -->
-	<div class="span12">
-		<form action="<?php echo Uri::create('inscricoes/nova'); ?>" class="form form-horizontal" id="nova_inscricao_form" method="POST" enctype="multipart/form-data">
-			<fieldset>
-				<!-- Select para a etapa -->
-	          	<div class="control-group">
-	          		<?php echo Form::label('Etapa', 'inscricao_etapa', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<select name="inscricao_etapa" id="inscricao_etapa" class="input-xxlarge chzn-select">
-	            			<?php foreach($etapas as $etapa): ?>
-	            				<option value="<?php echo $etapa->id; ?>"><?php echo $etapa->nome . ' - ' . $etapa->campeonato->nome; ?></option>
-	            			<?php endforeach; ?>
-	            		</select>
-	            	</div>
-	          	</div>
-	          	<!-- \Select para a etapa -->
+    <form action="<?php echo Uri::create('inscricoes/nova'); ?>" class="main" id="nova_inscricao_form" method="POST" enctype="multipart/form-data">
+        <fieldset>
+            <div class="fluid">
+                <div class="widget grid6">
+                    <div class="whead"><h6>Formulário de Inscrição</h6><div class="clear"></div></div>
 
-	          	<!-- Select pata a categoria -->
-	          	<div class="control-group">
-	          		<?php echo Form::label('Categoria', 'inscricao_categoria', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge chzn-select">
-                            <?php foreach(Utils::$categorias as $categoria): ?>
-                                <option value="<?php echo $categoria ?>"><?php echo $categoria ?></option>
-                            <?php endforeach ?>
-	            		</select>
-	            	</div>
-	          	</div>
-	          	<!-- \Select para a categoria -->
+                    <!-- ETAPA -->
+                    <div class="formRow">
+                        <div class="grid3"><label for="inscricao_etapa">Etapa:</label></div>
+                        <div class="grid9 searchDrop">
+                            <select data-placeholder="Selecione uma etapa..." name="inscricao_etapa" id="inscricao_etapa" class="fullwidth select">
+                                <option value=""></option>
+                                <?php echo Utils::etapasOptGroup($etapas) ?>
+                            </select>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!-- /ETAPA -->
 
-	          	<!-- File para comprovante -->
-	          	<div class="control-group">
-	          		<?php echo Form::label('Comprovante', 'inscricao_comprovante', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="input-file input-xxlarge">
-	        		</div>
-	          	</div>
-	          	<!-- \File para comprovante -->
+                    <!-- CATEGORIA -->
+                    <div class="formRow">
+                        <div class="grid3"><label for="inscricao_categoria">Categoria:</label></div>
+                        <div class="grid9 searchDrop">
+                            <select data-placeholder="Selecione um categoria..." name="inscricao_categoria" id="inscricao_categoria" class="fullwidth select">
+                                <option value=""></option>
+                                <?php foreach(Utils::$categorias as $categoria): ?>
+                                    <option value="<?php echo $categoria ?>"><?php echo $categoria ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!-- /CATEGORIA -->
 
-	          	<!-- Observações -->
-	          	<div class="control-group">
-	          		<?php echo Form::label('Observação', 'inscricao_observacao', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	              		<textarea name="inscricao_observacao" id="inscricao_observacao" rows="5" class="input-xxlarge"></textarea>
-	        		</div>
-	          	</div>
-	          	<!-- \Observações -->
+                    <div class="formRow">
+                        <div class="grid3"><label for="inscricao_comprovante">Comprovante:</label></div>
+                        <div class="grid9">
+                            <input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="fileInput">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
 
-	          	<div class="form-actions">
-	            	<button type="submit" class="btn btn-primary">Enviar Pedido</button>
-	            	<a href="<?php echo Uri::create('home'); ?>" class="btn btn-warning">Cancelar</a>
-	          	</div>
-	        </fieldset>
-		</form>
-	</div>
-	<!-- \Formulário de Inscrição -->
+                    <div class="formRow">
+                        <div class="grid3"><label for="inscricao_observacao">Observação:</label></div>
+                        <div class="grid9">
+                            <textarea name="inscricao_observacao" id="inscricao_observacao" cols="" rows="8" class="auto"></textarea>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="formRow">
+                        <input class="buttonM formSubmit bBlue" type="submit" value="Enviar &raquo;">
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="widget grid6" id="informacao_etapa_container">
+                    <div class="whead">
+                        <h6>Informações da Etapa</h6>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="body" id="informacao_etapa">
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+    </form>
 </div>

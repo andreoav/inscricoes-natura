@@ -14,11 +14,11 @@ class Controller_Noticias extends Controller_Auth
 
     public function action_index()
     {
-        $_noticias = DB::select('*')->from('noticias')->order_by('id', 'desc')->limit(5)->execute()->as_array();
-        if(! count($_noticias))
+        $_noticias = DB::select('*')->from('noticias')->order_by('id', 'desc')->limit(10)->as_object()->execute();
+        if(!count($_noticias))
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Nenhuma notícia foi encontrada.'
             ));
 
@@ -26,7 +26,7 @@ class Controller_Noticias extends Controller_Auth
         }
 
         $this->template->conteudo = View::forge('noticias/index');
-        $this->template->conteudo->set('noticias', $_noticias, false);
+        $this->template->conteudo->set_global('noticias', $_noticias, false);
     }
 
     public function action_visualizar($_noticia_id = null)
@@ -42,7 +42,7 @@ class Controller_Noticias extends Controller_Auth
 		}
 
 		$this->template->conteudo = View::forge('noticias/visualizar');
-        $this->template->conteudo->set('noticia_info', $_noticia_info, false);
+        $this->template->conteudo->set('noticia', $_noticia_info, false);
     }
 
 
@@ -53,7 +53,7 @@ class Controller_Noticias extends Controller_Auth
             try
             {
                 $_last_id = (int) Input::post('last_id');
-                $_more_result = DB::select('*')->from('noticias')->where('id', '<', $_last_id)->order_by('id', 'desc')->limit(5)->execute()->as_array();
+                $_more_result = DB::select('*')->from('noticias')->where('id', '<', $_last_id)->order_by('id', 'desc')->limit(10)->execute()->as_array();
 
                 $_new_last_id = null;
                 if($_more_result)

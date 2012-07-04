@@ -1,45 +1,22 @@
-<article id="noticiaVisualizar">
-	<div class="row">
-		<div class="span12">
-			<div class="page-header">
-				<h1><?php echo $noticia_info->titulo; ?></h1>
-			</div>
-		</div>
+<?php echo View::forge('template/topbar', array('tPage' => 'Notícias', 'icon' => 'icon-screen')); ?>
+<div class="breadLine">
+    <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+    <?php echo View::forge('shared/breadcrumbs/inscricoes_status'); ?>
+</div>
 
-		<div class="span12">
-			<ul class="breadcrumb">
-				<li>
-					<?php echo Html::anchor('home', 'Home'); ?> <span class="divider">/</span>
-				</li>
-				<li>
-					<?php echo Html::anchor('noticias', 'Notícias'); ?> <span class="divider">/</span>
-				</li>
-				<li class="active"><?php echo $noticia_info->titulo; ?></li>
-			</ul>
-		</div>
-
-		<div class="span<?php echo Sentry::user()->is_admin() ? '10' : '12'; ?>" id="noticiaContent">
-			<?php echo $noticia_info->conteudo; ?>
-		</div>
-
-        <!-- Inicio Actions -->
-        <?php if (Sentry::user()->is_admin()): ?>
-            <div class="span2" id="toolbar-actions">
-                <div class="btn-toolbar pull-right">
-                    <div class="btn-group">
-                        <a href="<?php echo Uri::create('admin/noticias/editar/' . $noticia_info->id) ?>" class="btn btn-large" rel="tooltip" title="Editar"><i class="icon-pencil"></i></a>
-                        <a href="<?php echo Uri::create('admin/noticias/excluir/' . $noticia_info->id) ?>" class="btn btn-large" rel="tooltip" title="Excluir"><i class="icon-trash"></i></a>
-                    </div>
-                </div>
+<div class="wrapper">
+    <?php echo View::forge('flash'); ?>
+    <div class="fluid">
+        <div class="widget">
+            <div class="whead">
+                <h6><?php echo $noticia['titulo']; ?></h6>
+                <a class="dataNumBlue" href="#"><?php echo Date::forge($noticia['created_at'])->format('%d/%m/%Y às %H:%M:%S'); ?></a>
+                <a class="dataNumBlue" href="#"><?php echo Sentry::user((int) $noticia['user_id'])->get('metadata.nome'); ?></a>
+                <div class="clear"></div>
             </div>
-        <?php endif ?>
-        <!-- Fim Actions -->
-
-		<div class="span12">
-			<p class="pull-right">
-				<span class="label label-info"><?php echo Sentry::user((int) $noticia_info->user_id)->get('metadata.nome'); ?></span>
-                <span class="label label-info"><?php echo Date::forge($noticia_info->created_at)->format('%d/%m/%Y às %H:%M:%S'); ?></span>
-			</p>
-		</div>
-	</div>
-</article>
+            <div class="body">
+                <?php echo $noticia['conteudo']; ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -39,6 +39,16 @@ return array(
 	 */
 	'paths' => array(
 		'core' => 'assets/',
+        'google_api' => array(
+            'path'   => 'http://ajax.googleapis.com/ajax/libs/',
+            'js_dir' => ''
+        ),
+        'aquincum' => array(
+            'path'    => 'aquincum/',
+            'js_dir'  => 'js/',
+            'css_dir' => 'css/',
+            'img_dir' => 'images/'
+        )
 	),
 
 	/**
@@ -72,7 +82,7 @@ return array(
 	 *
 	 * This MUST include the trailing slash ('/')
 	 */
-	'cache_path' => 'assets/cache/',
+	'cache_path' => 'aquincum/cache/',
 
 	/**
 	 * Note the following with regards to combining / minifying files:

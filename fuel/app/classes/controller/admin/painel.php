@@ -21,6 +21,8 @@ class Controller_Admin_Painel extends Controller_Auth
 
 			Response::redirect('home');
 		}
+
+        View::set_global('custom_sidebar', 'admin/shared/admin_sidebar');
 	}
 
 	public function action_index()

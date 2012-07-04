@@ -1,180 +1,160 @@
-<div class="row">
-	<div class="span12">
-		<div class="page-header">
-			<h1>Visualizar Etapa</h1>
-		</div>
-	</div>
-	<div class="span12">
-		<ul class="breadcrumb">
-			<li>
-				<?php echo Html::anchor('home', 'Home'); ?> <span class="divider">/</span>
-			</li>
-			<li>
-				<?php echo Html::anchor('etapas', 'Etapas'); ?> <span class="divider">/</span>
-			</li>
-			<li class="active">Visualizar</li>
-		</ul>
-	</div>
+<?php echo View::forge('template/topbar', array('tPage' => 'Visualizar Etapa', 'icon' => 'icon-screen')); ?>
+
+<div class="breadLine" xmlns="http://www.w3.org/1999/html">
+    <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+    <?php echo View::forge('shared/breadcrumbs/inscricoes_status'); ?>
 </div>
 
-<div class="row">
-    <article id="etapaInfo">
-        <div class="span9">
-            <p>
-                <strong>Nome:</strong>
-                <?php echo $etapa_info->nome; ?>
-            </p>
-            <p>
-                <strong>Campeonato:</strong>
-                <?php echo $etapa_info->campeonato->nome; ?>
-            </p>
-            <p>
-                <strong>Localidade:</strong>
-                <?php echo $etapa_info->localidade; ?>
-            </p>
-            <p>
-                <strong>Inicio / Final:</strong>
-                <?php echo Date::forge($etapa_info->data_inicio)->format('%d/%m/%Y'); ?> - <?php echo Date::forge($etapa_info->data_final)->format('%d/%m/%Y'); ?>
-            </p>
-            <p>
-                <strong>Inscrições até:</strong>
-                <?php echo Date::forge($etapa_info->inscricao_ate)->format('%d/%m/%Y'); ?>
-            </p>
-        </div>
+<!-- Main content -->
+<div class="wrapper">
+    <?php echo View::forge('flash'); ?>
 
-        <!-- Toolbar -->
-        <div class="span3">
-            <div class="btn-toolbar pull-right">
-                <div class="btn-group">
-                    <?php if($arquivos): ?>
-                        <button class="btn btn-large" rel="tooltip" title="Arquivos Disponíveis" data-toggle="modal" data-target="#arquivos">
-                            <i class="icon-file"></i>
-                        </button>
-                    <?php endif; ?>
-                    <a href="#" class="btn btn-large" data-toggle="collapse" data-target="#demo" rel="tooltip" title="Visualizar Mapa">
-                        <i class="icon-map-marker"></i>
-                    </a>
-                    <?php if (Sentry::user()->is_admin()): ?>
-                        <a href="#exportModal" class="btn btn-large" rel="tooltip" title="Gerar Lista de Inscritos" data-toggle="modal">
-                            <i class="icon-list-alt"></i>
-                        </a>
-                        <a href="#" class="btn btn-large" rel="tooltip" title="Excluir Etapa">
-                            <i class="icon-trash"></i>
-                        </a>
+    <div class="fluid">
+        <div class="widget grid8">
+            <div class="whead">
+                <h6>Informações da Etapa</h6>
+                <ul class="headIconSet">
+                    <?php if(Sentry::user()->is_admin()): ?>
+                        <li><a href="#" class="icon-list tipS" title="Lista de Inscritos" id="lista_inscritos" data-etapa-id="<?php echo $etapa_info->id; ?>"></a></li>
+                        <li><a href="#" class="icon-remove tipS" title="Excluir" id="etapa_excluir"></a></li>
                     <?php endif ?>
-                </div>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="body">
+                <ul class="liArrow">
+                    <li>
+                        <strong>Nome:</strong>
+                        <?php echo $etapa_info->nome ?>
+                    </li>
+                    <li>
+                        <strong>Campeonato:</strong>
+                        <?php echo $etapa_info->campeonato->nome ?>
+                    </li>
+                    <li>
+                        <strong>Localidade:</strong>
+                        <?php echo $etapa_info->localidade ?>
+                    </li>
+                    <li>
+                        <strong>Data de início:</strong>
+                        <?php echo Date::forge($etapa_info->data_inicio)->format('%d/%m/%Y') ?>
+                    </li>
+                    <li>
+                        <strong>Data de encerramento:</strong>
+                        <?php echo Date::forge($etapa_info->data_final)->format('%d/%m/%Y') ?>
+                    </li>
+                    <li>
+                        <strong>Inscrições até</strong>
+                        <?php echo Date::forge($etapa_info->inscricao_ate)->format('%d/%m/%Y') ?>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- Fim da toolbar -->
 
-        <!-- Mapa da localidade -->
-        <div id="demo" class="span12 collapse">
-            <div class="map" id="localidade_map"></div>
+        <div class="widget grid4">
+            <div class="whead">
+                <h6>Arquivos Disponíveis</h6>
+                <div class="clear"></div>
+            </div>
+            <?php if($arquivos): ?>
+                <table cellpadding="0" cellspacing="0" width="100%" class="tDefault checkAll tMedia" id="checkAll">
+                    <thead>
+                    <tr>
+                        <td width="50">Arquivo</td>
+                        <td width="100">Ações</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($arquivos as $arquivo): ?>
+                            <tr>
+                                <td><?php echo $arquivo['nome']; ?></td>
+                                <td class="tableActs">
+                                    <a href="<?php echo Uri::create('etapas/arquivo/' . $arquivo['id']); ?>" class="tablectrl_small bDefault tipS" title="Salvar Arquivo">
+                                        <i class="icon-download"></i>Download
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <div class="body">
+                    <strong>Nenhum arquivo disponível para esta etapa.</strong>
+                </div>
+            <?php endif ?>
         </div>
-        <!-- Fim do mapa -->
+    </div>
 
-        <div class="span12">
-            <?php if (Session::get('profile_unfinished') == false): ?>
-                <?php if ($inscricoes_encerradas): ?>
-                    <div class="alert alert-error fade in">
-                        <strong>Ops!</strong> As inscrições para esta etapa já estão encerradas.
-                    </div>
-                <?php elseif ($ja_inscrito): ?>
-                    <div class="alert alert-info fade in">
-                        <strong>Você já está inscrito nesta etapa.</strong>
-                    </div>
-                <?php else: ?>
-                    <div class="page-header">
-                        <h1>Nova Inscrição</h1>
-                    </div>
-                    <form action="<?php echo Uri::create('inscricoes/nova/' . $etapa_info->id); ?>" id="nova_inscricao_form" class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                        <fieldset>
-                            <div class="control-group">
-                                <?php echo Form::label('Etapa', 'inscricao_categoria', array('class' => 'control-label')); ?>
-                                <div class="controls">
-                                    <select name="inscricao_categoria" id="inscricao_categoria" class="input-xxlarge chzn-select">
+    <div class="fluid">
+        <?php if (Session::get('profile_unfinished') == false): ?>
+        <?php if ($inscricoes_encerradas): ?>
+            <div class="nNote nFailure">
+                <p><strong>Ops!</strong> As inscrições para esta etapa já estão encerradas.</p>
+            </div>
+            <?php elseif ($ja_inscrito): ?>
+            <div class="nNote nInformation">
+                <p>Você já está inscrito nesta etapa.</p>
+            </div>
+            <?php else: ?>
+            <form action="<?php echo Uri::create('inscricoes/nova/' . $etapa_info->id); ?>" id="nova_inscricao_form" class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                <fieldset>
+                    <div class="fluid">
+                        <div class="widget">
+                            <div class="whead"><h6>Formulário de Inscrição</h6><div class="clear"></div></div>
+
+                            <!-- CATEGORIA -->
+                            <div class="formRow">
+                                <div class="grid3"><label for="inscricao_categoria">Categoria:</label></div>
+                                <div class="grid9 searchDrop">
+                                    <select data-placeholder="Selecione um categoria..." name="inscricao_categoria" id="inscricao_categoria" class="fullwidth select">
+                                        <option value=""></option>
                                         <?php foreach(Utils::$categorias as $categoria): ?>
-                                            <option value="<?php echo $categoria; ?>"><?php echo $categoria; ?></option>
+                                            <option value="<?php echo $categoria ?>"><?php echo $categoria ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="control-group">
-                                <?php echo Form::label('Comprovante', 'inscricao_comprovante', array('class' => 'control-label')); ?>
-                                <div class="controls">
-                                    <input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="input-file input-xxlarge">
+                            <!-- /CATEGORIA -->
+
+                            <div class="formRow">
+                                <div class="grid3"><label for="inscricao_comprovante">Comprovante:</label></div>
+                                <div class="grid9">
+                                    <input type="file" name="inscricao_comprovante" id="inscricao_comprovante" class="fileInput">
                                 </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="control-group">
-                                <?php echo Form::label('Observação', 'inscricao_observacao', array('class' => 'control-label')); ?>
-                                <div class="controls">
-                                    <textarea name="inscricao_observacao" id="inscricao_observacao" rows="5" class="input-xxlarge"></textarea>
+
+                            <div class="formRow">
+                                <div class="grid3"><label for="inscricao_observacao">Observação:</label></div>
+                                <div class="grid9">
+                                    <textarea name="inscricao_observacao" id="inscricao_observacao" cols="" rows="8" class="auto"></textarea>
                                 </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <input type="hidden" name="etapa_id_verify" value="<?php echo $etapa_info->id; ?>">
-                                    <button type="submit" class="btn btn-primary">Enviar Pedido</button>
-                                </div>
+
+                            <div class="formRow">
+                                <input type="hidden" name="etapa_id_verify" value="<?php echo $etapa_info->id; ?>">
+                                <input class="buttonM formSubmit bBlue" type="submit" value="Enviar &raquo;">
+                                <div class="clear"></div>
                             </div>
-                        </fieldset>
-                    </form>
-                <?php endif ?>
-                <?php else: ?>
-                    <div class="alert alert-info fade in">
-                        <strong>Você deve completar o seu perfil no sistema antes de realizar uma inscrição.</strong>
-                        <?php echo Html::anchor('usuario/perfil', 'Completar Perfil'); ?>
+                        </div>
+
                     </div>
-            <?php endif; ?>
+                </fieldset>
+            </form>
+            <?php endif ?>
+        <?php else: ?>
+        <div class="nNote nFailure">
+            <p>
+                <strong>Você deve completar o seu perfil no sistema antes de realizar uma inscrição.</strong>
+                <?php echo Html::anchor('usuario/perfil', 'Completar Perfil'); ?>
+            </p>
         </div>
-    </article>
+        <?php endif; ?>
+    </div>
 </div>
 
-<!-- Modal para exportar inscritos -->
-<?php if(Sentry::user()->is_admin()): ?>
-    <div class="modal hide fade" id="exportModal">
-        <div class="modal-header">
-            <button class="close" data-dismiss="modal">&times;</button>
-            <h3>Exportar Inscritos</h3>
-        </div>
-
-        <div class="modal-body modal-form alert alert-info face in">
-            <strong>Escola um dos formatos disponíveis para gerar o arquivo com os atletas inscritos.</strong>
-        </div>
-
-        <div class="modal-footer">
-            <?php echo Html::anchor('admin/etapas/inscritos/' . $etapa_info->id . '/' . Padrao_FGO::$myType . '/', 'Modelo FGO', array('id' => 'btnFGO', 'class' => 'btn btn-success', 'title' => 'Federação Gaúcha de Orientação')); ?>
-            <?php echo Html::anchor('admin/etapas/inscritos/' . $etapa_info->id . '/' . Padrao_CBO::$myType . '/', 'Modelo CBO', array('id' => 'btnCBO', 'class' => 'btn btn-info', 'title' => 'Confederação Brasileira de Orientação')); ?>
-        </div>
-    </div>
-<?php endif; ?>
-<!-- Fim do modal para exportar inscritos -->
-
-<!-- Modal de arquivos da etapa -->
-<?php if($arquivos): ?>
-    <div class="modal hide fade" id="arquivos">
-        <div class="modal-header">
-            <button class="close" data-dismiss="modal">&times;</button>
-            <h3>Arquivos Disponíveis</h3>
-        </div>
-
-        <div class="modal-body">
-            <ul class="nav nav-tabs nav-stacked">
-                <?php foreach($arquivos as $arquivo):?>
-                    <li>
-                        <?php echo Html::anchor('etapas/arquivo/' . $arquivo['id'], '<i class="icon-file"></i> ' . $arquivo['nome'], array(
-                            'target' => '_blank',
-                            'rel'    => 'tooltip',
-                            'title'  => 'Clique para baixar'
-                        )); ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-
-        <div class="modal-footer">
-            <button class="btn btn-info" data-dismiss="modal"><i class="icon-remove icon-white"></i> Fechar</button>
-        </div>
-    </div>
-<?php endif; ?>
-<!-- Fim do modal de arquivos da etapa -->
+<div id="inscritos_modal" title="Gerar lista de inscritos">
+    <p>Escolha um tipo de modelo para gerar o relatório dos atletas inscritos.</p>
+</div>

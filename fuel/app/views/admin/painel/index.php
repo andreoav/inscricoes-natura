@@ -1,94 +1,92 @@
-<div class="row">
-    <div class="span12">
-        <div class="page-header"><h1>Administração do Sistema</h1></div>
-    </div>
+<?php echo View::forge('template/topbar', array('tPage' => 'Administração', 'icon' => 'icon-screen')); ?>
+
+<div class="breadLine">
+    <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+    <?php echo View::forge('shared/breadcrumbs/inscricoes_status'); ?>
 </div>
-<div class="row">
-    <div class="span4">
-        <div style="padding: 8px 0;" class="well">
-            <ul class="nav nav-list">
-                <li class="nav-header">Navegação</li>
-                <li class="active">
-                    <a href="<?php echo Uri::create('home'); ?>"><i class="icon-white icon-home"></i> Início</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/email'); ?>"><i class="icon-envelope"></i> Email</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/usuarios'); ?>"><i class="icon-user"></i> Atletas</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/etapas'); ?>"><i class="icon-calendar"></i> Etapas</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/inscricoes'); ?>"><i class="icon-list-alt"></i> Inscrições</a>
-                </li>
 
-                <li class="divider"></li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/noticias/nova'); ?>"><i class="icon-plus"></i> Inserir Notícia</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/etapas/nova'); ?>"><i class="icon-plus"></i> Cadastrar Etapa</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('admin/campeonatos/novo'); ?>"><i class="icon-plus"></i> Cadastrar Campeonato</a>
-                </li>
+<!-- Main content -->
+<div class="wrapper">
+    <?php echo View::forge('flash'); ?>
 
-                <li class="divider"></li>
-                <li>
-                    <a href="<?php echo Uri::create('#'); ?>"><i class="icon-cog"></i> Configurações</a>
-                </li>
-                <li>
-                    <a href="<?php echo Uri::create('logout'); ?>"><i class="icon-off"></i> Sair</a>
-                </li>
-            </ul>
-          </div>
-    </div>
+    <div class="fluid">
 
-    <div class="span4">
-        <h3>Estatísticas do Sistema</h3>
-        <p>
-            <table class="table table-bordered table-striped">
+        <div class="widget grid4">
+            <div class="whead">
+                <h6>Estatísticas do Sistema</h6>
+                <div class="clear"></div>
+            </div>
+            <table cellpadding="0" cellspacing="0" width="100%" class="tAlt">
+                <thead>
+                    <tr>
+                        <td width="60">Quantidade</td>
+                        <td>Tipo</td>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
-                        <td class="center"><span class="badge badge-info"><?php echo Model_User::count(); ?></span></td>
-                        <th>Atletas Cadastrados</th>
+                        <td align="center"><a href="#" title="" class="webStatsLink"><?php echo Model_User::count(); ?></a></td>
+                        <td>Usuários cadastrados</td>
                     </tr>
                     <tr>
-                        <td class="center"><span class="badge badge-info"><?php echo Model_Etapa::count(); ?></span></td>
-                        <th>Etapas Cadastradas</th>
+                        <td align="center"><a href="#" title="" class="webStatsLink"><?php echo Model_Etapa::count(); ?></a></td>
+                        <td>Etapas cadastradas</td>
                     </tr>
                     <tr>
-                        <td class="center"><span class="badge badge-success"><?php echo Model_Inscricao::count(array('where' => array('status' => Model_Inscricao::INSCRICAO_ACEITA))); ?></span></td>
-                        <th>Inscrições já realizadas</th>
+                        <td align="center"><a href="#" title="" class="webStatsLink"><?php echo Model_Inscricao::count(); ?></a></td>
+                        <td>Inscrições realizadas</td>
                     </tr>
                     <tr>
-                        <td class="center"><span class="badge badge-warning"><?php echo Model_Inscricao::count(array('where' => array('status' => Model_Inscricao::INSCRICAO_PENDENTE))); ?></span></td>
-                        <th>Inscrições Pendentes</th>
+                        <td align="center"><a href="#" title="" class="webStatsLink"><?php echo Model_Inscricao::count(array('where' => array('status' => Model_Inscricao::INSCRICAO_ACEITA))); ?></a></td>
+                        <td>Inscrições aprovadas</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="#" title="" class="webStatsLink"><?php echo Model_Inscricao::count(array('where' => array('status' => Model_Inscricao::INSCRICAO_PENDENTE))); ?></a></td>
+                        <td>Inscrições pendentes</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="#" title="" class="webStatsLink"><?php echo Model_Inscricao::count(array('where' => array('status' => Model_Inscricao::INSCRICAO_REJEITADA))); ?></a></td>
+                        <td>Inscrições rejeitadas</td>
                     </tr>
                 </tbody>
-          </table>
-        </p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="span12">
-        <div class="page-header">
-            <h1>Inscrições Pendentes</h1>
+            </table>
         </div>
-        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="admin_inscricoes_pendentes">
-            <thead>
-            <tr>
-                <th>Nº</th>
-                <th>Atleta</th>
-                <th>Etapa</th>
-                <th>Campeonato</th>
-                <th>Status</th>
-                <th>A&ccedil;&otilde;es</th>
-            </tr>
-            </thead>
-        </table>
+
+        <div class="widget grid8">
+            <div class="whead">
+                <h6>Gráfico</h6>
+                <div class="clear"></div>
+            </div>
+        </div>
+
     </div>
+
+    <!--
+        Inscrições Pendentes
+    -->
+    <div class="widget grid12">
+        <div class="whead"><h6>Inscrições Pendentes</h6><div class="clear"></div></div>
+        <div id="dyn" class="hiddenpars">
+            <a class="tOptions tipS" title="Opções"><?php echo Casset::img('aquincum::icons/options'); ?></a>
+            <table id="admin_inscricoes_pendentes">
+                <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Atleta</th>
+                    <th>Etapa</th>
+                    <th>Campeonato</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--
+        Fim das Inscrições Pendentes
+    -->
+
 </div>
