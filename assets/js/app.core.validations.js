@@ -176,10 +176,6 @@
 				usuario_identidade: {
 					required: true
 				},
-				usuario_cpf: {
-					required:  true,
-					cpfValido: true
-				},
 				usuario_nascimento: {
 					required: true,
 					dataBR:   true
@@ -194,9 +190,6 @@
 					required: "Este campo é obrigatório."
 				},
 				usuario_identidade: {
-					required: "Este campo é obrigatório."
-				},
-				usuario_cpf: {
 					required: "Este campo é obrigatório."
 				},
 				usuario_nascimento: {
