@@ -290,4 +290,10 @@ class Utils
 
         return $return . '</optgroup>';
     }
+
+    public static function remove_endBrTag($str)
+    {
+        return preg_replace('{(<br>|&nbsp;)+$}i', '', $str);
+    }
+
 }

@@ -16,25 +16,10 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 
 	public function action_nova()
 	{
-        // CSS
-		Casset::css('chosen.css');
-        Casset::css('jquery.plupload.queue.css');
-
-        // Javascript
-		Casset::js('chosen.jquery.min.js');
-		Casset::js('jquery.maskedinput-1.3.min.js');
-        Casset::js('browserplus-min.js');
-        Casset::js('plupload.js');
-        Casset::js('plupload.html4.js');
-        Casset::js('plupload.html5.js');
-        Casset::js('plupload.browserplus.js');
-        Casset::js('jquery.plupload.queue/jquery.plupload.queue.js');
-        Casset::js('langs/plup.pt-br.js');
-
 		if(Model_Campeonato::count() < 1)
 		{
 			Session::set_flash('flash_msg', array(
-				'msg_type'    => 'alert-error',
+				'msg_type'    => 'nFailure',
 				'msg_content' => 'Atualmente não existe uma campeonato cadastrado no sistema!'
 			));
 
@@ -61,14 +46,14 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 			if($_nova_etapa->save())
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-success',
+					'msg_type'    => 'nSuccess',
 					'msg_content' => 'Nova etapa cadastrada com sucesso.'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-error',
+					'msg_type'    => 'nFailure',
 					'msg_content' => 'Não foi possível cadastrar esta etapa.'
 				));
 			}
@@ -77,7 +62,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
             if($_arquivos_count)
             {
                 // Cria o diretorio caso ele não exista
-                if(! file_exists(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/', Inflector::friendly_title(Str::lower($_nova_etapa->nome))))
+                if(! file_exists(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title(Str::lower($_nova_etapa->nome))))
                     File::create_dir(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/', Inflector::friendly_title(Str::lower($_nova_etapa->nome)));
 
                 for($_i = 0 ; $_i < $_arquivos_count ; $_i++)
@@ -125,7 +110,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 		if($_etapa_id == null)
 		{
 			Session::set_flash('flash_msg', array(
-				'msg_type'    => 'alert-error',
+				'msg_type'    => 'nFailure',
 				'msg_content' => 'Não foi possível encontrar esta etapa.'
 			));
 
@@ -162,7 +147,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
             else
             {
                 Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-error',
+                    'msg_type'    => 'nFailure',
                     'msg_content' => 'Não foi efetuada nenhuma inscrição nesta estapa.'
                 ));
 

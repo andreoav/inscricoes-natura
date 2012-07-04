@@ -15,78 +15,8 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
 		$this->template->conteudo = View::forge('admin/inscricoes/index');
 	}
 
-    // TODO: Remover - Ajax implementado
-	/*public function action_aprovar($_inscricao_id = null)
-	{
-		if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
-		{
-			Session::set_flash('flash_msg', array(
-				'msg_type'    => 'alert-error',
-				'msg_content' => 'Não foi possível encontrar esta inscrição.'
-			));
-		}
-		else
-		{
-			$_inscricao->status = Model_Inscricao::INSCRICAO_ACEITA;
-			if($_inscricao->save())
-			{
-				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-success',
-					'msg_content' => 'Inscrição aprovada com sucesso.'
-				));
-			}
-			else
-			{
-				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-error',
-					'msg_content' => 'Não foi possível aprovar esta inscrição.'
-				));
-			}
 
-			Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
-		}
-
-		Response::redirect('admin/inscricoes');
-	}
-
-    // TODO: Remover - Ajax implementado
-	public function action_rejeitar($_inscricao_id = null)
-	{
-		if(($_inscricao = Model_Inscricao::find($_inscricao_id)) == null)
-		{
-			Session::set_flash('flash_msg', array(
-				'msg_type'    => 'alert-error',
-				'msg_content' => 'Não foi possível encontrar esta inscrição.'
-			));
-		}
-		else
-		{
-			$_inscricao->status = Model_Inscricao::INSCRICAO_REJEITADA;
-			if($_inscricao->save())
-			{
-				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-success',
-					'msg_content' => 'Inscrição rejeitada com sucesso.'
-				));
-			}
-			else
-			{
-				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-error',
-					'msg_content' => 'Não foi possível rejeitar esta inscrição.'
-				));
-			}
-
-			Response::redirect('inscricoes/visualizar/' . $_inscricao_id);
-		}
-
-		Response::redirect('admin/inscricoes');
-	}*/
-
-
-    /**
-     * Métodos Rest
-     */
+    // ==================== REST ==================== //
 
     public function post_update()
     {
@@ -111,7 +41,7 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
                     $_notification->subject('Nova interação em sua inscrição');
                     $_notification->to(Sentry::user((int) $_user[0]['user_id'])->get('email'));
                     $_notification->body($_body);
-                    //$_notification->send();
+                    $_notification->send();
                 }
                 catch(Exception $e)
                 {
@@ -140,9 +70,8 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
             $_returnData     = array();
             foreach($_inscricoesData as $_inscricao)
             {
-                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<i class="icon-search icon-white"></i>', array(
-                    'class' => 'btn btn-primary btn-mini',
-                    'rel'   => 'tooltip',
+                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<span class="iconb" data-icon="&#xe044;"></span>', array(
+                    'class' => 'tablectrl_large bDefault tipS',
                     'title' => 'Visualizar Inscrição'
                 ));
 
@@ -169,9 +98,8 @@ class Controller_Admin_Inscricoes extends Controller_Admin_Painel
             $_returnData     = array();
             foreach(Model_Inscricao::find('all') as $_inscricao)
             {
-                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<i class="icon-search icon-white"></i>', array(
-                    'class' => 'btn btn-primary btn-mini',
-                    'rel'   => 'tooltip',
+                $_acoes  = Html::anchor('inscricoes/visualizar/' . $_inscricao->id, '<span class="iconb" data-icon="&#xe044;"></span>', array(
+                    'class' => 'tablectrl_large bDefault tipS',
                     'title' => 'Visualizar Inscrição'
                 ));
 

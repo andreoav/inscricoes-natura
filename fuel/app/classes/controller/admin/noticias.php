@@ -9,9 +9,6 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 
 	public function action_nova()
 	{
-        Casset::css('redactor.css');
-        Casset::js('redactor.js');
-
 		if(Input::method() == 'POST')
 		{
 			$_noticia_titulo   = Input::post('noticia_titulo');
@@ -46,15 +43,14 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 
 	public function action_editar($_noticia_id = null)
 	{
-        Casset::css('redactor.css');
-        Casset::js('redactor.js');
-
 		# code...
+        // TODO: editar etapa
         $this->template->conteudo = View::forge('admin/noticias/editar');
 	}
 
 	public function action_excluir($_noticia_id = null)
 	{
 		# code...
+        //TODO:  Excluir etapa
 	}
 }

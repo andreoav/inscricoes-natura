@@ -6,7 +6,7 @@
             <ul class="leftUser">
                 <li><a href="<?php echo Uri::create('perfil'); ?>" title="" class="sProfile">Meu Perfil</a></li>
                 <?php if(Sentry::user()->is_admin()): ?>
-                    <li><a href="<?php echo Uri::create('admin'); ?>" title="" class="sSettings">Administração</a></li>
+                <li><a href="<?php echo Uri::create('admin'); ?>" title="" class="sSettings">Administração</a></li>
                 <?php endif ?>
                 <li><?php echo Html::anchor('logout', 'Sair', array('class' => 'sLogout')); ?></li>
             </ul>
@@ -25,6 +25,7 @@
     <!-- Secondary nav -->
     <div class="secNav">
         <div class="secWrapper">
+
             <ul class="iconsLine ic1">
                 <li><a href="#general" title="" class="exp subClosed"><?php echo Sentry::user()->get('email'); ?></a></li>
             </ul>
@@ -32,7 +33,12 @@
 
             <div id="general">
                 <div class="sidePad">
-                    <?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição', array('class' => 'sideB bLightBlue')); ?>
+                    <?php echo Html::anchor('admin/email', 'Email', array('class' => 'sideB bBlue mt10')); ?>
+                    <?php echo Html::anchor('admin/usuarios', 'Atletas', array('class' => 'sideB bBlue mt10')); ?>
+                    <?php echo Html::anchor('admin/inscricoes', 'Inscrições', array('class' => 'sideB bBlue m10')); ?>
+                    <?php echo Html::anchor('admin/noticias/nova', 'Inserir Notícia', array('class' => 'sideB bGreen m10')); ?>
+                    <?php echo Html::anchor('admin/campeonatos/novo', 'Cadastrar Campeonato', array('class' => 'sideB bGreen m10')); ?>
+                    <?php echo Html::anchor('admin/etapas/nova', 'Cadastrar Etapa', array('class' => 'sideB bGreen m10')); ?>
                 </div>
                 <div class="divider"><span></span></div>
             </div>

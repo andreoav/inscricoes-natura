@@ -90,10 +90,12 @@
 		}, "Insira um CPF válido."); // Mensagem padrão
 
 		$('#nova_noticia_form').validate({
+            ignore: false,
 			rules: {
 				noticia_titulo: {
 					required: true
-				}
+				},
+                noticia_conteudo: "required"
 			}
 		});
 
@@ -130,10 +132,6 @@
 				},
 				usuario_identidade: {
 					required: true
-				},
-				usuario_cpf: {
-					required:  true,
-					cpfValido: true
 				},
 				usuario_nascimento: {
 					required: true,
@@ -213,5 +211,15 @@
 				}
 			}
 		});
+
+        $('#admin_email_form').validate({
+            ignore: false,
+            rules: {
+                email_targets: "required",
+                email_assunto: "required",
+                email_content: "required"
+            }
+        });
+
 	});
 })(jQuery);

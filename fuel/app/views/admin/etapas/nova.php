@@ -1,86 +1,88 @@
-<div class="row">
-	<div class="span12">
-		<div class="page-header">
-			<h1>Nova Etapa</h1>
-		</div>
-	</div>
-	<!-- Início Breadcrumb -->
-	<div class="span12">
-		<ul class="breadcrumb">
-			<li>
-				<?php echo Html::anchor('home', 'Home'); ?> <span class="divider">/</span>
-			</li>
-			<li>
-				<?php echo Html::anchor('admin', 'Administração'); ?> <span class="divider">/</span>
-			</li>
-			<li>
-				<?php echo Html::anchor('admin/etapas', 'Etapas'); ?> <span class="divider">/</span>
-			</li>
-			<li class="active">Nova Etapa</li>
-		</ul>
-	</div>
-	<!-- Fim Breadcrumb -->
-	<div class="span12">
-		<form action="<?php echo Uri::create('admin/etapas/nova'); ?>" id="nova_etapa_form" class="form form-horizontal" method="POST" enctype="multipart/form-data">
-			<fieldset>
-	          	<div class="control-group">
-	          		<?php echo Form::label('Campeonato', 'etapa_campeonato', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<select name="etapa_campeonato" id="etapa_campeonato" class="input-xxlarge chzn-select">
-	            			<?php foreach($campeonatos as $campeonato): ?>
-	            				<option value="<?php echo $campeonato->id; ?>"><?php echo $campeonato->nome; ?></option>
-	            			<?php endforeach; ?>
-	            		</select>
-	            	</div>
-	          	</div>
+<?php echo View::forge('template/topbar', array('tPage' => 'Administração', 'icon' => 'icon-screen')); ?>
 
-	          	<div class="control-group">
-	          		<?php echo Form::label('Nome', 'etapa_nome', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<?php echo Form::input('etapa_nome', null, array('id' => 'etapa_nome', 'class' => 'input-xxlarge')); ?>
-	            	</div>
-	          	</div>
+<div class="breadLine">
+    <?php echo Utils::criarBreadcrumb(Uri::segments()); ?>
+    <?php echo View::forge('shared/breadcrumbs/inscricoes_status'); ?>
+</div>
 
-	          	<div class="control-group">
-	          		<?php echo Form::label('Localidade', 'etapa_localidade', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<?php echo Form::input('etapa_localidade', null, array('id' => 'etapa_localidade', 'class' => 'input-xxlarge')); ?>
-	            	</div>
-	          	</div>
+<!-- Main content -->
+<div class="wrapper">
+    <?php echo View::forge('flash'); ?>
 
-	          	<div class="control-group">
-	          		<?php echo Form::label('Início', 'etapa_inicio', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<?php echo Form::input('etapa_inicio', null, array('id' => 'etapa_inicio', 'class' => 'input dataBR datepicker')); ?>
-	            	</div>
-	          	</div>
+    <div class="fluid">
 
-	          	<div class="control-group">
-	          		<?php echo Form::label('Final', 'etapa_final', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<?php echo Form::input('etapa_final', null, array('id' => 'etapa_final', 'class' => 'input dataBR datepicker')); ?>
-	            	</div>
-	          	</div>
-
-	          	<div class="control-group">
-	          		<?php echo Form::label('Inscrições até', 'etapa_inscricoes_ate', array('class' => 'control-label')); ?>
-	            	<div class="controls">
-	            		<?php echo Form::input('etapa_inscricoes_ate', null, array('id' => 'etapa_inscricoes_ate', 'class' => 'input dataBR datepicker')); ?>
-	            	</div>
-	          	</div>
-
-                <div class="control-group">
-                    <?php echo Form::label('Arquivos', 'etapa_arquivos', array('class' => 'control-label')); ?>
-                    <div class="controls" id="arquivos_upload">
-                        <p>Teste</p>
-                    </div>
+        <?php echo Form::open(array('action' => 'admin/etapas/nova', 'id' => 'nova_etapa_form')); ?>
+        <fieldset>
+            <div class="widget grid8">
+                <div class="whead">
+                    <h6>Cadastrar Etapa</h6>
+                    <div class="clear"></div>
                 </div>
 
-	          	<div class="form-actions">
-	            	<button type="submit" class="btn btn-primary">Criar Etapa</button>
-	            	<a href="<?php echo Uri::create('admin/etapas'); ?>" class="btn btn-warning">Cancelar</a>
-	          	</div>
-	        </fieldset>
-		</form>
-	</div>
+                <div class="formRow">
+                    <div class="grid3"><label for="etapa_campeonato">Campeonato:</label></div>
+                    <div class="grid9 searchDrop">
+                        <select name="etapa_campeonato" id="etapa_campeonato" class="fullwidth select">
+                            <?php foreach($campeonatos as $campeonato): ?>
+                                <option value="<?php echo $campeonato->id; ?>"><?php echo $campeonato->nome; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="formRow">
+                    <div class="grid3"><label for="etapa_nome">Nome:</label></div>
+                    <div class="grid9">
+                        <input type="text" id="etapa_nome" name="etapa_nome" class="fullwidth">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="formRow">
+                    <div class="grid3"><label for="etapa_localidade">Localidade:</label></div>
+                    <div class="grid9">
+                        <input class="fullwidth" type="text" id="etapa_localidade" name="etapa_localidade">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="formRow">
+                    <div class="grid3"><label for="etapa_inicio">Início?</label></div>
+                    <div class="grid9">
+                        <input class="datepicker" type="text" id="etapa_inicio" name="etapa_inicio">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="formRow">
+                    <div class="grid3"><label for="etapa_final">Final:</label></div>
+                    <div class="grid9">
+                        <input class="datepicker" type="text" id="etapa_final" name="etapa_final">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="formRow">
+                    <div class="grid3"><label for="etapa_inscricoes_ate">Inscrições Até:</label></div>
+                    <div class="grid9">
+                        <input class="datepicker" type="text" id="etapa_inscricoes_ate" name="etapa_inscricoes_ate">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="formRow">
+                    <input class="buttonM formSubmit bBlue" type="submit" value="Cadastrar &raquo;">
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <div class="widget grid4">
+                <div class="whead">
+                    <h6>Arquivos da Etapa</h6>
+                    <div class="clear"></div>
+                </div>
+                <div id="arquivos_upload"></div>
+            </div>
+
+        </fieldset>
+        <?php echo Form::close(); ?>
+
+    </div>
 </div>

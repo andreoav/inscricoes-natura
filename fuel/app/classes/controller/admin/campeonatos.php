@@ -9,10 +9,6 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 
 	public function action_novo()
 	{
-		Casset::css('chosen.css');
-		Casset::js('chosen.jquery.min.js');
-		Casset::js('jquery.maskedinput-1.3.min.js');
-
 		if(Input::method() == 'POST')
 		{
 			$_nome_campeonato = Input::post('campeonato_nome');
@@ -23,14 +19,14 @@ class Controller_Admin_Campeonatos extends Controller_Admin_Painel
 			if($_novo_campeonato->save())
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-success',
+					'msg_type'    => 'nSuccess',
 					'msg_content' => 'Novo campeonato cadastrado com sucesso!'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-error',
+					'msg_type'    => 'nFailure',
 					'msg_content' => 'Não foi possível cadastrar este campeonato.'
 				));
 			}

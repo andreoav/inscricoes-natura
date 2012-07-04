@@ -1,0 +1,3 @@
+[submodule "fuel/packages/message"]
+	path = fuel/packages/message
+	url = git@github.com:andreoav/Fuel-Message

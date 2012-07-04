@@ -24,17 +24,6 @@ class Controller_Auth extends Controller_Hybrid
                 // Verifica usuário logado
                 if(Sentry::check())
                 {
-                    // Habilita o guia de acordo com as opções do sistema.
-                    /*if(Config::get('sysconfig.app.show_guide') and Sentry::user()->get('metadata.sistema_tour') == 0)
-                    {
-                        // Guide related JS
-                        //Casset::js('jquery.guiders.js');
-                        //Casset::js('guides/home.guide.js');
-
-                        // Guide related Css
-                        //Casset::css('guiders.css');
-                    }
-
                     // Usuario logado, verificar permissoes e perfil completo*/
                     Session::set('profile_unfinished', ! Model_User::validate_profile());
                 }
@@ -221,17 +210,18 @@ class Controller_Auth extends Controller_Hybrid
 
     public static function include_assets()
     {
-        Casset::add_path('aquincum', 'aquincum/');
+        // General Styles
+        Casset::css('aquincum::styles.css');
 
-        Casset::css('aquincum::styles.css'); // General Styles
-        Casset::js('aquincum::jquery.min.js'); // Jquery
+        // Jquery
+        Casset::js('google_api::jquery/1.7/jquery.min.js');
 
         // Forms
         Casset::js('aquincum::plugins/forms/ui.spinner.js');
 		Casset::js('aquincum::plugins/forms/jquery.mousewheel.js');
         
 		// Jquery UI
-		Casset::js('aquincum::jquery-ui.min.js');
+		Casset::js('google_api::jqueryui/1.8/jquery-ui.min.js');
         Casset::js('aquincum::plugins/ui/jquery.ui.datepicker-pt-BR.js');
 
         // Charts
@@ -290,11 +280,9 @@ class Controller_Auth extends Controller_Hybrid
         // Others
         Casset::js('aquincum::plugins/others/jquery.fullcalendar.js');
         Casset::js('aquincum::plugins/others/jquery.elfinder.js');
-
-        // TODO: MUDAR DE DIRETÓRIO
-        Casset::js('amplify.min.js');
-        Casset::js('amplify.request.min.js'); // TODO: MUDAR DE DIRETÓRIO
-        Casset::js('xdate.js'); // TODO: MUDAR DE DIRETÓRIO
+        Casset::js('aquincum::plugins/others/amplify.min.js');
+        Casset::js('aquincum::plugins/others/amplify.request.min.js');
+        Casset::js('aquincum::plugins/others/xdate.js');
 
         // Custom
         Casset::js('aquincum::plugins/ui/jquery.easytabs.min.js');

@@ -20,7 +20,6 @@
         <!-- Right top nav -->
         <div class="topNav">
             <ul class="userNav">
-                <li><a title="" class="search"></a></li>
                 <li><a href="<?php echo Uri::create('perfil'); ?>" title="" class="profile"></a></li>
                 <li><a href="<?php echo Uri::create('logout'); ?>" title="Sair" class="logout"></a></li>
                 <li class="showTabletP"><a href="#" title="" class="sidebar"></a></li>
@@ -41,6 +40,7 @@
 <!-- Top line ends -->
 
 <!-- Inicio Sidebar -->
+<!-- TODO: Main navigation para telas menores -->
 <?php echo View::forge(isset($custom_sidebar) ? $custom_sidebar : 'template/sidebar'); ?>
 <!-- Final Sidebar -->
 

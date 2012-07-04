@@ -39,6 +39,16 @@ return array(
 	 */
 	'paths' => array(
 		'core' => 'assets/',
+        'google_api' => array(
+            'path'   => 'http://ajax.googleapis.com/ajax/libs/',
+            'js_dir' => ''
+        ),
+        'aquincum' => array(
+            'path'    => 'aquincum/',
+            'js_dir'  => 'js/',
+            'css_dir' => 'css/',
+            'img_dir' => 'images/'
+        )
 	),
 
 	/**
@@ -64,7 +74,7 @@ return array(
 	 */
 	'js_dir' => 'js/',
 	'css_dir' => 'css/',
-	'img_dir' => 'images/',
+	'img_dir' => 'img/',
 
 	/**
 	 * When minifying, the minified, combined files are cached.

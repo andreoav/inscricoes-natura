@@ -11,11 +11,6 @@ class Controller_Admin_Email extends Controller_Admin_Painel
 
 	public function action_index()
 	{
-        Casset::css('redactor.css');
-        Casset::css('chosen.css');
-        Casset::js('redactor.js');
-        Casset::js('chosen.jquery.min.js');
-
         if(Input::method() == 'POST')
         {
             $_targets = Input::post('email_targets');
@@ -47,14 +42,14 @@ class Controller_Admin_Email extends Controller_Admin_Painel
                 $_novoEmail->send();
 
                 Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-success',
+                    'msg_type'    => 'nSuccess',
                     'msg_content' => 'Email enviado com sucesso.'
                 ));
             }
             catch(\EmailValidationFailedException $e)
             {
                 Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-error',
+                    'msg_type'    => 'nFailure',
                     'msg_content' => 'Não foi possível enviar este email. Motivo: ' . $e->getMessage()
                 ));
             }
@@ -62,7 +57,7 @@ class Controller_Admin_Email extends Controller_Admin_Painel
             {
                 // The driver could not send the email
                 Session::set_flash('flash_msg', array(
-                    'msg_type'    => 'alert-error',
+                    'msg_type'    => 'nFailure',
                     'msg_content' => 'Não foi possível enviar este email. Motivo: ' . $e->getMessage()
                 ));
             }

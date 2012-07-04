@@ -12,7 +12,7 @@
                 <span class="uNotice">
                     <?php echo Html::anchor('noticias/' . $noticia->id, $noticia->titulo, array('title' => 'Clique para ler mais', 'class' => 'tipS')); ?>
                     <span>
-                        <?php echo Str::truncate($noticia->conteudo, 90, '...', true); ?>
+                        <?php echo Str::truncate($noticia->conteudo, 90, '...', false); ?>
                     </span>
                 </span>
                 <span class="uDate"><span><?php echo date('d', $noticia->created_at); ?></span><?php echo date('M', $noticia->created_at); ?></span>
