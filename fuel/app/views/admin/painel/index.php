@@ -67,7 +67,7 @@
     <div class="widget grid12">
         <div class="whead"><h6>Inscrições Pendentes</h6><div class="clear"></div></div>
         <div id="dyn" class="hiddenpars">
-            <a class="tOptions tipS" title="Opções"><?php echo Casset::img('aquincum::icons/options'); ?></a>
+            <a class="tOptions tipS" title="Opções"><?php echo Casset::img('aquincum::icons/options.png'); ?></a>
             <table id="admin_inscricoes_pendentes">
                 <thead>
                 <tr>
