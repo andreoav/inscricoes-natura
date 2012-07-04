@@ -32,7 +32,10 @@
 
             <div id="general">
                 <div class="sidePad">
-                    <?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição', array('class' => 'sideB bLightBlue')); ?>
+                    <?php echo Html::anchor('inscricoes/nova', 'Nova Inscrição', array('class' => 'sideB bLightBlue mt10')); ?>
+                    <?php if(Sentry::user()->is_admin()): ?>
+                        <?php echo Html::anchor('admin', 'Administração', array('class' => 'sideB bRed mt10')); ?>
+                    <?php endif ?>
                 </div>
                 <div class="divider"><span></span></div>
             </div>

@@ -13,7 +13,7 @@ class Controller_Home extends Controller_Auth
 	{
         Session::set_flash('flash_msg', array(
             'msg_type'    => 'nFailure',
-            'msg_content' => 'Bão foi possível encontrar a página que você tenteou acessar.'
+            'msg_content' => 'Não foi possível encontrar a página que você tenteou acessar.'
         ));
         Response::redirect('home/index');
         //$this->template->conteudo = View::forge('home/404');

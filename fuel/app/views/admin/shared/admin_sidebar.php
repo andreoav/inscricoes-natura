@@ -35,10 +35,10 @@
                 <div class="sidePad">
                     <?php echo Html::anchor('admin/email', 'Email', array('class' => 'sideB bBlue mt10')); ?>
                     <?php echo Html::anchor('admin/usuarios', 'Atletas', array('class' => 'sideB bBlue mt10')); ?>
-                    <?php echo Html::anchor('admin/inscricoes', 'Inscrições', array('class' => 'sideB bBlue m10')); ?>
-                    <?php echo Html::anchor('admin/noticias/nova', 'Inserir Notícia', array('class' => 'sideB bGreen m10')); ?>
-                    <?php echo Html::anchor('admin/campeonatos/novo', 'Cadastrar Campeonato', array('class' => 'sideB bGreen m10')); ?>
-                    <?php echo Html::anchor('admin/etapas/nova', 'Cadastrar Etapa', array('class' => 'sideB bGreen m10')); ?>
+                    <?php echo Html::anchor('admin/inscricoes', 'Inscrições', array('class' => 'sideB bBlue mt10')); ?>
+                    <?php echo Html::anchor('admin/noticias/nova', 'Inserir Notícia', array('class' => 'sideB bGreen mt10')); ?>
+                    <?php echo Html::anchor('admin/campeonatos/novo', 'Cadastrar Campeonato', array('class' => 'sideB bGreen mt10')); ?>
+                    <?php echo Html::anchor('admin/etapas/nova', 'Cadastrar Etapa', array('class' => 'sideB bGreen mt10')); ?>
                 </div>
                 <div class="divider"><span></span></div>
             </div>

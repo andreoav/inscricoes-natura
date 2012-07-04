@@ -52,7 +52,7 @@ class Padrao_FGO extends Inscricao
         // Prepare to save
         require_once APPPATH . 'vendor/phpexcel/PHPExcel/IOFactory.php';
         // build save path
-        $savePath = DOCROOT . Config::get('sysconfig.app.upload_root') . Controller_Inscricoes::criarUploadPath($this->etapa) . 'Inscritos[' . $this->etapa->nome . '].xls';
+        $savePath = DOCROOT . Config::get('sysconfig.app.upload_root') . Controller_Inscricoes::criarUploadPath($this->etapa) . 'Inscritos[' . $this->etapa->nome . ']';
 
         // Save to disk
         $sheetWriter = PHPExcel_IOFactory::createWriter($this->getSheet(), 'Excel5');
