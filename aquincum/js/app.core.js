@@ -1,148 +1,14 @@
+function reEnableJqueryContent()
+{
+    $('.tipN').tipsy({gravity: 'n',fade: true, html:true});
+    $('.tipS').tipsy({gravity: 's',fade: true, html:true});
+    $('.tipW').tipsy({gravity: 'w',fade: true, html:true});
+    $('.tipE').tipsy({gravity: 'e',fade: true, html:true});
+}
+
 $(function() {
 
     $.jGrowl.defaults.position = 'bottom-right';
-    function reEnableJqueryContent()
-    {
-        $('.tipN').tipsy({gravity: 'n',fade: true, html:true});
-        $('.tipS').tipsy({gravity: 's',fade: true, html:true});
-        $('.tipW').tipsy({gravity: 'w',fade: true, html:true});
-        $('.tipE').tipsy({gravity: 'e',fade: true, html:true});
-    }
-
-    var dataTablePT = {
-        "sProcessing":   "Processando...",
-        "sLengthMenu":   "Mostrar _MENU_ registros",
-        "sZeroRecords":  "Não foram encontrados resultados",
-        "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-        "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
-        "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
-        "sInfoPostFix":  "",
-        "sSearch":       "Buscar:",
-        "sUrl":          "",
-        "oPaginate": {
-            "sFirst":    "Primeiro",
-            "sPrevious": "Anterior",
-            "sNext":     "Seguinte",
-            "sLast":     "Último"
-        }
-    }
-
-    $('#minhas_inscricoes').dataTable({
-        "bJQueryUI": false,
-        "bAutoWidth": false,
-        "sPaginationType": "full_numbers",
-        "sDom": '<"H"fl>t<"F"ip>',
-        "sAjaxSource" : base_url + 'inscricoes/minhas_inscricoes',
-        "aoColumns": [
-            { "mDataProp": "id" },
-            { "mDataProp": "etapa" },
-            { "mDataProp": "campeonato" },
-            { "mDataProp": "status" },
-            { "mDataProp": "acoes" }
-        ],
-        "oLanguage": dataTablePT,
-        "aoColumnDefs": [
-            { "sClass": "center", "aTargets": [ 0, 3, 4 ] },
-            { "sWidth": "5%", "aTargets": [ 0, 4 ] },
-            { "sWidth": "10%", "aTargets": [ 3 ] }
-        ],
-        "aaSorting" : [
-            [ 0 , "desc" ]
-        ],
-        fnDrawCallback: function(){
-            reEnableJqueryContent();
-        }
-    });
-
-    $('#etapas_cadastradas').dataTable( {
-        "bJQueryUI": false,
-        "bAutoWidth": false,
-        "sPaginationType": "full_numbers",
-        "sDom": '<"H"fl>t<"F"ip>',
-        "sAjaxSource" : base_url + 'etapas/cadastradas',
-        "aoColumns": [
-            { "mDataProp": "id" },
-            { "mDataProp": "nome" },
-            { "mDataProp": "campeonato" },
-            { "mDataProp": "localidade" },
-            { "mDataProp": "status" },
-            { "mDataProp": "acoes" }
-        ],
-        "oLanguage": dataTablePT,
-        "aoColumnDefs": [
-            { "bVisible": false, "aTargets": [ 0 ] },
-            { "sClass": "center", "aTargets": [ 4, 5 ] },
-            { "sWidth": "10%", "aTargets": [ 4 ] },
-            { "sWidth": "5%", "aTargets": [ 5 ] }
-        ],
-        "aaSorting" : [
-            [ 0 , "desc" ]
-        ],
-        fnDrawCallback: function(){
-            reEnableJqueryContent();
-        }
-    });
-
-    // =============== INSCRICOES PENDENTES =================//
-    // Inscrições pendente, parte administrativa
-    var tPendentes = $('#admin_inscricoes_pendentes').dataTable({
-        "bJQueryUI": false,
-        "bAutoWidth": false,
-        "sPaginationType": "full_numbers",
-        "sDom": '<"H"fl>t<"F"ip>',
-        "sAjaxSource" : base_url + 'admin/inscricoes/pendentes',
-        "aoColumns": [
-            { "mDataProp": "id" },
-            { "mDataProp": "atleta" },
-            { "mDataProp": "etapa" },
-            { "mDataProp": "campeonato" },
-            { "mDataProp": "status" },
-            { "mDataProp": "acoes" }
-        ],
-        "oLanguage": dataTablePT,
-        "aoColumnDefs": [
-            { "sClass": "center", "aTargets": [ 0, 4, 5 ] },
-            { "sWidth": "10%", "aTargets": [ 4 ] },
-            { "sWidth": "5%", "aTargets": [ 0, 5 ] }
-        ],
-        "aaSorting" : [
-            [ 0 , "desc" ]
-        ],
-        "bRetrieve": true,
-        fnDrawCallback: function(){
-            reEnableJqueryContent();
-        }
-    });
-
-    // ============ ADMIN TODAS INSCRICOES ====================//
-    // Inscrições Existentes, parte administrativa
-    var tTodas = $('#admin_inscricoes_todas').dataTable({
-        "bJQueryUI": false,
-        "bAutoWidth": false,
-        "sPaginationType": "full_numbers",
-        "sDom": '<"H"fl>t<"F"ip>',
-        "sAjaxSource" : base_url + 'admin/inscricoes/inscricoes',
-        "aoColumns": [
-            { "mDataProp": "id" },
-            { "mDataProp": "atleta" },
-            { "mDataProp": "etapa" },
-            { "mDataProp": "campeonato" },
-            { "mDataProp": "status" },
-            { "mDataProp": "acoes" }
-        ],
-        "oLanguage": dataTablePT,
-        "aoColumnDefs": [
-            { "sClass": "center", "aTargets": [ 0, 4, 5 ] },
-            { "sWidth": "10%", "aTargets": [ 4 ] },
-            { "sWidth": "5%", "aTargets": [ 0, 5 ] }
-        ],
-        "aaSorting" : [
-            [ 0 , "desc" ]
-        ],
-        fnDrawCallback: function(){
-            reEnableJqueryContent();
-        }
-    })
 
     $("#arquivos_upload").pluploadQueue({
         // General settings
@@ -173,7 +39,7 @@ $(function() {
 
     // ========= Atualizar Inscrição  ========= //
     amplify.request.define('inscricaoUpdate', 'ajax', {
-        url: base_url + 'admin/inscricoes/update',
+        url: base_url + 'admin/inscricoes/update.json',
         dateType: 'json',
         type: 'POST'
     });
@@ -245,7 +111,7 @@ $(function() {
 
             $.ajax({
                 type: "POST",
-                url:  base_url + 'inscricoes/responder',
+                url:  base_url + 'inscricoes/responder.json',
                 data: dados,
                 success: function(data, textStatus, XMLHttpRequest) {
                     loading_modal.dialog('close');
@@ -285,7 +151,7 @@ $(function() {
 
     // ========= Excluir Inscrição ========= //
     amplify.request.define('inscricaoDelete', 'ajax', {
-        url: base_url + 'inscricoes/excluir',
+        url: base_url + 'inscricoes/excluir.json',
         dateType: 'json',
         type: 'POST'
     });
@@ -339,7 +205,7 @@ $(function() {
 
     // ================= NOVA INSCRICAO INICIO ========================//
     amplify.request.define('informacaoEtapa', 'ajax', {
-        url: base_url + 'etapas/informacaoEtapa',
+        url: base_url + 'etapas/informacaoEtapa.json',
         dateType: 'json',
         type: 'POST'
     });
@@ -401,14 +267,9 @@ $(function() {
 
 
 
-
-
-
-
-
-    // ======================= FIM CARREGAR MAIS =============================/
+    // ======================= CARREGAR MAIS =============================/
     amplify.request.define('loadMoreNoticias', 'ajax', {
-        url: base_url + 'noticias/loadMore',
+        url: base_url + 'noticias/loadMore.json',
         dateType: 'json',
         type: 'POST'
     });
@@ -477,5 +338,3 @@ $(function() {
     // ======================= FIM CARREGAR MAIS =============================/
 
 });
-
-

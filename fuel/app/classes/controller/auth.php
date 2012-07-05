@@ -11,7 +11,6 @@ class Controller_Auth extends Controller_Hybrid
     public function before()
     {
         parent::before();
-        $this->format = 'json';
 
         self::include_assets();
         Date::display_timezone('America/Sao_Paulo');
@@ -287,8 +286,9 @@ class Controller_Auth extends Controller_Hybrid
         // Custom
         Casset::js('aquincum::plugins/ui/jquery.easytabs.min.js');
         Casset::js('aquincum::files/bootstrap.js');
-        Casset::js('aquincum::app.core.js');
-        Casset::js('aquincum::app.core.validations.js');
+        Casset::js('aquincum::app.core.js');              // CORE DO SISTEMA
+        Casset::js('aquincum::app.core.validations.js');  // VALIDAÇÃO DE FORMULÁRIOS
+        Casset::js('aquincum::app.core.dataTables.js');   // TABELAS
         Casset::js('aquincum::files/functions.js');
     }
 }
