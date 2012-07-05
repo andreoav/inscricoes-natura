@@ -4,11 +4,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title><?php echo isset($pagina_titulo) ? $pagina_titulo : 'Inscrições - Natura Clube de Orientação'; ?></title>
+
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <link href="<?php echo Uri::create('aquincum/css/ie.css'); ?>" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- CSS -->
     <?php echo Casset::render_css(); ?>
-    <!--[if IE]><link href="<?php echo Uri::create('aquincum/css/ie.css'); ?>" rel="stylesheet" type="text/css"><![endif]-->
+
     <!-- Javascripts -->
     <script type="text/javascript">var base_url = "<?php echo \Uri::base(); ?>";</script>
     <?php echo Casset::render_js(); ?>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-10399091-2']);
+        _gaq.push(['_setDomainName', 'naturaco.org']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    <!-- Fim dos Javascripts
+
 </head>
 <body>
 
