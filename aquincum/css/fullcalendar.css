@@ -12,17 +12,19 @@ html .fc, .fc table { font-size: 1em; }
 .fc-button-inner { 	border-left: 1px solid #d5d5d5; }
 .fc-header-left .fc-button-inner { border: none; }
 .fc-header-right { text-align: right; position: absolute; top: -38px; right: 0; } 
+.fc-header-right .fc-button-agendaDay .fc-button-inner { -webkit-border-top-right-radius: 3px; -moz-border-radius-topright: 3px; }
 .fc-header-title { display: inline-block; vertical-align: top; }	
 .fc-header-title h2 { font-size: 12px; }
 .fc-header-title strong { margin-top: 0; white-space: nowrap; padding: 8px 12px!important; display: block; }	
 .fc .fc-header-space { padding-left: 10px; } 	
-.fc-header .fc-corner-right { margin-right: 1px; float: right; } 	
+.fc-header .fc-corner-right { margin-right: 0; float: right; } 	
 .fc-header .ui-corner-right { margin-right: 0; }
 .fc-header .fc-state-hover, .fc-header .ui-state-hover { z-index: 2; }	
 .fc-header .fc-state-down { z-index: 3; }
 .fc-header .fc-state-active, .fc-header .ui-state-active { z-index: 4; }
 .fc-button-prev .fc-button-content { width: 10px; background: url(../images/leftArrow.png) no-repeat 15px 14px; }
 .fc-button-next .fc-button-content { width: 10px; background: url(../images/rightArrow.png) no-repeat 15px 14px; }
+.fc-button-next { float: right; margin-right: -2px; }
 .fc-view { width: 100%; overflow: hidden; }
 .fc-border-separate thead {  
 background: #f8f8f8;
@@ -37,7 +39,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', end
 .fc-widget-header, .fc-widget-content { border: 1px solid #d5d5d5; }
 .fc-state-highlight { background: #f4f3e6; }	
 .fc-cell-overlay { background: #9cf; opacity: .2; filter: alpha(opacity=20); /* for IE */ }
-.fc-button { position: relative; display: inline-block; cursor: pointer; }
+.fc-button { position: relative; /*display: inline-block;*/ cursor: pointer; }
 .fc-state-default {}
 .fc-button-inner { position: relative; float: left; overflow: hidden; }
 .fc-state-default .fc-button-inner {}
@@ -98,7 +100,7 @@ a.fc-event { text-decoration: none; }
 .fc-corner-left { margin-left: 1px; }	
 .fc-corner-left .fc-button-inner, .fc-corner-left .fc-event-inner {}	
 .fc-corner-right { margin-right: 1px; }	
-.fc-corner-right .fc-button-inner, .fc-corner-right .fc-event-inner { margin-right: -1px; }	
+.fc-corner-right .fc-button-inner, .fc-corner-right .fc-event-inner { margin-right: 0; }	
 .fc-corner-top { margin-top: 1px; }	
 .fc-corner-top .fc-event-inner { margin-top: -1px; }	
 .fc-corner-bottom { margin-bottom: 1px; }	

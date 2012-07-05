@@ -28,6 +28,8 @@
 ==================================================*/
 
 
+.jqstooltip { z-index: 10001; border: 1px solid #303030!important; box-shadow: none; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; }
+
 
 /* # General styles
 ================================================== */
@@ -2128,7 +2130,6 @@ input, textarea { -webkit-appearance: none; -webkit-border-radius: 0; }
 
 @media only screen and (min-width: 769px) {
 .nav li:hover ul { display: none; }
-
 }
 
 @media only screen and (min-width: 769px) and (max-width: 980px) {
