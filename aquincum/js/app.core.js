@@ -51,7 +51,6 @@ $(function() {
         }
 
         loading_modal.dialog('open');
-        // faz a chamada ajax
         amplify.request({
             resourceId: 'inscricaoUpdate',
             data: dados,
@@ -62,14 +61,20 @@ $(function() {
                     if(dados.update_type == 1)
                     {
                         $('#inscricaoStatus').html('<strong>Status: </strong><span class="label label-success">Aprovada</span>');
-                        $.jGrowl(data.msg, { header: 'Atualização Concluída' });
                     }
                     else
                     {
                         $('#inscricaoStatus').html('<strong>Status: </strong><span class="label label-important">Rejeitada</span>');
-                        $.jGrowl(data.msg, { header: 'Atualização Concluída' });
                     }
 
+                    enviaResposta({
+                        inscricaoID: $('input#inscricaoID').val(),
+                        inscricaoUSER: $('input#inscricaoUSER').val(),
+                        inscricao_resposta: 'Inscrição <strong>' + (dados.update_type == 1 ? 'aprovada' : 'rejeitada') +
+                            '</strong> em <strong>' + new XDate().toString("dd/MM/yyyy 'às' HH:mm:ss") + '</strong> por <strong>' + $('input#inscricaoUSER').val() + '</strong>'
+                    }, false);
+
+                    $.jGrowl(data.msg, { header: 'Atualização Concluída' });
                 }
                 else
                 {
@@ -100,54 +105,66 @@ $(function() {
             modal: true
         });
 
+    amplify.request.define('inscricaoRespostaAjax', 'ajax', {
+        url: base_url + 'inscricoes/responder.json',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    // TODO: mudar de lugar
+    function enviaResposta(sendData, directResponse)
+    {
+        amplify.request({
+            resourceId: 'inscricaoRespostaAjax',
+            data: sendData,
+            success: function(data, textStatus, XMLHttpRequest) {
+                if(data.valid)
+                {
+                    var mensagem;
+                    if(directResponse == true) {
+                        mensagem = $('input#inscricao_resposta').val();
+                    } else {
+                        mensagem = sendData.inscricao_resposta;
+                    }
+
+
+                    var dataAtual = new XDate();
+                    if($('div#inscricao_mensagens ul.messagesTwo').length == 0) {
+                        $('div#inscricao_mensagens').append('<div class="widget"><div class="whead"><h6>Respostas</h6>' +
+                            '<div class="clear"></div></div><ul class="messagesTwo"></ul></div>'
+                        );
+                    }
+
+                    $('ul.messagesTwo').append('<li class="by_me"><a href="#"><img width="37" height="37" src="' + base_url + 'aquincum/images/icons/color/user.png' +
+                        '"></a><div class="messageArea"><div class="infoRow"><span class="name"><strong>' + $('input#inscricaoUSER').val() + '</strong>  postou:</span><span class="time">' +
+                        dataAtual.toString("dd/MM/yyyy 'às' HH:mm:ss") + '</span><span class="clear"></span></div>' + mensagem + '</div></li>');
+
+                    $('ul.messagesTwo li.by_me:last').hide();
+                    $('ul.messagesTwo li.by_me:last').slideDown('slow');
+                }
+
+                if(directResponse == true)
+                {
+                    resposta_form.resetForm();
+                    loading_modal.dialog('close');
+                    $.jGrowl(data.msg, { header: 'Nova Resposta' });
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+    }
+
     var resposta_form = $('#inscricao_resposta_form').validate({
         rules: {
             inscricao_resposta: "required"
         },
         submitHandler: function( form ) {
-            var dados = $(form).serialize();
-
             loading_modal.dialog('open');
-
-            $.ajax({
-                type: "POST",
-                url:  base_url + 'inscricoes/responder.json',
-                data: dados,
-                success: function(data, textStatus, XMLHttpRequest) {
-                    loading_modal.dialog('close');
-                    $.jGrowl(data.msg, { header: 'Nova Resposta!' });
-
-                    if(data.valid)
-                    {
-                        var dataAtual = new XDate();
-                        if($('div#inscricao_mensagens ul.messagesTwo').length == 0) {
-                            $('div#inscricao_mensagens').append('<div class="widget"><div class="whead"><h6>Respostas</h6>' +
-                                '<div class="clear"></div></div><ul class="messagesTwo"></ul></div>'
-                            );
-                        }
-
-                        $('ul.messagesTwo').append('<li class="by_me"><a href="#"><img width="37" height="37" src="' + base_url + 'aquincum/images/icons/color/user.png' +
-                            '"></a><div class="messageArea"><div class="infoRow"><span class="name"><strong>' +
-                            $('input#inscricaoUSER').val() + '</strong>  postou:</span><span class="time">' +
-                            dataAtual.toString("dd/MM/yyyy 'às' HH:mm:ss") + '</span><span class="clear"></span></div>' +
-                            $('input#inscricao_resposta').val() + '</div></li>');
-
-                        $('ul.messagesTwo li.by_me:last').hide();
-                        $('ul.messagesTwo li.by_me:last').slideDown('slow');
-                        resposta_form.resetForm();
-                    }
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    loading_modal.dialog('close');
-                    resposta_form.resetForm();
-                }
-            });
-
+            enviaResposta($(form).serialize(), true);
             return false;
         }
     });
     // ========= Inscrição Resposta FIm ========= //
-
 
     // ========= Excluir Inscrição ========= //
     amplify.request.define('inscricaoDelete', 'ajax', {
