@@ -58,7 +58,7 @@ class Padrao_FGO extends Inscricao
         $sheetWriter = PHPExcel_IOFactory::createWriter($this->getSheet(), 'Excel5');
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Inscritos[' . $this->etapa->nome . '].xls "');
+        header('Content-Disposition: attachment;filename="Inscritos[' . $this->etapa->nome . '].xls"');
         header('Cache-Control: max-age=0');
 
         $sheetWriter->save('php://output');

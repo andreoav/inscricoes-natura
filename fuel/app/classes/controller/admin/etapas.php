@@ -33,7 +33,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 			$_etapa_localidade     = Input::post('etapa_localidade');
 			$_etapa_inicio         = Utils::data2unix(Input::post('etapa_inicio'));
 			$_etapa_final          = Utils::data2unix(Input::post('etapa_final'));
-			$_etapa_inscricoes_ate = Utils::data2unix(Input::post('etapa_inscricoes_ate'));
+			$_etapa_inscricoes_ate = Utils::data2unix(Input::post('etapa_inscricoes_ate') . ' 23:59:59');
 
 			$_nova_etapa                = new Model_Etapa;
 			$_nova_etapa->nome          = $_etapa_nome;
