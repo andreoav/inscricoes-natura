@@ -16,7 +16,7 @@ class Controller_Auth extends Controller_Hybrid
         Date::display_timezone('America/Sao_Paulo');
 
         // Autenticacao
-        if(! in_arrayi($this->request->action, $this->_allowed_actions))
+        if(! in_arrayi($this->request->action, $this->_allowed_actions) )
         {
             try
             {
@@ -24,7 +24,8 @@ class Controller_Auth extends Controller_Hybrid
                 if(Sentry::check())
                 {
                     // Usuario logado, verificar permissoes e perfil completo*/
-                    Session::set('profile_unfinished', ! Model_User::validate_profile());
+                    if( Session::get('profile_unfinished') == null or Session::get('profile_unfinished') != (! Model_User::validate_profile()))
+                        Session::set('profile_unfinished', ! Model_User::validate_profile());
                 }
                 else
                 {
@@ -35,7 +36,10 @@ class Controller_Auth extends Controller_Hybrid
                     ));
 
                     // Redireciona para o formulario de login
-                    Response::redirect('login?redirect=' . Uri::string());
+                    if( ! Input::is_ajax() )
+                        Response::redirect('login?redirect=' . Uri::string());
+
+                    echo '{"aaData":[]}'; // Fix para dataTables quando abre aba sem o usuario estar logado
                 }
             }
             catch(Exception $e)
@@ -63,6 +67,13 @@ class Controller_Auth extends Controller_Hybrid
         // Formulário de login enviado
         if(Input::method() == 'POST')
         {
+            // Verificação de Segurança
+            if(! Security::check_token() )
+            {
+                Message::error('Token de segurança inválido');
+                Response::redirect('login');
+            }
+
             $_username = Input::post('username');
             $_password = Input::post('password');
             $_remember = true;
@@ -76,7 +87,6 @@ class Controller_Auth extends Controller_Hybrid
             {
                 $_redirect = 'home/index';
             }
-
 
             try
             {
@@ -106,9 +116,7 @@ class Controller_Auth extends Controller_Hybrid
             }
         }
 
-        $_redirect = Input::get('redirect') != null ? Input::get('redirect') : 'home/index';
-
-        Session::set('redirect', $_redirect);
+        Session::set('redirect', Input::get('redirect', 'home/index'));
         $this->template->conteudo = View::forge('auth/login');
     }
 

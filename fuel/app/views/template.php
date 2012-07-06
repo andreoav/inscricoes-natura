@@ -34,7 +34,7 @@
         })();
 
     </script>
-    <!-- Fim dos Javascripts
+    <!-- Fim dos Javascripts -->
 
 </head>
 <body>
@@ -76,6 +76,5 @@
     <?php echo $conteudo; ?>
 </div>
 <!-- Content ends -->
-
 </body>
 </html>

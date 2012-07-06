@@ -440,9 +440,9 @@ class Controller_Inscricoes extends Controller_Auth
 
             $this->response(array('aaData' => $_returnData));
         }
-        else
+        /*else
         {
             $this->response(array('aaData' => null));
-        }
+        }*/
     }
 }
