@@ -200,7 +200,7 @@ class Padrao_FGO extends Inscricao
             $column++;
 
             // Nome Completo
-            $this->sheet->getActiveSheet()->setCellValue($columnval[$column] . strval($contador + $init), $dono->get('metadata.nome'));
+            $this->sheet->getActiveSheet()->setCellValue($columnval[$column] . strval($contador + $init), strtoupper($dono->get('metadata.nome')));
             $this->sheet->getActiveSheet()->getStyle($columnval[$column] . strval($contador + $init))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $column++;
 
