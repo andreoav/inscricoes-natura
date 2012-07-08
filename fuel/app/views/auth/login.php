@@ -13,7 +13,6 @@
     <input type="password" name="password" id="password" placeholder="Insira a sua senha" class="loginPassword" />
 
     <div class="logControl">
-        <?php echo Form::hidden('sysincricoes_csrf', Security::fetch_token()); ?>
         <input type="submit" name="submit" value="Entrar" class="buttonM bBlue" />
         <div class="clear"></div>
     </div>
@@ -35,7 +34,6 @@
     <input type="password" id="cadastro_password_2" name="cadastro_password_2" placeholder="Digite a senha novamente" class="loginPassword" />
 
     <div class="logControl">
-        <?php echo Form::hidden('sysincricoes_csrf', Security::fetch_token()); ?>
         <input type="submit" name="submit" value="Cadastrar" class="buttonM bBlue" />
         <div class="clear"></div>
     </div>

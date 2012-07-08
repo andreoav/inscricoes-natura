@@ -67,13 +67,6 @@ class Controller_Auth extends Controller_Hybrid
         // Formulário de login enviado
         if(Input::method() == 'POST')
         {
-            // Verificação de Segurança
-            if(! Security::check_token() )
-            {
-                Message::error('Token de segurança inválido');
-                Response::redirect('login');
-            }
-
             $_username = Input::post('username');
             $_password = Input::post('password');
             $_remember = true;

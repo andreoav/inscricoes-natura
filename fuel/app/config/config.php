@@ -106,9 +106,8 @@ return array(
 	 * Security settings
 	 */
 	'security' => array(
-		'csrf_autoload'    => true,
-        'csrf_token_key'   => 'sysincricoes_csrf',
-		//'csrf_token_key'   => 'fuel_csrf_token',
+		'csrf_autoload'    => false,
+		'csrf_token_key'   => 'fuel_csrf_token',
 		'csrf_expiration'  => 0,
 		'uri_filter'       => array('htmlentities'),
 

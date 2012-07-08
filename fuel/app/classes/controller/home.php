@@ -50,13 +50,6 @@ class Controller_Home extends Controller_Auth
         // Formulário de cadastro enviado
 		if(Input::method() == 'POST')
 		{
-            // Verificação de Segurança
-            if( !Security::check_token() )
-            {
-                Message::error('Token de segurança inválido');
-                Response::redirect('login');
-            }
-
 			$_user_data = array(
 				'email'    => Input::post('cadastro_username'),
 				'username' => Input::post('cadastro_username'),
