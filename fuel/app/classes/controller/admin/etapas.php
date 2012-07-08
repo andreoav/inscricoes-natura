@@ -87,17 +87,6 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
         $this->template->conteudo->set('campeonatos', Model_Campeonato::find('all'));
 	}
 
-    // TODO: Implementar a exclusão de uma etapa
-	public function action_excluir($_etapa_id = null)
-	{
-        if(Input::method() == 'POST')
-        {
-
-        }
-
-        Response::redirect('etapas/visualizar/' . $_etapa_id);
-	}
-
     /**
      * TODO: DOC
      * TODO: Maneira genérica de modelo onde o administrador pode escolher a ordem das colunas
@@ -274,5 +263,49 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 
         $this->template->conteudo = View::forge('admin/etapas/index');
     }
+
+
+    // ============================================= REST ================================================== //
+
+    /**
+     * TODO: Implementar chamada ajax
+     * @param interger $_etapa_id ID da Etapa
+     */
+    public function post_excluir($_etapa_id = null)
+    {
+        if(Input::method() == 'POST' and Input::is_ajax())
+        {
+            if($_etapa_id == null or ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
+            {
+                $this->response(array('valid' => false, 'msg' => 'Não foi possível encontrar esta etapa.'));
+            }
+            else
+            {
+                // Deleta todas as inscricoes daquela etapa e seus respectivos comprovantes
+                foreach($_etapa_info->inscricoes as $_inscricao)
+                {
+                    $_comprovante = $inscricao->comprovante;
+                    if($_inscricao->delete() and $_comprovante)
+                    {
+                        File::delete(Config::get('sysconfig.app.upload_root') . $_inscricao->comprovante);
+                    }
+                }
+
+                if($_etapa_info->delete())
+                {
+                    $this->response(array('valid' => true, 'msg' => 'Etapa excluída com sucesso!'));
+                }
+                else
+                {
+                    $this->response(array('valid' => false, 'msg' => 'Nao foi possível excluir esta etapa.'));
+                }
+            }
+        }
+        else
+        {
+            $this->response(array('valid' => false, 'msg' => 'Não foi possível encontrar esta etapa.'));
+        }
+    }
+
 }
 // End of admin/etapas.php
