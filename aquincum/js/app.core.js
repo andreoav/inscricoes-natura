@@ -354,4 +354,39 @@ $(function() {
     });
     // ======================= FIM CARREGAR MAIS =============================/
 
+
+    /** EXCLUIR ETAPA **/
+    amplify.request.define('adminEtapaExcluir', 'ajax', {
+        url: base_url + 'admin/etapas/excluir.json',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    $('a#etapa_excluir').click(function(event) {
+        event.preventDefault();
+        amplify.request({
+            resourceId: 'adminEtapaExcluir',
+            data: {
+                etapa_id: $(this).data('etapa-id')
+            },
+            success: function(data, textStatus, XMLHttpRequest)
+            {
+                if(data.valid)
+                {
+
+                }
+                else
+                {
+
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+
+            }
+        });
+
+    });
+    /** FIM EXCLUIR ETAPA **/
+
 });

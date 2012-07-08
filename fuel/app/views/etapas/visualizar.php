@@ -16,7 +16,7 @@
                 <ul class="headIconSet">
                     <?php if(Sentry::user()->is_admin()): ?>
                         <li><a href="#" class="icon-list tipS" title="Lista de Inscritos" id="lista_inscritos" data-etapa-id="<?php echo $etapa_info->id; ?>"></a></li>
-                        <li><a href="#" class="icon-remove tipS" title="Excluir" id="etapa_excluir"></a></li>
+                        <li><a href="#" class="icon-remove tipS" title="Excluir" id="etapa_excluir" data-etapa-id="<?php echo $etapa_info->id; ?>"></a></li>
                     <?php endif ?>
                 </ul>
                 <div class="clear"></div>

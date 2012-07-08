@@ -268,13 +268,13 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
     // ============================================= REST ================================================== //
 
     /**
-     * TODO: Implementar chamada ajax
      * @param interger $_etapa_id ID da Etapa
      */
-    public function post_excluir($_etapa_id = null)
+    public function post_excluir()
     {
         if(Input::method() == 'POST' and Input::is_ajax())
         {
+            $_etapa_id = Input::post('etapa_id');
             if($_etapa_id == null or ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
             {
                 $this->response(array('valid' => false, 'msg' => 'Não foi possível encontrar esta etapa.'));
@@ -284,12 +284,15 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
                 // Deleta todas as inscricoes daquela etapa e seus respectivos comprovantes
                 foreach($_etapa_info->inscricoes as $_inscricao)
                 {
-                    $_comprovante = $inscricao->comprovante;
-                    if($_inscricao->delete() and $_comprovante)
+                    $_comprovante = $_inscricao->comprovante;
+                    if($_comprovante)
                     {
-                        File::delete(Config::get('sysconfig.app.upload_root') . $_inscricao->comprovante);
+                        File::delete(Config::get('sysconfig.app.upload_root') . $_comprovante);
                     }
                 }
+
+                // TODO: Deletar arquivos de boletins.
+                DB::delete('boletins')->where('etapa_id', '=', $_etapa_id)->execute();
 
                 if($_etapa_info->delete())
                 {
