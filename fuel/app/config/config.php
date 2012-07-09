@@ -213,7 +213,8 @@ return array(
 			'orm',
             'email',
 			'sentry',
-			'casset'
+			'casset',
+            'message'
 		),
 
 		/**

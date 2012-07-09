@@ -238,6 +238,7 @@ class Utils
 
 	public static function data2unix($_data)
 	{
+		date_default_timezone_set('America/Sao_Paulo');
 		return strtotime(str_replace('/', '-', $_data));
 	}
 

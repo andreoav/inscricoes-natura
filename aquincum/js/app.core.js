@@ -354,4 +354,48 @@ $(function() {
     });
     // ======================= FIM CARREGAR MAIS =============================/
 
+
+    /** EXCLUIR ETAPA **/
+    amplify.request.define('adminEtapaExcluir', 'ajax', {
+        url: base_url + 'admin/etapas/excluir.json',
+        dateType: 'json',
+        type: 'POST'
+    });
+
+    $('a#etapa_excluir').click(function(event) {
+        event.preventDefault();
+        loading_modal.dialog('open');
+        amplify.request({
+            resourceId: 'adminEtapaExcluir',
+            data: {
+                etapa_id: $(this).data('etapa-id')
+            },
+            success: function(data, textStatus, XMLHttpRequest)
+            {
+                loading_modal.dialog('close');
+                if(data.valid)
+                {
+                    $.jGrowl(data.msg, {
+                        life:    1000,
+                        header: 'Excluir Etapa.',
+                        beforeClose: function() {
+                            document.location.href = base_url + 'admin/';
+                        }
+                    });
+                }
+                else
+                {
+                    $.jGrowl(data.msg, { header: 'Excluir Etapa.' });
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                loading_modal.dialog('close');
+                $.jGrowl("Ocorreu um erro ao tentar excluir esta etapa.", { header: 'Excluir Etapa.' });
+            }
+        });
+
+    });
+    /** FIM EXCLUIR ETAPA **/
+
 });

@@ -33,7 +33,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 			$_etapa_localidade     = Input::post('etapa_localidade');
 			$_etapa_inicio         = Utils::data2unix(Input::post('etapa_inicio'));
 			$_etapa_final          = Utils::data2unix(Input::post('etapa_final'));
-			$_etapa_inscricoes_ate = Utils::data2unix(Input::post('etapa_inscricoes_ate'));
+			$_etapa_inscricoes_ate = Utils::data2unix(Input::post('etapa_inscricoes_ate') . ' 23:59:59');
 
 			$_nova_etapa                = new Model_Etapa;
 			$_nova_etapa->nome          = $_etapa_nome;
@@ -85,17 +85,6 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 
 		$this->template->conteudo = View::forge('admin/etapas/nova');
         $this->template->conteudo->set('campeonatos', Model_Campeonato::find('all'));
-	}
-
-    // TODO: Implementar a exclusão de uma etapa
-	public function action_excluir($_etapa_id = null)
-	{
-        if(Input::method() == 'POST')
-        {
-
-        }
-
-        Response::redirect('etapas/visualizar/' . $_etapa_id);
 	}
 
     /**
@@ -274,5 +263,62 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
 
         $this->template->conteudo = View::forge('admin/etapas/index');
     }
+
+
+    // ============================================= REST ================================================== //
+
+    /**
+     * TODO: Deletar Diretorios
+     * @param interger $_etapa_id ID da Etapa
+     */
+    public function post_excluir()
+    {
+        if(Input::method() == 'POST' and Input::is_ajax())
+        {
+            $_etapa_id = Input::post('etapa_id');
+            if($_etapa_id == null or ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
+            {
+                $this->response(array('valid' => false, 'msg' => 'Não foi possível encontrar esta etapa.'));
+            }
+            else
+            {
+                // Deleta todas as inscricoes daquela etapa e seus respectivos comprovantes
+                foreach($_etapa_info->inscricoes as $_inscricao)
+                {
+                    $_comprovante = $_inscricao->comprovante;
+                    if($_comprovante)
+                    {
+                        File::delete(Config::get('sysconfig.app.upload_root') . $_comprovante);
+                    }
+                }
+
+                $_boletins = DB::select('nome')->from('boletins')->where('etapa_id', '=', $_etapa_id)->execute()->as_array();
+                if(count($_boletins) > 0)
+                {
+                    foreach($_boletins as $_boletim)
+                    {
+                        File::delete(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title(Str::lower($_etapa_info->nome)) . '/' . $_boletim['nome']);
+                    }
+
+                    File::delete_dir(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title(Str::lower($_etapa_info->nome)));
+                }
+
+
+                if($_etapa_info->delete())
+                {
+                    $this->response(array('valid' => true, 'msg' => 'Etapa excluída com sucesso!'));
+                }
+                else
+                {
+                    $this->response(array('valid' => false, 'msg' => 'Nao foi possível excluir esta etapa.'));
+                }
+            }
+        }
+        else
+        {
+            $this->response(array('valid' => false, 'msg' => 'Não foi possível encontrar esta etapa.'));
+        }
+    }
+
 }
 // End of admin/etapas.php

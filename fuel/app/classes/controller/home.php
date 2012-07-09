@@ -11,10 +11,10 @@ class Controller_Home extends Controller_Auth
 
 	public function action_404()
 	{
-        Session::set_flash('flash_msg', array(
+        /*Session::set_flash('flash_msg', array(
             'msg_type'    => 'nFailure',
             'msg_content' => 'Não foi possível encontrar a página que você tenteou acessar.'
-        ));
+        ));*/
         Response::redirect('home/index');
         //$this->template->conteudo = View::forge('home/404');
 	}
@@ -37,13 +37,17 @@ class Controller_Home extends Controller_Auth
         Response::redirect('home');
     }
 
-	public function action_cadastro()
+    /**
+     *
+     */
+    public function action_cadastro()
 	{
 		if(Sentry::check())
 		{
 			Response::redirect('home');
 		}
 
+        // Formulário de cadastro enviado
 		if(Input::method() == 'POST')
 		{
 			$_user_data = array(

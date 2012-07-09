@@ -35,5 +35,6 @@
 
     <div class="logControl">
         <input type="submit" name="submit" value="Cadastrar" class="buttonM bBlue" />
+        <div class="clear"></div>
     </div>
 <?php echo Form::close(); ?>

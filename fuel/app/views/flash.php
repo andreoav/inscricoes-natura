@@ -4,6 +4,8 @@
     </div>
 <?php endif ?>
 
+<?php echo Message::get(); ?>
+
  <?php if(Session::get('profile_unfinished') == true and Sentry::check()): ?>
     <div class="grid12 fluid">
          <div class="nNote nFailure">
