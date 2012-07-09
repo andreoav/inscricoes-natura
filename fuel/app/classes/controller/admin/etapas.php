@@ -268,6 +268,7 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
     // ============================================= REST ================================================== //
 
     /**
+     * TODO: Deletar Diretorios
      * @param interger $_etapa_id ID da Etapa
      */
     public function post_excluir()
@@ -291,8 +292,17 @@ class Controller_Admin_Etapas extends Controller_Admin_Painel
                     }
                 }
 
-                // TODO: Deletar arquivos de boletins.
-                DB::delete('boletins')->where('etapa_id', '=', $_etapa_id)->execute();
+                $_boletins = DB::select('nome')->from('boletins')->where('etapa_id', '=', $_etapa_id)->execute()->as_array();
+                if(count($_boletins) > 0)
+                {
+                    foreach($_boletins as $_boletim)
+                    {
+                        File::delete(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title(Str::lower($_etapa_info->nome)) . '/' . $_boletim['nome']);
+                    }
+
+                    File::delete_dir(DOCROOT . Config::get('sysconfig.app.upload_root') . 'arquivos/' . Inflector::friendly_title(Str::lower($_etapa_info->nome)));
+                }
+
 
                 if($_etapa_info->delete())
                 {

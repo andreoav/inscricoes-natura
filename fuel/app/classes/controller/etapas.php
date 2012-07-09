@@ -19,7 +19,7 @@ class Controller_Etapas extends Controller_Auth
         if($_etapa_id == null || ($_etapa_info = Model_Etapa::find($_etapa_id)) == null)
         {
             Session::set_flash('flash_msg', array(
-                'msg_type'    => 'alert-error',
+                'msg_type'    => 'nFailure',
                 'msg_content' => 'Não foi possível encontrar esta etapa.'
             ));
 

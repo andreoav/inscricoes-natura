@@ -23,14 +23,14 @@ class Controller_Admin_Noticias extends Controller_Admin_Painel
 			if($_nova_noticia->save())
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-success',
+					'msg_type'    => 'nSuccess',
 					'msg_content' => 'Nova notícia inserida com sucesso.'
 				));
 			}
 			else
 			{
 				Session::set_flash('flash_msg', array(
-					'msg_type'    => 'alert-error',
+					'msg_type'    => 'nFailure',
 					'msg_content' => 'Não foi possível inserir esta notícia.'
 				));
 			}
